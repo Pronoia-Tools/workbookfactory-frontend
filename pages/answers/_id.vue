@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import ClientsSidebar from "../../components/SideBar/ClientsSidebar.vue";
-import ClientAnswers from "../../components/Clients/ClientAnswers.vue";
+import ClientsSidebar from '../../components/SideBar/ClientsSidebar.vue'
+import ClientAnswers from '../../components/Clients/ClientAnswers.vue'
 
 export default {
   components: {
-    "clients-sidebar": ClientsSidebar,
-    "client-answers": ClientAnswers,
+    'clients-sidebar': ClientsSidebar,
+    'client-answers': ClientAnswers,
   },
-};
+}
 </script>

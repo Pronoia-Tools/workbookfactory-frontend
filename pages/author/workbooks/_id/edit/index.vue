@@ -154,19 +154,19 @@
 </template>
 
 <script>
-import SideBar from "@/components/SideBar.vue";
+import SideBar from '@/components/SideBar.vue'
 export default {
   components: {
-    "side-bar": SideBar,
+    'side-bar': SideBar,
   },
   data() {
     return {
       workbook: {},
-    };
+    }
   },
   async fetch() {
-    const id = this.$route.params.id;
-    this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`);
+    const id = this.$route.params.id
+    this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
   },
-};
+}
 </script>

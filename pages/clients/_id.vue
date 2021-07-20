@@ -12,24 +12,24 @@
 </template>
 
 <script>
-import ClientsSidebar from "../../components/SideBar/ClientsSidebar.vue";
-import ClientDetails from "../../components/Clients/ClientDetails.vue";
+import ClientsSidebar from '../../components/SideBar/ClientsSidebar.vue'
+import ClientDetails from '../../components/Clients/ClientDetails.vue'
 
 export default {
   components: {
-    "clients-sidebar": ClientsSidebar,
-    "client-details": ClientDetails,
+    'clients-sidebar': ClientsSidebar,
+    'client-details': ClientDetails,
   },
   data() {
     return {
       item: {
-        name: "mrAky",
-        birth: "06/02/2020",
-        email: "mraky09@gmail.com",
-        address: "96B Dinh Cong, Hoang Mai",
-        genre: "Male",
+        name: 'mrAky',
+        birth: '06/02/2020',
+        email: 'mraky09@gmail.com',
+        address: '96B Dinh Cong, Hoang Mai',
+        genre: 'Male',
       },
-    };
+    }
   },
-};
+}
 </script>

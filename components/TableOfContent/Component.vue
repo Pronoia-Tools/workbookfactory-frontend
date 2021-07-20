@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { NodeViewWrapper, nodeViewProps } from "@tiptap/vue-2";
+import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-2'
 
 export default {
   components: {
@@ -28,46 +28,46 @@ export default {
   data() {
     return {
       headings: [],
-    };
+    }
   },
 
   mounted() {
-    this.editor.on("update", this.handleUpdate);
-    this.$nextTick(this.handleUpdate);
+    this.editor.on('update', this.handleUpdate)
+    this.$nextTick(this.handleUpdate)
   },
 
   methods: {
     handleUpdate() {
-      const headings = [];
-      const transaction = this.editor.state.tr;
+      const headings = []
+      const transaction = this.editor.state.tr
 
       this.editor.state.doc.descendants((node, pos) => {
-        if (node.type.name === "heading") {
-          const id = `heading-${headings.length + 1}`;
+        if (node.type.name === 'heading') {
+          const id = `heading-${headings.length + 1}`
 
           if (node.attrs.id !== id) {
             transaction.setNodeMarkup(pos, undefined, {
               ...node.attrs,
               id,
-            });
+            })
           }
 
           headings.push({
             level: node.attrs.level,
             text: node.textContent,
             id,
-          });
+          })
         }
-      });
+      })
 
-      transaction.setMeta("preventUpdate", true);
+      transaction.setMeta('preventUpdate', true)
 
-      this.editor.view.dispatch(transaction);
+      this.editor.view.dispatch(transaction)
 
-      this.headings = headings;
+      this.headings = headings
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -92,7 +92,7 @@ export default {
 
     &::before {
       display: block;
-      content: "Table of Contents";
+      content: 'Table of Contents';
       font-weight: 700;
       letter-spacing: 0.025rem;
       font-size: 0.75rem;

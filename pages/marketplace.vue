@@ -236,7 +236,7 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
   components: {
@@ -250,9 +250,9 @@ export default {
         spaceBetween: 50,
         freeMode: true,
       },
-    };
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

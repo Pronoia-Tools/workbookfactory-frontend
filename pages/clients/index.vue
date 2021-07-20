@@ -12,15 +12,15 @@
 </template>
 
 <script>
-import ClientsSidebar from "../../components/SideBar/ClientsSidebar.vue";
-import ClientListing from "../../components/Clients/ClientListing.vue";
+import ClientsSidebar from '../../components/SideBar/ClientsSidebar.vue'
+import ClientListing from '../../components/Clients/ClientListing.vue'
 
 export default {
   components: {
-    "clients-sidebar": ClientsSidebar,
-    "client-listing": ClientListing,
+    'clients-sidebar': ClientsSidebar,
+    'client-listing': ClientListing,
   },
-};
+}
 </script>
 
 <style scoped>

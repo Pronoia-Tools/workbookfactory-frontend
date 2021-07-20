@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import SideBar from "../components/SideBar.vue";
-import EditorSidebar from "../components/SideBar/EditorSidebar.vue";
+import SideBar from '../components/SideBar.vue'
+import EditorSidebar from '../components/SideBar/EditorSidebar.vue'
 
 export default {
   components: {
-    "side-bar": SideBar,
-    "editor-sidebar": EditorSidebar,
+    'side-bar': SideBar,
+    'editor-sidebar': EditorSidebar,
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
         <p>paragraph</p>
         <h3>2.1 heading</h3>
         <p>paragraph</p>`,
-    };
+    }
   },
-};
+}
 </script>

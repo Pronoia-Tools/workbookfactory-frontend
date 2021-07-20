@@ -155,7 +155,7 @@
 
 <script>
 export default {
-  name: "Pagination",
+  name: 'Pagination',
   props: {
     currentPage: {
       type: Number,
@@ -175,40 +175,38 @@ export default {
     },
     textBeforeInput: {
       type: String,
-      default: "Go to page",
+      default: 'Go to page',
     },
     textAfterInput: {
       type: String,
-      default: "Go",
+      default: 'Go',
     },
   },
   data() {
     return {
-      input: "",
-    };
+      input: '',
+    }
   },
   computed: {
     pages() {
-      const pages = [];
+      const pages = []
       if (this.totalPages === 1) {
-        return pages;
+        return pages
       }
 
       for (let i = this.rangeStart; i <= this.rangeEnd; i++) {
-        pages.push(i);
+        pages.push(i)
       }
-      return pages;
+      return pages
     },
     rangeStart() {
       if (
         this.currentPage > this.totalPages - this.pageRange &&
         this.totalPages > this.pageRange
       ) {
-        return this.totalPages - this.pageRange - 1;
+        return this.totalPages - this.pageRange - 1
       } else {
-        return this.currentPage - this.pageRange >= 1
-          ? this.currentPage - 2
-          : 1;
+        return this.currentPage - this.pageRange >= 1 ? this.currentPage - 2 : 1
       }
     },
     rangeEnd() {
@@ -216,43 +214,43 @@ export default {
         this.currentPage <= this.pageRange &&
         this.totalPages > this.pageRange
       ) {
-        return this.pageRange + 2;
+        return this.pageRange + 2
       } else {
         return this.currentPage > this.totalPages - this.pageRange
           ? this.totalPages
-          : this.currentPage + 2;
+          : this.currentPage + 2
       }
     },
     totalPages() {
-      return Math.ceil(this.total / this.perPage);
+      return Math.ceil(this.total / this.perPage)
     },
     nextPage() {
-      return this.currentPage + 1;
+      return this.currentPage + 1
     },
     prevPage() {
-      return this.currentPage - 1;
+      return this.currentPage - 1
     },
   },
   methods: {
     hasFirst() {
-      return this.pages.length !== 0 ? this.rangeStart !== 1 : null;
+      return this.pages.length !== 0 ? this.rangeStart !== 1 : null
     },
     hasLast() {
-      return this.rangeEnd < this.totalPages;
+      return this.rangeEnd < this.totalPages
     },
     hasPrev() {
-      return this.pages.length !== 0 ? this.currentPage >= 1 : null;
+      return this.pages.length !== 0 ? this.currentPage >= 1 : null
     },
     hasNext() {
       return this.pages.length !== 0
         ? this.currentPage <= this.totalPages
-        : null;
+        : null
     },
     changePage(page) {
       if (page > 0 && page <= this.totalPages) {
-        this.$emit("page-changed", page);
+        this.$emit('page-changed', page)
       }
     },
   },
-};
+}
 </script>

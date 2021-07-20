@@ -61,19 +61,19 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
   methods: {
-    ...mapActions("auth", {
-      actionLogout: "logout",
+    ...mapActions('auth', {
+      actionLogout: 'logout',
     }),
     logout() {
-      this.actionLogout();
-      this.$router.go("/login");
+      this.actionLogout()
+      this.$router.go('/login')
     },
   },
-};
+}
 </script>
 
 <style scoped>

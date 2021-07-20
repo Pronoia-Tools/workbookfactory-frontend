@@ -54,7 +54,7 @@
                     {{ workbook.title }}
                   </c-box>
                   <c-box as="td">
-                    {{ workbook.published || "---" }}
+                    {{ workbook.published || '---' }}
                   </c-box>
                   <c-box as="td" />
                   <c-box as="td" />
@@ -97,18 +97,18 @@
 </template>
 
 <script>
-import SideBar from "@/components/SideBar.vue";
+import SideBar from '@/components/SideBar.vue'
 export default {
   components: {
-    "side-bar": SideBar,
+    'side-bar': SideBar,
   },
   data() {
     return {
       workbooks: [],
-    };
+    }
   },
   async fetch() {
-    this.workbooks = await this.$axios.$get("api/v1/workbooks");
+    this.workbooks = await this.$axios.$get('api/v1/workbooks')
   },
-};
+}
 </script>

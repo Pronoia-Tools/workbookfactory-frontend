@@ -45,19 +45,19 @@
 </template>
 
 <script>
-import draggable from "vuedraggable";
+import draggable from 'vuedraggable'
 
 export default {
-  name: "EditorSidebar",
+  name: 'EditorSidebar',
   components: {
     draggable,
   },
   data() {
     return {
-      navSize: "large",
-    };
+      navSize: 'large',
+    }
   },
-};
+}
 </script>
 
 <style scoped>

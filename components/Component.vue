@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { NodeViewWrapper, NodeViewContent, nodeViewProps } from "@tiptap/vue-2";
+import { NodeViewWrapper, NodeViewContent, nodeViewProps } from '@tiptap/vue-2'
 
 export default {
   components: {
@@ -14,7 +14,7 @@ export default {
     NodeViewContent,
   },
   props: nodeViewProps,
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -175,17 +175,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { validationMixin } from "vuelidate";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { mapActions, mapGetters } from 'vuex'
+import { validationMixin } from 'vuelidate'
+import { required, email, minLength } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
   data() {
     return {
-      email: "",
-      password: "",
-    };
+      email: '',
+      password: '',
+    }
   },
 
   validations: {
@@ -197,49 +197,49 @@ export default {
   },
 
   computed: {
-    ...mapGetters("auth", {
-      getterLoginStatus: "getLoginStatus",
+    ...mapGetters('auth', {
+      getterLoginStatus: 'getLoginStatus',
     }),
   },
 
   methods: {
-    ...mapActions("auth", {
-      actionLogin: "login",
+    ...mapActions('auth', {
+      actionLogin: 'login',
     }),
     async login() {
       // stop here if form is invalid
-      this.$v.$touch();
+      this.$v.$touch()
       if (this.$v.$invalid) {
-        return;
+        return
       }
 
       await this.actionLogin({
         email: this.email,
         password: this.password,
-      });
+      })
 
       if (this.getterLoginStatus) {
         this.$toast({
-          title: "Success",
+          title: 'Success',
           description: "You're logged in successfully.",
-          status: "success",
+          status: 'success',
           duration: 2000,
-          position: "top-right",
-        });
-        this.$router.push("/");
+          position: 'top-right',
+        })
+        this.$router.push('/')
       } else {
         this.$toast({
-          title: "Failed",
-          description: "Please recheck your email or password.",
-          status: "error",
+          title: 'Failed',
+          description: 'Please recheck your email or password.',
+          status: 'error',
           duration: 2000,
-          position: "top-right",
-        });
-        this.$router.push("/login");
+          position: 'top-right',
+        })
+        this.$router.push('/login')
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>

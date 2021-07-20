@@ -89,10 +89,10 @@ export default {
   data() {
     return {
       workbooks: [],
-    };
+    }
   },
   async fetch() {
-    this.workbooks = await this.$axios.$get("api/v1/workbooks");
+    this.workbooks = await this.$axios.$get('api/v1/workbooks')
   },
-};
+}
 </script>

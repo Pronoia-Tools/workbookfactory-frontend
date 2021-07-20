@@ -7,22 +7,22 @@
 </template>
 
 <script>
-import { CThemeProvider, CReset } from "@chakra-ui/vue";
+import { CThemeProvider, CReset } from '@chakra-ui/vue'
 
 export default {
-  name: "DefaultLayout",
+  name: 'DefaultLayout',
   components: {
     CThemeProvider,
     CReset,
   },
-  middleware: "auth",
-};
+  middleware: 'auth',
+}
 </script>
 
 <style>
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

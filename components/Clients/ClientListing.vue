@@ -67,21 +67,21 @@ export default {
       items: [
         {
           id: 1,
-          name: "mrAky",
-          email: "mraky09@just.engineer",
-          start_date: "06/02/2020",
-          last_login: "09/02/2020",
-          workBook: "Yesterday",
-          outcomes: "129",
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
         },
         {
           id: 2,
-          name: "mrAky",
-          email: "mraky09@just.engineer",
-          start_date: "06/02/2020",
-          last_login: "09/02/2020",
-          workBook: "Yesterday",
-          outcomes: "129",
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
         },
         // {
         //   id: 3,
@@ -252,7 +252,7 @@ export default {
       // items: [],
       currentPage: 1,
       itemsPerPage: 1,
-    };
+    }
   },
   // async fetch() {
   //   this.items = await this.$axios.$get('/api/v1/workbooks')
@@ -260,14 +260,14 @@ export default {
   computed: {
     paginate() {
       if (this.items.length <= this.itemsPerPage) {
-        return this.items;
+        return this.items
       } else {
-        const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
-        return this.items.slice(index, index + this.itemsPerPage);
+        const index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+        return this.items.slice(index, index + this.itemsPerPage)
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>

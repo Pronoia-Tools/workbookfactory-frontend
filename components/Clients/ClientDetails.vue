@@ -102,58 +102,58 @@ export default {
       items: [
         {
           id: 1,
-          name: "Yesterday",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Yesterday',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 2,
-          name: "Today",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Today',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 3,
-          name: "Tomorow",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Tomorow',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 4,
-          name: "Yesterday",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Yesterday',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 5,
-          name: "Yesterday",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Yesterday',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 6,
-          name: "Yesterday",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Yesterday',
+          date: '05/02/2020',
+          progress: '30/82',
         },
         {
           id: 7,
-          name: "Yesterday",
-          date: "05/02/2020",
-          progress: "30/82",
+          name: 'Yesterday',
+          date: '05/02/2020',
+          progress: '30/82',
         },
       ],
       currentPage: 1,
       itemsPerPage: 1,
-    };
+    }
   },
   computed: {
     paginate() {
-      const index = this.currentPage * this.itemsPerPage - this.itemsPerPage;
-      return this.items.slice(index, index + this.itemsPerPage);
+      const index = this.currentPage * this.itemsPerPage - this.itemsPerPage
+      return this.items.slice(index, index + this.itemsPerPage)
     },
   },
-};
+}
 </script>
 
 <style scoped>

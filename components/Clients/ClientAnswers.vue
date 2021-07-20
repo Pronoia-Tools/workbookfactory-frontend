@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import Comment from "./Comment.vue";
-import Points from "./Points.vue";
+import Comment from './Comment.vue'
+import Points from './Points.vue'
 
 export default {
   components: {
@@ -66,7 +66,7 @@ export default {
   data() {
     return {
       items: [],
-    };
+    }
   },
   // data() {
   //   return {
@@ -177,14 +177,14 @@ export default {
   //   }
   // },
   async fetch() {
-    const response = await this.$axios.$get("/api/v1/questions");
+    const response = await this.$axios.$get('/api/v1/questions')
     console.log(
-      "🚀 ~ file: ClientAnswers.vue ~ line 68 ~ asyncData ~ response",
+      '🚀 ~ file: ClientAnswers.vue ~ line 68 ~ asyncData ~ response',
       response
-    );
-    return (this.items = response);
+    )
+    return (this.items = response)
   },
-};
+}
 </script>
 
 <style scoped>

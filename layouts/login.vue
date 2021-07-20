@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import { CThemeProvider, CReset } from "@chakra-ui/vue";
+import { CThemeProvider, CReset } from '@chakra-ui/vue'
 
 export default {
   components: {
     CThemeProvider,
     CReset,
   },
-  middleware: "auth",
-};
+  middleware: 'auth',
+}
 </script>

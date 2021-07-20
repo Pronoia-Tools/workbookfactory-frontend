@@ -25,14 +25,14 @@
 </template>
 
 <script>
-import tippy from "tippy.js";
-import { Editor, EditorContent, BubbleMenu, VueRenderer } from "@tiptap/vue-2";
-import StarterKit from "@tiptap/starter-kit";
-import Heading from "@tiptap/extension-heading";
-import VueComponent from "./QuestionWithAnswer";
-import TableOfContents from "./TableOfContent";
-import SlashCommands from "./SlashCommand";
-import SlashComponent from "./SlashCommand/Component.vue";
+import tippy from 'tippy.js'
+import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
+import StarterKit from '@tiptap/starter-kit'
+import Heading from '@tiptap/extension-heading'
+import VueComponent from './QuestionWithAnswer'
+import TableOfContents from './TableOfContent'
+import SlashCommands from './SlashCommand'
+import SlashComponent from './SlashCommand/Component.vue'
 
 export default {
   components: {
@@ -43,30 +43,30 @@ export default {
   props: {
     value: {
       type: String,
-      default: "",
+      default: '',
     },
   },
 
   data() {
     return {
       editor: null,
-    };
+    }
   },
 
   watch: {
     value(value) {
-      const isSame = this.editor.getHTML() === value;
+      const isSame = this.editor.getHTML() === value
 
       if (isSame) {
-        return;
+        return
       }
 
-      this.editor.commands.setContent(this.value, false);
+      this.editor.commands.setContent(this.value, false)
     },
   },
 
   beforeDestroy() {
-    this.editor.destroy();
+    this.editor.destroy()
   },
 
   mounted() {
@@ -81,102 +81,102 @@ export default {
             items: (query) => {
               return [
                 {
-                  title: "H1",
+                  title: 'H1',
                   command: ({ editor, range }) => {
                     editor
                       .chain()
                       .focus()
                       .deleteRange(range)
-                      .setNode("heading", { level: 1 })
-                      .run();
+                      .setNode('heading', { level: 1 })
+                      .run()
                   },
                 },
                 {
-                  title: "H2",
+                  title: 'H2',
                   command: ({ editor, range }) => {
                     editor
                       .chain()
                       .focus()
                       .deleteRange(range)
-                      .setNode("heading", { level: 2 })
-                      .run();
+                      .setNode('heading', { level: 2 })
+                      .run()
                   },
                 },
                 {
-                  title: "bold",
+                  title: 'bold',
                   command: ({ editor, range }) => {
                     editor
                       .chain()
                       .focus()
                       .deleteRange(range)
-                      .setMark("bold")
-                      .run();
+                      .setMark('bold')
+                      .run()
                   },
                 },
                 {
-                  title: "italic",
+                  title: 'italic',
                   command: ({ editor, range }) => {
                     editor
                       .chain()
                       .focus()
                       .deleteRange(range)
-                      .setMark("italic")
-                      .run();
+                      .setMark('italic')
+                      .run()
                   },
                 },
               ]
                 .filter((item) =>
                   item.title.toLowerCase().startsWith(query.toLowerCase())
                 )
-                .slice(0, 10);
+                .slice(0, 10)
             },
             render: () => {
-              let component;
-              let popup;
+              let component
+              let popup
 
               return {
                 onStart: (props) => {
                   component = new VueRenderer(SlashComponent, {
                     parent: this,
                     propsData: props,
-                  });
+                  })
 
-                  popup = tippy("body", {
+                  popup = tippy('body', {
                     getReferenceClientRect: props.clientRect,
                     appendTo: () => document.body,
                     content: component.element,
                     showOnCreate: true,
                     interactive: true,
-                    trigger: "manual",
-                    placement: "bottom-start",
-                  });
+                    trigger: 'manual',
+                    placement: 'bottom-start',
+                  })
                 },
                 onUpdate(props) {
-                  component.updateProps(props);
+                  component.updateProps(props)
 
                   popup[0].setProps({
                     getReferenceClientRect: props.clientRect,
-                  });
+                  })
                 },
                 onKeyDown(props) {
-                  return component.ref?.onKeyDown(props);
+                  return component.ref?.onKeyDown(props)
                 },
                 onExit() {
-                  popup[0].destroy();
-                  component.destroy();
+                  popup[0].destroy()
+                  component.destroy()
                 },
-              };
+              }
             },
           },
         }),
       ],
       content: this.value,
       onUpdate: () => {
-        this.$emit("input", this.editor.getHTML());
+        this.$emit('input', this.editor.getHTML())
       },
-    });
+    })
   },
-};
+}
 </script>
 
 <style lang="scss">

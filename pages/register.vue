@@ -347,24 +347,24 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
-import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
+import { validationMixin } from 'vuelidate'
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
-  layout: "login",
+  layout: 'login',
   data() {
     return {
-      user_name: "",
-      first_name: "",
-      last_name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
+      user_name: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      confirm_password: '',
       isActive: false,
       isStaff: false,
       isError: {},
-    };
+    }
   },
 
   validations: {
@@ -379,23 +379,23 @@ export default {
     confirm_password: {
       required,
       minLength: minLength(8),
-      sameAsPassword: sameAs("password"),
+      sameAsPassword: sameAs('password'),
     },
   },
   created() {
-    return this.$v.$touch();
+    return this.$v.$touch()
   },
   methods: {
     async registerUser() {
       // stop here if form is invalid
-      this.$v.$touch();
+      this.$v.$touch()
       if (this.$v.$invalid) {
-        return false;
+        return false
       }
 
       try {
         const response = await this.$axios.$post(
-          "/api/rest-auth/registration/",
+          '/api/rest-auth/registration/',
           {
             username: this.user_name,
             first_name: this.first_name,
@@ -406,33 +406,33 @@ export default {
             is_active: this.isActive,
             is_staff: this.isStaff,
           }
-        );
+        )
         if (response) {
           this.$toast({
-            title: "Success",
+            title: 'Success',
             description:
-              "Your account registered success. Verification e-mail sent.",
-            status: "success",
+              'Your account registered success. Verification e-mail sent.',
+            status: 'success',
             duration: 2000,
-            position: "top-right",
-          });
-          this.$router.push("/login");
+            position: 'top-right',
+          })
+          this.$router.push('/login')
         }
       } catch (error) {
         if (error.response) {
           this.$toast({
-            title: "Failed",
-            description: "Your account registered fail.",
-            status: "error",
+            title: 'Failed',
+            description: 'Your account registered fail.',
+            status: 'error',
             duration: 2000,
-            position: "top-right",
-          });
+            position: 'top-right',
+          })
         }
-        this.isError = error.response.data;
+        this.isError = error.response.data
       }
     },
   },
-};
+}
 </script>
 
 <style scoped>
