@@ -39,27 +39,19 @@
       <c-box as="table" width="100%" border="1px" border-color="gray.200">
         <c-box as="thead">
           <c-box as="tr">
-            <c-box as="th" width="10%"> ID </c-box>
-            <c-box as="th" width="30%"> Book's name </c-box>
-            <c-box as="th" width="15%"> Buy Date </c-box>
-            <c-box as="th" width="30%"> Progress </c-box>
-            <c-box as="th" width="15%"> Solution </c-box>
+            <c-box as="th" width="10%">ID</c-box>
+            <c-box as="th" width="30%">Book's name</c-box>
+            <c-box as="th" width="15%">Buy Date</c-box>
+            <c-box as="th" width="30%">Progress</c-box>
+            <c-box as="th" width="15%">Solution</c-box>
           </c-box>
         </c-box>
         <c-box as="tbody">
           <c-box v-for="item in paginate" :key="item.id" as="tr">
-            <c-box as="td">
-              {{ item.id }}
-            </c-box>
-            <c-box as="td">
-              {{ item.name }}
-            </c-box>
-            <c-box as="td">
-              {{ item.date }}
-            </c-box>
-            <c-box as="td">
-              {{ item.progress }}
-            </c-box>
+            <c-box as="td">{{ item.id }}</c-box>
+            <c-box as="td">{{ item.name }}</c-box>
+            <c-box as="td">{{ item.date }}</c-box>
+            <c-box as="td">{{ item.progress }}</c-box>
             <c-box as="td">
               <c-button>
                 <nuxt-link

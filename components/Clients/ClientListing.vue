@@ -1,37 +1,27 @@
 <template>
   <div>
-    <c-text font-size="30px" mb="32"> Client List </c-text>
+    <c-text font-size="30px" mb="32">Client List</c-text>
     <c-box height="300px">
       <c-box as="table" border="1px" border-color="gray.200" border-radius="5%">
         <c-box as="thead" fixed>
           <c-box as="tr">
-            <c-box as="th" width="5%"> ID </c-box>
-            <c-box as="th" width="15%"> Name </c-box>
-            <c-box as="th" width="20%"> Email </c-box>
-            <c-box as="th" width="10%"> Start Date </c-box>
-            <c-box as="th" width="10%"> Last Login </c-box>
-            <c-box as="th" width="5%"> Outcomes </c-box>
-            <c-box as="th" width="15%"> Action </c-box>
+            <c-box as="th" width="5%">ID</c-box>
+            <c-box as="th" width="15%">Name</c-box>
+            <c-box as="th" width="20%">Email</c-box>
+            <c-box as="th" width="10%">Start Date</c-box>
+            <c-box as="th" width="10%">Last Login</c-box>
+            <c-box as="th" width="5%">Outcomes</c-box>
+            <c-box as="th" width="15%">Action</c-box>
           </c-box>
         </c-box>
         <c-box as="tbody">
           <c-box v-for="item in paginate" :key="item.id" as="tr">
-            <c-box as="td">
-              {{ item.id }}
-            </c-box>
-            <c-box as="td"> {{ item.name }}-{{ item.id }} </c-box>
-            <c-box as="td">
-              {{ item.email }}
-            </c-box>
-            <c-box as="td">
-              {{ item.start_date }}
-            </c-box>
-            <c-box as="td">
-              {{ item.last_login }}
-            </c-box>
-            <c-box as="td">
-              {{ item.outcomes }}
-            </c-box>
+            <c-box as="td">{{ item.id }}</c-box>
+            <c-box as="td">{{ item.name }}-{{ item.id }}</c-box>
+            <c-box as="td">{{ item.email }}</c-box>
+            <c-box as="td">{{ item.start_date }}</c-box>
+            <c-box as="td">{{ item.last_login }}</c-box>
+            <c-box as="td">{{ item.outcomes }}</c-box>
             <c-box as="td">
               <c-button>
                 <nuxt-link

@@ -47,7 +47,7 @@
           </a>
         </c-list-item>
 
-        <c-list-item v-if="hasFirst()" pr="6"> ... </c-list-item>
+        <c-list-item v-if="hasFirst()" pr="6">...</c-list-item>
 
         <c-list-item v-for="(page, index) in pages" :key="index" pr="4">
           <a href="#" @click.prevent="changePage(page)">
@@ -68,7 +68,7 @@
           </a>
         </c-list-item>
 
-        <c-list-item v-if="hasLast()" pr="6"> ... </c-list-item>
+        <c-list-item v-if="hasLast()" pr="6">...</c-list-item>
 
         <c-list-item v-if="hasLast()" pr="6">
           <a href="#" @click.prevent="changePage(totalPages)">

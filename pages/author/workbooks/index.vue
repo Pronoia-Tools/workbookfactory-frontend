@@ -1,5 +1,5 @@
 <template>
-  <c-flex direction="row" w="100%" h="95vh">
+  <c-flex direction="row" w="100%" min-h="95vh">
     <c-box w="20%">
       <side-bar>
         <editor-sidebar />
@@ -31,13 +31,13 @@
                   text-align="left"
                 >
                   <c-box as="th" width="3%"> # </c-box>
-                  <c-box as="th" width="15%"> Title </c-box>
-                  <c-box as="th" width="10%"> Published </c-box>
-                  <c-box as="th" width="10%"> Edition </c-box>
-                  <c-box as="th" width="10%"> Language </c-box>
-                  <c-box as="th" width="10%"> Price </c-box>
-                  <c-box as="th" width="10%"> Status </c-box>
-                  <c-box as="th" width="10%" />
+                  <c-box as="th" width="15%">Title</c-box>
+                  <c-box as="th" width="10%">Published</c-box>
+                  <c-box as="th" width="10%">Edition</c-box>
+                  <c-box as="th" width="10%">Language</c-box>
+                  <c-box as="th" width="10%">Price</c-box>
+                  <c-box as="th" width="10%">Status</c-box>
+                  <c-box as="th" width="10%"></c-box>
                 </c-box>
               </c-box>
               <c-box
@@ -47,18 +47,12 @@
                 font-size="sm"
               >
                 <c-box v-for="workbook in workbooks" :key="workbook.id" as="tr">
-                  <c-box as="td">
-                    {{ workbook.id }}
-                  </c-box>
-                  <c-box as="td">
-                    {{ workbook.title }}
-                  </c-box>
-                  <c-box as="td">
-                    {{ workbook.published || '---' }}
-                  </c-box>
-                  <c-box as="td" />
-                  <c-box as="td" />
-                  <c-box as="td" />
+                  <c-box as="td">{{ workbook.id }}</c-box>
+                  <c-box as="td">{{ workbook.title }}</c-box>
+                  <c-box as="td">{{ workbook.published || '---' }}</c-box>
+                  <c-box as="td"></c-box>
+                  <c-box as="td"></c-box>
+                  <c-box as="td"></c-box>
                   <c-box as="td">
                     <span v-if="workbook.published">
                       Published to marketplace

@@ -8,7 +8,7 @@
     border="1px"
     border-color="gray.100"
   >
-    <slot />
+    <slot></slot>
   </c-flex>
 </template>
 

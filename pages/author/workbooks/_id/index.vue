@@ -1,7 +1,7 @@
 <template>
-  <c-flex direction="row" w="100%" h="95vh">
+  <c-flex direction="row" w="100%" min-h="95vh">
     <c-box w="20%">
-      <side-bar />
+      <side-bar> </side-bar>
     </c-box>
     <c-box w="80%">
       <c-box mx="4" my="5" py="5" background-color="#fff">
@@ -16,9 +16,9 @@
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
                   <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px" font-size="sm">
-                      Title
-                    </c-form-label>
+                    <c-form-label width="100px" font-size="sm"
+                      >Title</c-form-label
+                    >
                     <c-input
                       flex="1"
                       type="text"
@@ -28,9 +28,7 @@
                   </c-form-control>
 
                   <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px" font-size="sm">
-                      By
-                    </c-form-label>
+                    <c-form-label width="100px" font-size="sm">By</c-form-label>
                     <c-input flex="1" type="text" size="sm" />
                   </c-form-control>
 
@@ -74,9 +72,9 @@
             </c-grid>
 
             <c-box mt="4">
-              <c-textarea placeholder="Description" text-size="sm">
-                {{ workbook.front_matter }}
-              </c-textarea>
+              <c-textarea placeholder="Description" text-size="sm">{{
+                workbook.front_matter
+              }}</c-textarea>
             </c-box>
 
             <c-box my="10">
@@ -111,9 +109,9 @@
                       eWorkbook is available for purchase by clients leaving the
                       practice
                     </c-checkbox>
-                    <c-text font-size="sm">
-                      Active Clients Using this eWorkbook
-                    </c-text>
+                    <c-text font-size="sm"
+                      >Active Clients Using this eWorkbook</c-text
+                    >
                     <c-box mt="20px" width="100%">
                       <c-box as="table" width="100%">
                         <c-box as="thead">
@@ -128,16 +126,16 @@
                             font-weight="600"
                             text-align="left"
                           >
-                            <c-box as="th" width="10%"> Name </c-box>
-                            <c-box as="th" width="10%"> Email </c-box>
-                            <c-box as="th" width="10%"> Answers </c-box>
+                            <c-box as="th" width="10%">Name</c-box>
+                            <c-box as="th" width="10%">Email</c-box>
+                            <c-box as="th" width="10%">Answers</c-box>
                           </c-box>
                         </c-box>
                         <c-box as="tbody" py="4" font-size="sm">
                           <c-box as="tr">
-                            <c-box as="td"> Fish Fisherman </c-box>
-                            <c-box as="td"> fish@fish.com </c-box>
-                            <c-box as="td" />
+                            <c-box as="td">Fish Fisherman</c-box>
+                            <c-box as="td">fish@fish.com</c-box>
+                            <c-box as="td"></c-box>
                           </c-box>
                         </c-box>
                       </c-box>
