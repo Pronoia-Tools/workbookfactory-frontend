@@ -11,14 +11,14 @@
           />
         </li>
         <li>
-          <router-link to="/" class="nav-link"> Home </router-link>
+          <router-link to="/" class="nav-link">Home</router-link>
         </li>
         <li>Editor</li>
         <li>
-          <router-link to="/login" class="nav-link"> Login </router-link>
+          <router-link to="/login" class="nav-link">Login</router-link>
         </li>
       </ul>
-      <router-view />
+      <router-view></router-view>
     </div>
   </div>
 </template>

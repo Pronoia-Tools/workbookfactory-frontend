@@ -10,7 +10,7 @@
         py="8"
         justify="center"
       >
-        <c-text cursor="default"> Action </c-text>
+        <c-text cursor="default">Action</c-text>
       </c-flex>
     </draggable>
 
@@ -24,7 +24,7 @@
         py="8"
         justify="center"
       >
-        <c-text cursor="default"> Editor </c-text>
+        <c-text cursor="default">Editor</c-text>
       </c-flex>
     </draggable>
 
@@ -38,7 +38,7 @@
         py="8"
         justify="center"
       >
-        <c-text ml="{5}" display="flex"> Create </c-text>
+        <c-text ml="{5}" display="flex">Create</c-text>
       </c-flex>
     </draggable>
   </c-flex>

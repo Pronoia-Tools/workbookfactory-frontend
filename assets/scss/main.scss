@@ -1,7 +1,7 @@
 body {
-  font-family: 'Roboto',
+  font-family: 'Poppins', 'Helvetica',
     sans-serif;
-    background: #fafafa;
+  background: #fafafa;
 }
 
 table {
@@ -20,4 +20,8 @@ table {
       padding: 0.75rem 0.5rem;
     }
   }
+}
+
+.textarea {
+  min-height: 150px !important;
 }

@@ -1,8 +1,8 @@
 <template>
   <c-box>
     <c-flex my="10" direction="row" justify="space-between" align="center">
-      <c-text font-size="30px"> Book's name </c-text>
-      <c-button variant-color="blue"> Submission </c-button>
+      <c-text font-size="30px">Book's name</c-text>
+      <c-button variant-color="blue">Submission</c-button>
     </c-flex>
     <c-box
       class="scrollbar"
@@ -42,7 +42,7 @@
           <c-box>
             <c-text>{{ index + 1 }}&#8228;&nbsp; {{ item.question }}</c-text>
             <c-flex mb="3">
-              <c-text pl="5" pr="3"> Answer&#58; </c-text>
+              <c-text pl="5" pr="3">Answer&#58;</c-text>
               <c-text>{{ item.answer }}</c-text>
             </c-flex>
             <points mb="3" />
@@ -178,10 +178,6 @@ export default {
   // },
   async fetch() {
     const response = await this.$axios.$get('/api/v1/questions')
-    console.log(
-      '🚀 ~ file: ClientAnswers.vue ~ line 68 ~ asyncData ~ response',
-      response
-    )
     return (this.items = response)
   },
 }
