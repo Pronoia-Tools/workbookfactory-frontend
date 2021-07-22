@@ -1,11 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <editor-sidebar />
-      </side-bar>
-    </c-box>
-    <c-box w="80%" overflow="hidden">
+    <side-bar>
+      <editor-sidebar />
+    </side-bar>
+    <c-box class="w-full lg:w-4/5" overflow="hidden">
       <c-box mx="4" my="5" py="5" background-color="#fff">
         <c-box px="2rem">
           <c-box mt="20px" display="flex" justify-content="flex-end">
@@ -16,7 +14,7 @@
               <c-input type="text" placeholder="Search" />
             </c-input-group>
           </c-box>
-          <c-box min-height="300px" mt="20px" width="100%">
+          <c-box min-height="300px" mt="20px" width="100%" overflow-x="auto">
             <c-box as="table" width="100%">
               <c-box as="thead">
                 <c-box
@@ -92,10 +90,14 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import EditorSidebar from '@/components/SideBar/EditorSidebar.vue'
+
 export default {
   components: {
     'side-bar': SideBar,
+    'editor-sidebar': EditorSidebar,
   },
+  props: {},
   data() {
     return {
       workbooks: [],

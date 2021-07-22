@@ -7,19 +7,24 @@
       px="15px"
       background-color="white"
     >
-      <c-box w="40px" h="40px">
+      <c-box display="flex">
         <nuxt-link to="/">
-          <c-image :src="require('@/static/Sammy.svg')" alt="Image Logo" />
+          <c-image
+            w="40px"
+            h="40px"
+            :src="require('@/static/Sammy.svg')"
+            alt="Image Logo"
+          />
         </nuxt-link>
       </c-box>
 
-      <c-box flex="1" as="nav" pl="10" class="hidden md:flex">
+      <c-box flex="1" as="nav" pl="10" class="hidden lg:flex">
         <navigator />
       </c-box>
 
       <c-flex>
         <c-box>
-          <c-box class="block md:hidden">
+          <c-box class="block lg:hidden">
             <c-button
               _hover="{backgroundColor:transparent }"
               _active="{backgroundColor:transparent}"
@@ -27,6 +32,7 @@
               background-color="transparent"
               outline="none"
               p="2"
+              title="Show Navigator"
               @click="showNavigator"
             >
               <c-icon name="menuIcon" />
