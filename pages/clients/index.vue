@@ -1,13 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <clients-sidebar />
-      </side-bar>
-    </c-box>
-    <c-box w="80%" px="10" py="10">
-      <client-listing />
-    </c-box>
+    <side-bar>
+      <clients-sidebar />
+    </side-bar>
+    <client-listing />
   </c-flex>
 </template>
 

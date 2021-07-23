@@ -1,17 +1,18 @@
 <template>
-  <div>
-    <c-text font-size="30px" mb="32">Client List</c-text>
-    <c-box height="300px">
-      <c-box as="table" border="1px" border-color="gray.200" border-radius="5%">
-        <c-box as="thead" fixed>
+  <c-box class="w-full mx-3 my-10 overflow-hidden">
+    <c-text class="text-3xl mb-32">Client List</c-text>
+
+    <c-box class="w-full overflow-x-auto mb-10" min-height="300px">
+      <c-box as="table" class="w-full border border-gray-200">
+        <c-box as="thead" class="text-gray-600">
           <c-box as="tr">
-            <c-box as="th" width="5%">ID</c-box>
-            <c-box as="th" width="15%">Name</c-box>
-            <c-box as="th" width="20%">Email</c-box>
-            <c-box as="th" width="10%">Start Date</c-box>
-            <c-box as="th" width="10%">Last Login</c-box>
-            <c-box as="th" width="5%">Outcomes</c-box>
-            <c-box as="th" width="15%">Action</c-box>
+            <c-box as="th" class="w-1/12">ID</c-box>
+            <c-box as="th" class="w-2/12">Name</c-box>
+            <c-box as="th" class="w-2/12">Email</c-box>
+            <c-box as="th" class="w-2/12">Start Date</c-box>
+            <c-box as="th" class="w-2/12">Last Login</c-box>
+            <c-box as="th" class="w-1/12">Outcomes</c-box>
+            <c-box as="th" class="w-2/12">Action</c-box>
           </c-box>
         </c-box>
         <c-box as="tbody">
@@ -23,7 +24,7 @@
             <c-box as="td">{{ item.last_login }}</c-box>
             <c-box as="td">{{ item.outcomes }}</c-box>
             <c-box as="td">
-              <c-button>
+              <c-button variant-color="blue">
                 <nuxt-link
                   :to="{
                     name: 'clients-id',
@@ -39,6 +40,7 @@
         </c-box>
       </c-box>
     </c-box>
+
     <pagination
       :current-page="currentPage"
       :total="items.length"
@@ -47,7 +49,7 @@
       text-after-input="Go"
       @page-changed="currentPage = $event"
     />
-  </div>
+  </c-box>
 </template>
 
 <script>
@@ -73,175 +75,174 @@ export default {
           workBook: 'Yesterday',
           outcomes: '129',
         },
-        // {
-        //   id: 3,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 4,
+        {
+          id: 3,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 4,
 
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 5,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 5,
 
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 6,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 6,
 
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 7,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 8,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 9,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 10,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 11,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 12,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 13,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 14,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 15,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 16,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 17,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 18,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 19,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
-        // {
-        //   id: 20,
-        //   name: 'mrAky',
-        //   email: 'mraky09@just.engineer',
-        //   start_date: '06/02/2020',
-        //   last_login: '09/02/2020',
-        //   workBook: 'Yesterday',
-        //   outcomes: '129',
-        // },
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 7,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 8,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 9,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 10,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 11,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 12,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 13,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 14,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 15,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 16,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 17,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 18,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 19,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
+        {
+          id: 20,
+          name: 'mrAky',
+          email: 'mraky09@just.engineer',
+          start_date: '06/02/2020',
+          last_login: '09/02/2020',
+          workBook: 'Yesterday',
+          outcomes: '129',
+        },
       ],
-      // items: [],
       currentPage: 1,
-      itemsPerPage: 1,
+      itemsPerPage: 2,
     }
   },
   // async fetch() {
@@ -261,12 +262,20 @@ export default {
 </script>
 
 <style scoped>
-table > thead > tr > th,
-td {
+table > thead > tr > th {
   padding: 10px 0;
 }
 
 table > tbody > tr > td {
   text-align: center;
+  padding: 6px 0;
+}
+
+table > thead > tr:nth-child(odd) {
+  background-color: #d3d3d3;
+}
+
+table > tbody > tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 </style>

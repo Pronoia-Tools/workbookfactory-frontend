@@ -1,10 +1,8 @@
 <template>
   <c-flex direction="row" w="100%" h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <editor-sidebar />
-      </side-bar>
-    </c-box>
+    <side-bar>
+      <editor-sidebar />
+    </side-bar>
     <c-box w="80%" px="10" py="10">
       <editor
         v-model="content"

@@ -1,5 +1,5 @@
 <template>
-  <c-box>
+  <c-box class="w-full mx-3 my-10">
     <c-flex my="10" direction="row" justify="space-between" align="center">
       <c-text font-size="30px">Book's name</c-text>
       <c-button variant-color="blue">Submission</c-button>

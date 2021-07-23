@@ -1,13 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <clients-sidebar />
-      </side-bar>
-    </c-box>
-    <c-box w="80%" px="10" py="10">
-      <client-details :client-data="item" />
-    </c-box>
+    <side-bar>
+      <clients-sidebar />
+    </side-bar>
+    <client-details :client-data="item" />
   </c-flex>
 </template>
 

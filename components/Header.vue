@@ -3,7 +3,7 @@
     <c-flex
       class="justify-between"
       align="center"
-      h="60px"
+      h="5vh"
       px="15px"
       background-color="white"
     >
