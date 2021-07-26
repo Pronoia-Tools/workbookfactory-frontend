@@ -23,6 +23,17 @@
                 <span class="ml-2 flex-1"> Workbooks 1</span>
               </nuxt-link>
             </c-box>
+            <c-box as="li" class="">
+              <nuxt-link
+                to="/author/workbooks/create"
+                class="p-4 flex items-center"
+              >
+                <span class="ml-2 flex-1 font-bold">
+                  Create New Workbook
+                  <c-icon w="5" name="plus" class="icon" />
+                </span>
+              </nuxt-link>
+            </c-box>
           </c-box>
         </c-box>
         <c-box as="li" class="">
