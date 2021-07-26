@@ -1,7 +1,7 @@
 <template>
   <c-box class="container mx-auto py-24">
     <c-box class="px-6 md:px-12">
-      <c-flex class="items-center justify-center lg:px-32 mb-8">
+      <c-flex class="items-center justify-center mb-8 lg:justify-start">
         <c-image
           :src="require('@/static/icons/books.svg')"
           class="mr-4 lg:mr-8"
