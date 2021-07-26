@@ -23,6 +23,12 @@
                   <c-form-control display="flex">
                     <c-box display="flex" w="50%" align-items="center">
                       <c-form-label width="100px" px="2">
+                        Edition
+                      </c-form-label>
+                      <c-input v-model="edition" flex="1" type="text" />
+                    </c-box>
+                    <c-box display="flex" w="50%" align-items="center">
+                      <c-form-label width="100px" px="2">
                         Language
                       </c-form-label>
                       <c-input v-model="language" flex="1" type="text" />
@@ -72,6 +78,7 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import EditorSidebar from '@/components/SideBar/EditorSidebar.vue'
+// import WorkbookApi from '@/apis/author/workbook'
 
 export default {
   components: {
@@ -90,7 +97,28 @@ export default {
     }
   },
   methods: {
-    submitForm() {},
+    async submitForm() {
+      const params = {
+        title: this.title,
+        language: this.language,
+        edition: this.edition,
+        price: this.price,
+        description: this.description,
+        currency: this.currency,
+        categories: this.categories,
+      }
+      const response = await this.$axios.$post('api/v1/workbooks', params)
+      if (response) {
+        this.$toast({
+          title: 'Success',
+          description: "You're created workbook successfully.",
+          status: 'success',
+          duration: 2000,
+          position: 'top-right',
+        })
+        this.$router.push('/author/workbooks')
+      }
+    },
   },
 }
 </script>

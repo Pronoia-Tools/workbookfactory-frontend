@@ -28,14 +28,14 @@
                   font-weight="600"
                   text-align="left"
                 >
-                  <c-box as="th" width="3%"> # </c-box>
-                  <c-box as="th" width="15%">Title</c-box>
-                  <c-box as="th" width="10%">Published</c-box>
-                  <c-box as="th" width="10%">Edition</c-box>
-                  <c-box as="th" width="10%">Language</c-box>
-                  <c-box as="th" width="10%">Price</c-box>
-                  <c-box as="th" width="10%">Status</c-box>
-                  <c-box as="th" width="10%"></c-box>
+                  <c-box as="th" width="10px"> # </c-box>
+                  <c-box as="th" width="200px">Title</c-box>
+                  <c-box as="th" width="100px">Published</c-box>
+                  <c-box as="th" width="50px">Edition</c-box>
+                  <c-box as="th" width="100px">Language</c-box>
+                  <c-box as="th" width="100px">Price</c-box>
+                  <c-box as="th" width="100px">Status</c-box>
+                  <c-box as="th" width="100px"></c-box>
                 </c-box>
               </c-box>
               <c-box
@@ -48,9 +48,13 @@
                   <c-box as="td">{{ workbook.id }}</c-box>
                   <c-box as="td">{{ workbook.title }}</c-box>
                   <c-box as="td">{{ workbook.published || '---' }}</c-box>
-                  <c-box as="td"></c-box>
-                  <c-box as="td"></c-box>
-                  <c-box as="td"></c-box>
+                  <c-box as="td" class="text-center">
+                    {{ workbook.edition }}
+                  </c-box>
+                  <c-box as="td">{{ workbook.language }}</c-box>
+                  <c-box as="td">
+                    {{ workbook.price }} {{ workbook.curency }}
+                  </c-box>
                   <c-box as="td">
                     <span v-if="workbook.published">
                       Published to marketplace
