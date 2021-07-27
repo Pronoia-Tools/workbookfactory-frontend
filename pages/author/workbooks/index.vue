@@ -73,14 +73,14 @@
                         aria-label="Detail"
                       />
                     </nuxt-link>
-                    <c-button-group :spacing="1">
+                    <nuxt-link :to="`/author/workbooks/${workbook.id}/edit`">
                       <c-icon-button
                         variant="outline"
                         variant-color="vue"
                         icon="editIcon"
                         aria-label="Edit"
                       />
-                    </c-button-group>
+                    </nuxt-link>
                   </c-box>
                 </c-box>
               </c-box>

@@ -85,7 +85,7 @@
 
             <c-box mt="4">
               <c-textarea readonly="true" placeholder="Description" text->{{
-                workbook.description
+                workbook.content
               }}</c-textarea>
             </c-box>
 
