@@ -108,7 +108,8 @@ export default {
     }
   },
   async fetch() {
-    this.workbooks = await this.$axios.$get('api/v1/workbooks')
+    const response = await this.$axios.$get('api/v1/workbooks')
+    this.workbooks = response || []
   },
 }
 </script>
