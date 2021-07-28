@@ -1,20 +1,15 @@
 <template>
-  <c-flex direction="row" w="100%" h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <editor-sidebar />
-      </side-bar>
-    </c-box>
-    <c-box w="80%" px="10" py="10">
-      <editor
-        v-model="content"
-        class="h-full overflow-y-auto focus:outline-none"
-      />
-    </c-box>
+  <c-flex direction="row" w="100%">
+    <side-bar>
+      <editor-sidebar />
+    </side-bar>
+    <c-box w="60%" px="10" py="10"> </c-box>
+    <library />
   </c-flex>
 </template>
 
 <script>
+import Library from '@/components/Upload/Library.vue'
 import SideBar from '../components/SideBar.vue'
 import EditorSidebar from '../components/SideBar/EditorSidebar.vue'
 
@@ -22,6 +17,7 @@ export default {
   components: {
     'side-bar': SideBar,
     'editor-sidebar': EditorSidebar,
+    library: Library,
   },
   data() {
     return {

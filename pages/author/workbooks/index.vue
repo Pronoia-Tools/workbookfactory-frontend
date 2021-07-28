@@ -1,11 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <editor-sidebar />
-      </side-bar>
-    </c-box>
-    <c-box w="80%" overflow="hidden">
+    <side-bar>
+      <editor-sidebar />
+    </side-bar>
+    <c-box class="w-full lg:w-4/5" overflow="hidden">
       <c-box mx="4" my="5" py="5" background-color="#fff">
         <c-box px="2rem">
           <c-box mt="20px" display="flex" justify-content="flex-end">
@@ -16,7 +14,7 @@
               <c-input type="text" placeholder="Search" />
             </c-input-group>
           </c-box>
-          <c-box min-height="300px" mt="20px" width="100%">
+          <c-box min-height="300px" mt="20px" width="100%" overflow-x="auto">
             <c-box as="table" width="100%">
               <c-box as="thead">
                 <c-box
@@ -30,14 +28,14 @@
                   font-weight="600"
                   text-align="left"
                 >
-                  <c-box as="th" width="3%"> # </c-box>
-                  <c-box as="th" width="15%">Title</c-box>
-                  <c-box as="th" width="10%">Published</c-box>
-                  <c-box as="th" width="10%">Edition</c-box>
-                  <c-box as="th" width="10%">Language</c-box>
-                  <c-box as="th" width="10%">Price</c-box>
-                  <c-box as="th" width="10%">Status</c-box>
-                  <c-box as="th" width="10%"></c-box>
+                  <c-box as="th" width="10px"> # </c-box>
+                  <c-box as="th" width="200px">Title</c-box>
+                  <c-box as="th" width="100px">Published</c-box>
+                  <c-box as="th" width="50px">Edition</c-box>
+                  <c-box as="th" width="100px">Language</c-box>
+                  <c-box as="th" width="100px">Price</c-box>
+                  <c-box as="th" width="100px">Status</c-box>
+                  <c-box as="th" width="100px"></c-box>
                 </c-box>
               </c-box>
               <c-box
@@ -50,9 +48,13 @@
                   <c-box as="td">{{ workbook.id }}</c-box>
                   <c-box as="td">{{ workbook.title }}</c-box>
                   <c-box as="td">{{ workbook.published || '---' }}</c-box>
-                  <c-box as="td"></c-box>
-                  <c-box as="td"></c-box>
-                  <c-box as="td"></c-box>
+                  <c-box as="td" class="text-center">
+                    {{ workbook.edition }}
+                  </c-box>
+                  <c-box as="td">{{ workbook.language }}</c-box>
+                  <c-box as="td">
+                    {{ workbook.price }} {{ workbook.curency }}
+                  </c-box>
                   <c-box as="td">
                     <span v-if="workbook.published">
                       Published to marketplace
@@ -71,14 +73,14 @@
                         aria-label="Detail"
                       />
                     </nuxt-link>
-                    <c-button-group :spacing="1">
+                    <nuxt-link :to="`/author/workbooks/${workbook.id}/edit`">
                       <c-icon-button
                         variant="outline"
                         variant-color="vue"
                         icon="editIcon"
                         aria-label="Edit"
                       />
-                    </c-button-group>
+                    </nuxt-link>
                   </c-box>
                 </c-box>
               </c-box>
@@ -92,17 +94,22 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import EditorSidebar from '@/components/SideBar/EditorSidebar.vue'
+
 export default {
   components: {
     'side-bar': SideBar,
+    'editor-sidebar': EditorSidebar,
   },
+  props: {},
   data() {
     return {
       workbooks: [],
     }
   },
   async fetch() {
-    this.workbooks = await this.$axios.$get('api/v1/workbooks')
+    const response = await this.$axios.$get('api/v1/workbooks')
+    this.workbooks = response || []
   },
 }
 </script>

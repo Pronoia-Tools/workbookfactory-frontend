@@ -26,6 +26,14 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+      // config color by Figma
+      celticBlue: '#215ED8',
+      eerieBlack: '#262015',
+      darkSilver: '#797264',
+      quickSilver: '#AFA99C',
+      paleSilver: '#C6C1B8',
+      timberWolf: '#DBD9D4',
+      cultured: '#F9F8F6',
     },
     spacing: {
       px: '1px',
@@ -281,6 +289,7 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      ibm: ['IBM Plex Sans'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

@@ -1,25 +1,28 @@
 <template>
   <c-box box-shadow="0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%)">
     <c-flex
-      class="justify-between"
+      class="justify-between h-14"
       align="center"
-      h="60px"
       px="15px"
       background-color="white"
     >
-      <c-box w="40px" h="40px">
+      <c-box display="flex" class="font-ibm text-sm">
         <nuxt-link to="/">
-          <c-image :src="require('@/static/Sammy.svg')" alt="Image Logo" />
+          <c-image
+            w="100%"
+            :src="require('@/static/logo.png')"
+            alt="Image Logo"
+          />
         </nuxt-link>
       </c-box>
 
-      <c-box flex="1" as="nav" pl="10" class="hidden md:flex">
+      <c-box flex="1" as="nav" pl="10" class="hidden lg:flex h-full">
         <navigator />
       </c-box>
 
       <c-flex>
         <c-box>
-          <c-box class="block md:hidden">
+          <c-box class="block lg:hidden">
             <c-button
               _hover="{backgroundColor:transparent }"
               _active="{backgroundColor:transparent}"
@@ -27,6 +30,7 @@
               background-color="transparent"
               outline="none"
               p="2"
+              title="Show Navigator"
               @click="showNavigator"
             >
               <c-icon name="menuIcon" />
@@ -47,14 +51,11 @@
               >
                 <c-image
                   rounded="full"
-                  h="30px"
-                  w="30px"
+                  h="40px"
+                  w="40px"
                   src="https://bit.ly/chakra-jonathan-bakebwa"
                   alt="Đặng Kiên"
                 />
-                <c-text class="hidden lg:block" font-size="sm" ml="2">
-                  Đặng Kiên
-                </c-text>
                 <c-icon name="chevron-down" />
               </c-menu-button>
               <c-menu-list>
