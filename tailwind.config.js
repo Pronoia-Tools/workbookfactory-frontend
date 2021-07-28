@@ -289,6 +289,7 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      ibm: ['IBM Plex Sans'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],
