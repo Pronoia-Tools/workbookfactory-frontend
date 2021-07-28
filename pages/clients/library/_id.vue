@@ -16,7 +16,7 @@
         </c-text>
 
         <c-flex class="mb-10 flex-wrap">
-          <c-box class="w-full mb-20 lg:w-1/3 md:pr-10 lg:mb-0">
+          <c-box class="w-full mb-20 md:w-2/3 md:mx-auto lg:w-1/3 lg:mb-0">
             <c-image
               :src="require('@/static/workbook.jpg')"
               alt="img-workbook"
@@ -28,66 +28,187 @@
                 class="w-1/2 ml-2"
                 variant-color="blue"
                 variant="outline"
+                @click="openModal"
               >
                 Sent an invite
               </c-button>
+              <c-modal
+                :initial-focus-ref="() => $refs.initialRef"
+                :is-open="isOpenModal"
+                :on-close="closeModal"
+                :block-scroll-on-mount="false"
+                is-centered
+                close-on-esc
+              >
+                <c-modal-content ref="content">
+                  <c-modal-header>Send invitation</c-modal-header>
+                  <c-modal-close-button />
+                  <c-modal-body>
+                    <c-stack class="mb-6">
+                      <c-flex>
+                        <c-text class="font-semibold w-1/5 mr-8">
+                          Send to:
+                        </c-text>
+                        <c-radio-group class="w-2/3">
+                          <c-radio value="coach">Your coach</c-radio>
+                          <c-radio value="friend">Your friend</c-radio>
+                        </c-radio-group>
+                      </c-flex>
+                    </c-stack>
+
+                    <c-stack spacing="3">
+                      <c-flex class="items-center">
+                        <c-text class="font-semibold mr-8">Email:</c-text>
+                        <c-input variant="outline" placeholder="Email" />
+                      </c-flex>
+                    </c-stack>
+                  </c-modal-body>
+                  <c-modal-footer>
+                    <c-button variant-color="blue"> Send access code </c-button>
+                    <!-- <c-button @click="closeModal">Save</c-button> -->
+                  </c-modal-footer>
+                </c-modal-content>
+                <c-modal-overlay />
+              </c-modal>
             </c-flex>
           </c-box>
 
-          <c-flex class="text-lg w-full flex-wrap lg:w-2/3 md:pl-10">
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Title:</c-text>
-              <c-text>Build your nest</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">By:</c-text>
-              <c-text>Mikey</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Edition:</c-text>
-              <c-text>3</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Language:</c-text>
-              <c-text>English</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Published:</c-text>
-              <c-text>02/06/2020</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Price:</c-text>
-              <c-text>$30</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Categories:</c-text>
-              <c-text>Category 1, Category 2, Category 3</c-text>
-            </c-flex>
-            <c-flex class="w-full mb-6">
-              <c-text class="font-semibold text-right mr-6">Share with:</c-text>
-              <c-text>coach1@gmail.com, coach2@gmail.com</c-text>
-            </c-flex>
-            <!-- <c-box class="w-1/11 mr-10 font-semibold text-right">
-              <c-text class="mb-6">Title:</c-text>
-              <c-text class="mb-6">By:</c-text>
-              <c-text class="mb-6">Edition:</c-text>
-              <c-text class="mb-6">Language:</c-text>
-              <c-text class="mb-6">Published:</c-text>
-              <c-text class="mb-6">Price:</c-text>
-              <c-text class="mb-6">Categories:</c-text>
-              <c-text class="mb-6">Share with:</c-text>
-            </c-box>
+          <c-flex class="text-lg w-full flex-wrap lg:w-2/3">
+            <c-box class="w-full">
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  Title:
+                </c-text>
+                <c-text>Build your nest</c-text>
+              </c-flex>
 
-            <c-box class="w-8/11">
-              <c-text class="mb-6">Build your nest</c-text>
-              <c-text class="mb-6">Mikey</c-text>
-              <c-text class="mb-6">3</c-text>
-              <c-text class="mb-6">English</c-text>
-              <c-text class="mb-6">02/06/2020</c-text>
-              <c-text class="mb-6">$30</c-text>
-              <c-text class="mb-6">Category 1, Category 2, Category 3</c-text>
-              <c-text class="mb-6">coach1@gmail.com, coach2@gmail.com</c-text>
-            </c-box> -->
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  By:
+                </c-text>
+                <c-text>Mikey</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  Edition:
+                </c-text>
+                <c-text>3</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  Language:
+                </c-text>
+                <c-text>English</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                  >Published:</c-text
+                >
+                <c-text>02/06/2020</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  Price:
+                </c-text>
+                <c-text>$30</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                  >Categories:</c-text
+                >
+                <c-text>Category 1x</c-text>
+              </c-flex>
+
+              <c-flex class="mb-8">
+                <c-text
+                  class="
+                    w-1/3
+                    md:w-1/4
+                    lg:1/5
+                    xl:w-1/6
+                    font-semibold
+                    text-right
+                    mr-6
+                  "
+                >
+                  Share with:
+                </c-text>
+                <c-text>coach1@gmail.com</c-text>
+              </c-flex>
+            </c-box>
           </c-flex>
         </c-flex>
 
@@ -156,7 +277,17 @@
 <script>
 export default {
   data() {
-    return {}
+    return {
+      isOpenModal: false,
+    }
+  },
+  methods: {
+    openModal() {
+      this.isOpenModal = true
+    },
+    closeModal() {
+      this.isOpenModal = false
+    },
   },
 }
 </script>
