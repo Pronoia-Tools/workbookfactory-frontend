@@ -1,52 +1,21 @@
 <template>
   <c-box class="container mx-auto py-24">
     <c-box class="px-6 md:px-12">
-      <c-flex class="items-center px-32 mb-8">
-        <svg
-          id="Layer_1"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          width="80px"
-          height="80px"
-          viewBox="0 0 296.999 296.999"
-          style="enable-background: new 0 0 296.999 296.999"
-          xml:space="preserve"
-          class="mr-8"
-        >
-          <g>
-            <path
-              d="M45.432,35.049c-0.008,0-0.017,0-0.025,0c-2.809,0-5.451,1.095-7.446,3.085c-2.017,2.012-3.128,4.691-3.128,7.543
-				v159.365c0,5.844,4.773,10.61,10.641,10.625c24.738,0.059,66.184,5.215,94.776,35.136V84.023c0-1.981-0.506-3.842-1.461-5.382
-				C115.322,40.849,70.226,35.107,45.432,35.049z"
-            />
-            <path
-              d="M262.167,205.042V45.676c0-2.852-1.111-5.531-3.128-7.543c-1.995-1.99-4.639-3.085-7.445-3.085c-0.009,0-0.018,0-0.026,0
-				c-24.793,0.059-69.889,5.801-93.357,43.593c-0.955,1.54-1.46,3.401-1.46,5.382v166.779
-				c28.592-29.921,70.038-35.077,94.776-35.136C257.394,215.651,262.167,210.885,262.167,205.042z"
-            />
-            <path
-              d="M286.373,71.801h-7.706v133.241c0,14.921-12.157,27.088-27.101,27.125c-20.983,0.05-55.581,4.153-80.084,27.344
-				c42.378-10.376,87.052-3.631,112.512,2.171c3.179,0.724,6.464-0.024,9.011-2.054c2.538-2.025,3.994-5.052,3.994-8.301V82.427
-				C297,76.568,292.232,71.801,286.373,71.801z"
-            />
-            <path
-              d="M18.332,205.042V71.801h-7.706C4.768,71.801,0,76.568,0,82.427v168.897c0,3.25,1.456,6.276,3.994,8.301
-				c2.545,2.029,5.827,2.78,9.011,2.054c25.46-5.803,70.135-12.547,112.511-2.171c-24.502-23.19-59.1-27.292-80.083-27.342
-				C30.49,232.13,18.332,219.963,18.332,205.042z"
-            />
-          </g>
-        </svg>
-
-        <c-text font-size="30px">Library</c-text>
+      <c-flex class="items-center justify-center mb-8 lg:justify-start">
+        <c-image
+          :src="require('@/static/icons/books.svg')"
+          class="mr-4 lg:mr-8"
+          alt="icons"
+        />
+        <c-text class="text-3xl">Library</c-text>
       </c-flex>
 
       <!-- search -->
       <c-flex class="items-center justify-end mb-8">
-        <c-input class="w-1/4 mr-3" placeholder="Search" />
-        <c-button left-icon="search" variant-color="blue" variant="solid">
-          Search
-        </c-button>
+        <c-flex class="w-full lg:w-1/3">
+          <c-input class="mr-3" placeholder="Search" />
+          <c-button variant-color="blue" variant="solid"> Search </c-button>
+        </c-flex>
       </c-flex>
 
       <!-- search results -->
@@ -54,27 +23,63 @@
         <c-flex
           v-for="workbook in workbooks"
           :key="workbook.id"
-          class="w-1/2 p-4"
+          class="w-full lg:w-1/2 p-4"
         >
           <c-image
             :src="require('@/static/default.png')"
-            class="mr-8 w-2/5 h-80"
+            class="w-2/5 mr-4 md:mr-8 lg:mr-4"
           />
-          <c-box>
-            <c-text my="6" font-size="18px" font-weight="400">
+          <c-box class="w-3/5 pr-3">
+            <c-text
+              class="
+                my-2
+                text-sm
+                whitespace-nowrap
+                overflow-hidden overflow-ellipsis
+                md:text-base md:my-4
+                xl:text-lg xl:my-6
+              "
+            >
               Title:&nbsp;{{ workbook.title }}
             </c-text>
-            <c-text my="6" font-size="18px">
+            <c-text
+              class="
+                my-3
+                text-sm
+                whitespace-nowrap
+                overflow-hidden overflow-ellipsis
+                md:text-base md:my-4
+                xl:text-lg xl:my-6
+              "
+            >
               Author:&nbsp;{{ workbook.author }}
             </c-text>
-            <c-text my="6" font-size="18px">
+            <c-text
+              class="
+                my-3
+                text-sm
+                whitespace-nowrap
+                overflow-hidden overflow-ellipsis
+                md:text-base md:my-4
+                xl:text-lg xl:my-6
+              "
+            >
               Last opened:&nbsp;{{ workbook.last_opened }}
             </c-text>
-            <c-text my="6" font-size="18px">
+            <c-text
+              class="
+                my-3
+                text-sm
+                whitespace-nowrap
+                overflow-hidden overflow-ellipsis
+                md:text-base md:my-4
+                xl:text-lg xl:my-6
+              "
+            >
               Chapter:&nbsp;{{ workbook.chapter }}
             </c-text>
-            <c-flex mt="8" align="center">
-              <c-text color="blue.400" mr="4">
+            <c-flex class="items-center mt-4 md:mt-6 xl:mt-8">
+              <c-text class="text-xs text-blue-400 mr-2 md:text-sm lg:mr-4">
                 <nuxt-link
                   :to="{
                     name: 'clients-library-id',
@@ -85,24 +90,11 @@
                   Open eWorkbook
                 </nuxt-link>
               </c-text>
-              <svg
-                id="Capa_1"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                width="20px"
-                height="20px"
-                viewBox="0 0 512 512"
-                style="enable-background: new 0 0 512 512"
-                xml:space="preserve"
-              >
-                <path
-                  d="M506.134,241.843c-0.006-0.006-0.011-0.013-0.018-0.019l-104.504-104c-7.829-7.791-20.492-7.762-28.285,0.068
-			c-7.792,7.829-7.762,20.492,0.067,28.284L443.558,236H20c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h423.557
-			l-70.162,69.824c-7.829,7.792-7.859,20.455-0.067,28.284c7.793,7.831,20.457,7.858,28.285,0.068l104.504-104
-			c0.006-0.006,0.011-0.013,0.018-0.019C513.968,262.339,513.943,249.635,506.134,241.843z"
-                />
-              </svg>
+              <c-image
+                class="w-4 h-4"
+                :src="require('@/static/icons/arrowRight.svg')"
+                alt="icons"
+              />
             </c-flex>
           </c-box>
         </c-flex>

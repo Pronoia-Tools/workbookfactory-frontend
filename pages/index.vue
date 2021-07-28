@@ -1,5 +1,5 @@
 <template>
-  <c-flex direction="row" w="100%">
+  <c-flex direction="row" w="100%" h="95vh">
     <side-bar>
       <editor-sidebar />
     </side-bar>

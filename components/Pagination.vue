@@ -1,154 +1,146 @@
 <template>
-  <c-flex justify="space-between" align="center">
-    <c-list w="80%">
-      <c-flex align="center" justify="center">
-        <c-list-item v-if="hasPrev()" pr="6">
-          <a href="#" class="nav-link" @click.prevent="changePage(prevPage)">
-            <c-flex
-              justify="center"
-              align="center"
-              :_hover="{ borderColor: 'gray.200', bg: 'gray.200' }"
-              transform="rotate-45"
-              h="6"
-              w="6"
-            >
-              <c-box transform="-rotate-45">
-                <svg
-                  class="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
+  <c-flex class="flex-wrap items-center">
+    <c-list class="w-full mb-4 lg:w-2/3 lg:mb-0">
+      <c-flex class="items-center justify-center lg:justify-start">
+        <c-flex class="border border-gray-200 rounded-full">
+          <c-list-item
+            v-if="hasPrev()"
+            class="
+              hover:bg-gray-200
+              rounded-l-full
+              px-3
+              py-2
+              md:px-4 md:py-3
+              my-auto
+            "
+          >
+            <a href="#" class="nav-link" @click.prevent="changePage(prevPage)">
+              <c-flex class="items-center justify-center rotate-45">
+                <c-box class="-rotate-45">
+                  <c-image
+                    :src="require('@/static/icons/chevronLeft.svg')"
+                    alt="chevron-left"
+                    class="w-4"
                   />
-                </svg>
-              </c-box>
-            </c-flex>
-          </a>
-        </c-list-item>
+                </c-box>
+              </c-flex>
+            </a>
+          </c-list-item>
 
-        <c-list-item v-if="hasFirst()" class="pr-6">
-          <a href="#" @click.prevent="changePage(1)">
-            <c-flex
-              justify="center"
-              align="center"
-              :_hover="{ bg: 'gray.200' }"
-              transfrom="rotate-45"
-              h="6"
-              w="6"
-            >
-              <c-text transform="-rotate-45"> 1 </c-text>
-            </c-flex>
-          </a>
-        </c-list-item>
+          <c-list-item v-if="hasFirst()">
+            <a href="#" @click.prevent="changePage(1)">
+              <c-flex
+                class="
+                  items-center
+                  justify-center
+                  rotate-45
+                  px-3
+                  py-1
+                  md:px-4 md:py-2
+                  hover:bg-gray-200
+                "
+              >
+                <c-text class="-rotate-45"> 1 </c-text>
+              </c-flex>
+            </a>
+          </c-list-item>
 
-        <c-list-item v-if="hasFirst()" pr="6">...</c-list-item>
+          <c-list-item v-if="hasFirst()" class="px-3 py-1 md:px-4 md:py-2"
+            >...</c-list-item
+          >
 
-        <c-list-item v-for="(page, index) in pages" :key="index" pr="4">
-          <a href="#" @click.prevent="changePage(page)">
-            <c-flex
-              :class="{
-                'bg-gradient-to-r from-gray-400 to-indigo-400':
-                  currentPage === page,
-              }"
-              justify="center"
-              align="center"
-              rounded="full"
-              transfrom="rotate-45"
-              h="6"
-              w="6"
-            >
-              <c-text transfrom="-rotate-45">{{ page }}</c-text>
-            </c-flex>
-          </a>
-        </c-list-item>
+          <c-list-item v-for="(page, index) in pages" :key="index">
+            <a href="#" @click.prevent="changePage(page)">
+              <c-flex
+                :class="{
+                  'bg-gray-200 text-blue-600': currentPage === page,
+                }"
+                class="
+                  items-center
+                  justify-center
+                  rotate-45
+                  px-3
+                  py-1
+                  md:px-4 md:py-2
+                  hover:bg-gray-200
+                "
+              >
+                <c-text class="-rotate-45">{{ page }}</c-text>
+              </c-flex>
+            </a>
+          </c-list-item>
 
-        <c-list-item v-if="hasLast()" pr="6">...</c-list-item>
+          <c-list-item v-if="hasLast()" class="px-3 py-1 md:px-4 md:py-2"
+            >...</c-list-item
+          >
 
-        <c-list-item v-if="hasLast()" pr="6">
-          <a href="#" @click.prevent="changePage(totalPages)">
-            <c-flex
-              justify="center"
-              align="center"
-              :_hover="{ bg: 'gray.200' }"
-              transfrom="rotate-45"
-              h="6"
-              w="6"
-            >
-              <c-text transfrom="-rotate-45">{{ totalPages }}</c-text>
-            </c-flex>
-          </a>
-        </c-list-item>
+          <c-list-item v-if="hasLast()">
+            <a href="#" @click.prevent="changePage(totalPages)">
+              <c-flex
+                class="
+                  items-center
+                  justify-center
+                  rotate-45
+                  px-3
+                  py-1
+                  md:px-4 md:py-2
+                  hover:bg-gray-200
+                "
+              >
+                <c-text class="-rotate-45">{{ totalPages }}</c-text>
+              </c-flex>
+            </a>
+          </c-list-item>
 
-        <c-list-item v-if="hasNext()" class="pr-6">
-          <a href="#" @click.prevent="changePage(nextPage)">
-            <c-flex
-              justify="center"
-              align="center"
-              :_hover="{ bg: 'gray.200' }"
-              transfrom="rotate-45"
-              h="6"
-              w="6"
-            >
-              <div transfrom="-rotate-45">
-                <svg
-                  class="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
+          <c-list-item
+            v-if="hasNext()"
+            class="
+              hover:bg-gray-200
+              rounded-r-full
+              px-3
+              py-2
+              md:px-4 md:py-3
+              my-auto
+            "
+          >
+            <a href="#" @click.prevent="changePage(nextPage)">
+              <c-flex class="items-center justify-center rotate-45">
+                <c-box class="-rotate-45">
+                  <c-image
+                    :src="require('@/static/icons/chevronRight.svg')"
+                    class="w-4"
+                    alt="chevron-right"
                   />
-                </svg>
-              </div>
-            </c-flex>
-          </a>
-        </c-list-item>
+                </c-box>
+              </c-flex>
+            </a>
+          </c-list-item>
+        </c-flex>
       </c-flex>
     </c-list>
 
-    <c-flex v-if="totalPages !== 1" w="20%" justify="flex-end" align="center">
-      <c-box pr="2">
-        <c-text color="gray.400" font-weight="600">
+    <c-flex
+      v-if="totalPages !== 1"
+      class="w-full justify-center items-center pr-4 lg:w-1/3 lg:justify-end"
+    >
+      <c-box class="pr-2">
+        <c-text class="text-gray-400 font-semibold">
           {{ textBeforeInput }}
         </c-text>
       </c-box>
 
-      <c-box w="16" pr="3">
+      <c-box class="w-20 pr-3">
         <c-input v-model.number="input" type="text" />
       </c-box>
 
-      <c-box @click.prevent="changePage(input)">
-        <c-flex align="center">
-          <c-text font-weight="600" cursor="pointer">
-            {{ textAfterInput }}
-          </c-text>
-          <svg
-            class="h-4 w-4"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </c-flex>
-      </c-box>
+      <c-button
+        class="text-black"
+        variant-color="blue"
+        variant="outline"
+        @click.prevent="changePage(input)"
+      >
+        {{ textAfterInput }}
+      </c-button>
     </c-flex>
   </c-flex>
 </template>

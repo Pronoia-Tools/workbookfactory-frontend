@@ -1,5 +1,7 @@
 <template>
-  <c-box class="w-full lg:w-1/5 fixed top-0 left-0 lg:relative lg:flex z-10">
+  <c-box
+    class="w-full lg:w-1/5 fixed top-0 left-0 lg:relative lg:flex z-10 lg:z-0"
+  >
     <c-box class="block lg:hidden fixed left-2 top-16">
       <c-button
         _hover="{backgroundColor:white }"
@@ -17,7 +19,7 @@
 
     <c-box
       :class="{ hidden: !isShowSidebar }"
-      class="fixed h-full top-0 left-0 lg:relative lg:flex z-10 w-full"
+      class="fixed w-full h-full top-0 left-0 z-10 lg:relative lg:flex"
     >
       <c-box
         class="block bg-black h-full w-full opacity-20 lg:hidden"
