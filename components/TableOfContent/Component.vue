@@ -1,83 +1,31 @@
 <template>
-  <node-view-wrapper class="toc">
-    <ul class="toc__list">
-      <li
-        v-for="(heading, index) in headings"
-        :key="index"
-        class="toc__item"
-        :class="`toc__item--${heading.level}`"
-      >
-        <a :href="`#${heading.id}`">
-          {{ heading.text }}
-        </a>
-      </li>
-    </ul>
-  </node-view-wrapper>
+  <ul class="toc__list">
+    <li
+      v-for="(heading, index) in headings"
+      :key="index"
+      class="toc__item"
+      :class="`toc__item--${heading.level}`"
+    >
+      <a :href="`#${heading.id}`">
+        {{ heading.text }}
+      </a>
+    </li>
+  </ul>
 </template>
 
 <script>
-import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-2'
-
 export default {
-  components: {
-    NodeViewWrapper,
-  },
-
-  props: nodeViewProps,
-
-  data() {
-    return {
-      headings: [],
-    }
-  },
-
-  mounted() {
-    this.editor.on('update', this.handleUpdate)
-    this.$nextTick(this.handleUpdate)
-  },
-
-  methods: {
-    handleUpdate() {
-      const headings = []
-      const transaction = this.editor.state.tr
-
-      this.editor.state.doc.descendants((node, pos) => {
-        if (node.type.name === 'heading') {
-          const id = `heading-${headings.length + 1}`
-
-          if (node.attrs.id !== id) {
-            transaction.setNodeMarkup(pos, undefined, {
-              ...node.attrs,
-              id,
-            })
-          }
-
-          headings.push({
-            level: node.attrs.level,
-            text: node.textContent,
-            id,
-          })
-        }
-      })
-
-      transaction.setMeta('preventUpdate', true)
-
-      this.editor.view.dispatch(transaction)
-
-      this.headings = headings
+  props: {
+    headings: {
+      type: Array,
+      default: null,
     },
+  },
+  data() {
+    return {}
   },
 }
 </script>
-
-<style lang="scss">
-/* Basic editor styles */
-// .ProseMirror {
-//   > * + * {
-//     margin-top: 0.75em;
-//   }
-// }
-</style>
 
 <style lang="scss" scoped>
 .toc {
