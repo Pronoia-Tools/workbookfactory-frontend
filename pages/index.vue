@@ -249,24 +249,6 @@ export default {
     outline: none;
   }
 
-  h1 {
-    display: block;
-    font-size: 2.7em;
-    font-weight: 600;
-  }
-
-  h2 {
-    display: block;
-    font-size: 2em;
-    font-weight: 600;
-  }
-
-  h3 {
-    display: block;
-    font-size: 1.5em;
-    font-weight: 600;
-  }
-
   .bubble-menu {
     display: flex;
     background-color: #d3d3d3;

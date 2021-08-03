@@ -34,6 +34,7 @@ module.exports = {
       paleSilver: '#C6C1B8',
       timberWolf: '#DBD9D4',
       cultured: '#F9F8F6',
+      vapers: '#E5E2DC',
     },
     spacing: {
       px: '1px',

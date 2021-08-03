@@ -6,7 +6,7 @@
         <c-text class="text-base text-eerieBlack font-semibold mb-3">
           Workbook cover
         </c-text>
-        <c-box class="workbook-cover relative h-96">
+        <c-box class="workbook-cover relative h-60 w-40">
           <c-flex class="absolute w-full h-full justify-center">
             <c-image
               v-if="workbookCover"
@@ -14,12 +14,26 @@
               alt="workbook-cover"
               class="h-full"
             />
-            <c-image
+            <c-flex
               v-else
-              :src="require('@/static/default.png')"
               alt="workbook-cover"
-              class="h-full"
-            />
+              class="
+                h-full
+                w-full
+                bg-vapers
+                items-center
+                justify-center
+                rounded-md
+                flex-col
+              "
+            >
+              <c-image
+                class="w-4 h-4"
+                :src="require('@/static/icons/iconUpload.svg')"
+                alt="icons"
+              />
+              <span class="text-sm pt-2">Upload</span>
+            </c-flex>
           </c-flex>
           <c-input
             type="file"

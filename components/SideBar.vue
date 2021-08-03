@@ -1,6 +1,6 @@
 <template>
   <c-box
-    class="w-full lg:w-1/5 fixed top-0 left-0 lg:relative lg:flex z-10 lg:z-0"
+    class="w-full lg:w-80 fixed top-0 left-0 lg:relative lg:flex z-10 lg:z-0"
   >
     <c-box class="block lg:hidden fixed left-2 top-16">
       <c-button

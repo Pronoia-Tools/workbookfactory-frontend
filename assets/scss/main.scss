@@ -2,6 +2,10 @@ body {
   background: #fafafa;
 }
 
+.editor {
+  font-family: 'Darker Grotesque', sans-serif;
+}
+
 table {
   padding: 0.75rem 0.5rem;
 
@@ -22,4 +26,19 @@ table {
 
 .textarea {
   min-height: 150px !important;
+}
+
+h1 {
+  display: block;
+  font-size: 2.7em;
+}
+
+h2 {
+  display: block;
+  font-size: 2em;
+}
+
+h3 {
+  display: block;
+  font-size: 1.5em;
 }
