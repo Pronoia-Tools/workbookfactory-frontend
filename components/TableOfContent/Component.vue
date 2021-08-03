@@ -1,16 +1,18 @@
 <template>
-  <ul class="toc__list">
-    <li
-      v-for="(heading, index) in headings"
-      :key="index"
-      class="toc__item"
-      :class="`toc__item--${heading.level}`"
-    >
-      <a :href="`#${heading.id}`">
-        {{ heading.text }}
-      </a>
-    </li>
-  </ul>
+  <nav class="toc__list mx-6 my-6 font-ibm">
+    <ul class="px-2 py-4 text-darkSilver">
+      <li
+        v-for="(heading, index) in headings"
+        :key="index"
+        class="toc__item"
+        :class="`toc__item--${heading.level}`"
+      >
+        <a :href="`#${heading.id}`">
+          {{ heading.text }}
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -45,11 +47,12 @@ export default {
       letter-spacing: 0.025rem;
       font-size: 0.75rem;
       text-transform: uppercase;
-      opacity: 0.5;
     }
   }
 
   &__item {
+    font-size: 14px;
+    padding-top: 4px;
     a:hover {
       opacity: 0.5;
     }
