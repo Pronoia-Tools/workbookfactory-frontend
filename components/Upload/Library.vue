@@ -33,13 +33,7 @@
         <c-icon name="list" color="blue.700" />
       </c-flex>
 
-      <c-grid
-        template-columns="repeat(2, 1fr)"
-        template-rows="masonry"
-        gap="4"
-        class="py-5"
-        align-items="center"
-      >
+      <c-box class="grid grid-cols-2 gap-4 auto-rows-auto">
         <c-box w="100%">
           <c-image
             class="rounded-md shadow-sm"
@@ -116,7 +110,7 @@
             <span class="block text-darkSilver">1920x1080 - 128kb</span>
           </p>
         </c-box>
-      </c-grid>
+      </c-box>
     </c-box>
   </c-flex>
 </template>
