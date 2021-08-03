@@ -1,5 +1,5 @@
 <template>
-  <div v-if="editor" class="ProseMirror border border-gray-200">
+  <div v-if="editor" class="ProseMirror border border-gray-200 px-4">
     <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
       <button
         :class="{ 'is-active': editor.isActive('bold') }"

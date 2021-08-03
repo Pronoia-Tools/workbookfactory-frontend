@@ -54,19 +54,19 @@ export default {
       opacity: 0.5;
     }
 
-    &--3 {
+    &--2 {
       padding-left: 1rem;
     }
 
-    &--4 {
+    &--3 {
       padding-left: 2rem;
     }
 
-    &--5 {
+    &--4 {
       padding-left: 3rem;
     }
 
-    &--6 {
+    &--5 {
       padding-left: 4rem;
     }
   }
