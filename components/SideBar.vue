@@ -32,18 +32,15 @@
           left-0
           top-0
           flex-col
-          bg-white
+          bg-dark-gray
           h-full
           z-20
           lg:relative lg:w-full
         "
-        box-shadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
         direction="column"
-        justify="space-between"
         h="100%"
         border="1px"
         border-color="gray.100"
-        background-color="#fff"
       >
         <slot></slot>
       </c-box>
