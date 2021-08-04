@@ -31,7 +31,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -70,7 +69,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -104,7 +102,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -139,7 +136,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -180,7 +176,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -223,7 +218,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -350,6 +344,13 @@
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
+export const emailFormatter = (value) => {
+  if (!value) return value
+  const parts = value.split('@')
+  parts[1] = parts[1].toLowerCase()
+  return parts.join('@')
+}
+
 export default {
   mixins: [validationMixin],
   layout: 'login',
@@ -373,7 +374,7 @@ export default {
     last_name: { required },
     email: {
       required,
-      email,
+      email: (val) => email(emailFormatter(val)),
     },
     password: { required, minLength: minLength(8) },
     confirm_password: {
