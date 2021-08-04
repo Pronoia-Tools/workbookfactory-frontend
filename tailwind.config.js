@@ -3,13 +3,14 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   purge: [],
   presets: [],
+  mode: 'jit',
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1280px',
+      xl: '1367px',
       '2xl': '1536px',
     },
     colors: {
@@ -35,6 +36,7 @@ module.exports = {
       timberWolf: '#DBD9D4',
       cultured: '#F9F8F6',
       vapers: '#E5E2DC',
+      'dark-gray': '#FEFBF5',
     },
     spacing: {
       px: '1px',

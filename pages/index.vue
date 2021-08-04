@@ -4,7 +4,11 @@
       <editor-sidebar />
       <table-of-content :headings="headings" />
     </side-bar>
-    <c-box w="60%" p="10" class="editor h-full border border-gray-200 m-10">
+    <c-box
+      w="60%"
+      p="10"
+      class="editor h-full border border-gray-200 m-10 flex-1"
+    >
       <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
         <button
           :class="{ 'is-active': editor.isActive('bold') }"

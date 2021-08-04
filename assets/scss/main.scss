@@ -1,10 +1,11 @@
 body {
-  background: #fafafa;
+  @apply bg-dark-gray;
 }
 
 .editor {
   font-family: 'Darker Grotesque', sans-serif;
 }
+
 
 table {
   padding: 0.75rem 0.5rem;
