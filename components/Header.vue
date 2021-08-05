@@ -5,7 +5,7 @@
       align="center"
       px="15px"
     >
-      <c-box display="flex" class="font-ibm text-sm">
+      <c-box display="flex" class="text-sm">
         <nuxt-link to="/">
           <c-image
             w="100%"

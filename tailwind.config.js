@@ -259,6 +259,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'IBM Plex Sans',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -283,6 +284,7 @@ module.exports = {
         'serif',
       ],
       mono: [
+        'IBM Plex Mono',
         'ui-monospace',
         'SFMono-Regular',
         'Menlo',
@@ -293,6 +295,7 @@ module.exports = {
         'monospace',
       ],
       ibm: ['IBM Plex Sans'],
+      'ibm-momo': ['IBM Plex Mono'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],
