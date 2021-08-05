@@ -240,7 +240,7 @@
                 @mouseleave.native="workbookID = 0"
                 @mousemove="coordinateMouse"
               >
-                <nuxt-link :to="`/author/workbooks/${workbook.id}`">
+                <nuxt-link :to="`/workbooks/${workbook.id}`">
                   <c-image
                     :src="require('@/static/workbook.jpg')"
                     alt="img-workbooks"

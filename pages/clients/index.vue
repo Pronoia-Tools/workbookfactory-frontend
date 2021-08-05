@@ -32,15 +32,13 @@
               <c-box as="td">{{ item.outcomes }}</c-box>
               <c-box as="td">
                 <c-button variant-color="blue">
-                  <nuxt-link
-                    :to="{
-                      name: 'clients-id',
-                      params: { id: item.id },
-                    }"
-                    class="nav-link"
-                  >
+                  <nuxt-link :to="`clients/${item.id}`" class="nav-link">
                     Details
                   </nuxt-link>
+                  <!-- :to="{
+                      name: 'clients-id',
+                      params: { id: item.id },
+                    }" -->
                 </c-button>
               </c-box>
             </c-box>
