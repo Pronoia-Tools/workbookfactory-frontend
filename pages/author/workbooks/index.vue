@@ -62,7 +62,7 @@
                     <span v-else-if="!workbook.published && workbook.editable">
                       Uneditable
                     </span>
-                    <span v-else> Daft </span>
+                    <span v-else> Draft </span>
                   </c-box>
                   <c-box as="td">
                     <nuxt-link :to="`/author/workbooks/${workbook.id}`">
@@ -81,6 +81,12 @@
                         aria-label="Edit"
                       />
                     </nuxt-link>
+                    <c-icon-button
+                      variant="outline"
+                      variant-color="vue"
+                      icon="trashIcon"
+                      aria-label="Trash"
+                    />
                   </c-box>
                 </c-box>
               </c-box>
