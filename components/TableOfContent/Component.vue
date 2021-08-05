@@ -1,5 +1,5 @@
 <template>
-  <nav class="toc__list mx-6 my-6 font-ibm">
+  <nav class="toc__list mx-6 my-6">
     <ul class="px-2 py-4 text-darkSilver">
       <li
         v-for="(heading, index) in headings"
