@@ -208,6 +208,41 @@
               </c-text>
             </c-box>
           </c-flex>
+
+          <!-- read more -->
+          <c-box v-show="readMore">
+            <c-flex
+              class="
+                w-full
+                flex-wrap
+                items-center
+                px-3
+                py-6
+                border-b border-gray-200
+              "
+            >
+              <c-box class="w-full mb-4 md:w-1/6">
+                <c-avatar
+                  name="you"
+                  size="xl"
+                  :src="require('@/static/default.png')"
+                />
+              </c-box>
+              <c-box class="w-full md:w-5/6">
+                <c-text class="text-lg">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Eveniet, nulla laborum repudiandae error delectus perferendis
+                  porro, ea a inventore molestias nisi reprehenderit ipsa nemo
+                  quae, iusto quidem id officia eligendi.
+                </c-text>
+              </c-box>
+            </c-flex>
+          </c-box>
+          <c-box class="mt-10 text-center">
+            <c-button variant-color="blue" @click="readMore = !readMore">
+              Read more
+            </c-button>
+          </c-box>
         </c-box>
       </c-box>
     </c-box>
@@ -247,6 +282,7 @@ export default {
         image: '',
         created: '',
       },
+      readMore: false,
     }
   },
   async fetch() {
