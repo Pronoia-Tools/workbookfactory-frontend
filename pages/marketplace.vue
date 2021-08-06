@@ -223,7 +223,10 @@
             </c-flex>
           </c-box>
 
-          <c-flex class="items-center flex-wrap p-8">
+          <c-flex
+            v-if="sortedWorkbooks().length"
+            class="items-center flex-wrap p-8"
+          >
             <c-box
               v-for="workbook in sortedWorkbooks()"
               :key="workbook.id"

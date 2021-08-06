@@ -123,7 +123,10 @@
           </c-grid>
         </c-box>
         <c-box py="16">
-          <c-heading as="h3" size="lg">More by "Danielle LaPorte"</c-heading>
+          <c-heading as="h3" size="lg">
+            More by
+            {{ workbookFields.owner ? workbookFields.owner.username : null }}
+          </c-heading>
           <c-box align="center" flex-wrap="wrap" mx="-5">
             <c-box py="10">
               <swiper class="swiper" :options="swiperOption">
