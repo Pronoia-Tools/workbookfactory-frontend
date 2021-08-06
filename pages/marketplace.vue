@@ -223,69 +223,65 @@
             </c-flex>
           </c-box>
 
-          <c-box class="p-8">
-            <c-flex class="items-center flex-wrap">
+          <c-flex class="items-center flex-wrap p-8">
+            <c-box
+              v-for="workbook in sortedWorkbooks()"
+              :key="workbook.id"
+              class="
+                workbook
+                relative
+                w-full
+                p-3
+                md:w-1/3 md:p-2
+                lg:w-1/4 lg:p-4
+              "
+              @mouseover.native="workbookID = workbook.id"
+              @mouseleave.native="workbookID = 0"
+              @mousemove="coordinateMouse"
+            >
+              <nuxt-link :to="`/workbooks/${workbook.id}`">
+                <c-image
+                  :src="require('@/static/workbook.jpg')"
+                  alt="img-workbooks"
+                  class="h-96"
+                />
+              </nuxt-link>
               <c-box
-                v-for="(workbook, index) in workbooks"
-                :key="workbook.id"
+                v-if="workbookID === workbook.id"
                 class="
-                  workbook
-                  relative
-                  w-full
-                  p-3
-                  md:w-1/3 md:p-2
-                  lg:w-1/4 lg:p-4
+                  bubble-menu
+                  fixed
+                  block
+                  overflow-hidden
+                  w-60
+                  border border-gray-200
+                  rounded-md
+                  bg-gray-100
+                  p-4
+                  z-10
                 "
-                @mouseover.native="workbookID = index + 1"
-                @mouseleave.native="workbookID = 0"
-                @mousemove="coordinateMouse"
+                :top="coordinateY + 10"
+                :left="coordinateX + 10"
               >
-                <nuxt-link :to="`/workbooks/${workbook.id}`">
-                  <c-image
-                    :src="require('@/static/workbook.jpg')"
-                    alt="img-workbooks"
-                    class="h-96"
-                  />
-                </nuxt-link>
-                <c-box
-                  v-if="workbookID === workbook.id"
-                  class="
-                    bubble-menu
-                    fixed
-                    block
-                    overflow-hidden
-                    w-60
-                    border border-gray-200
-                    rounded-md
-                    bg-gray-100
-                    p-4
-                    z-10
-                  "
-                  :top="coordinateY"
-                  :left="coordinateX"
-                >
-                  <c-text class="mb-4">
-                    Title: {{ workbook.title || 'updating...' }}
-                  </c-text>
-                  <c-text class="mb-4">
-                    Author:
-                    {{
-                      workbook.owner ? workbook.owner.username : 'updating...'
-                    }}
-                  </c-text>
-                  <c-text class="mb-4">
-                    Language: {{ workbook.language || 'updating...' }}
-                  </c-text>
-                  <c-text class="mb-4">
-                    Description: {{ workbook.desciption || 'updating...' }}
-                  </c-text>
-                  <c-text class="mb-4">
-                    Price: {{ workbook.price || 0 }} $
-                  </c-text>
-                </c-box>
+                <c-text class="mb-4">
+                  Title: {{ workbook.title || 'updating...' }} {{ workbook.id }}
+                </c-text>
+                <c-text class="mb-4">
+                  Author:
+                  {{ workbook.owner ? workbook.owner.username : 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Language: {{ workbook.language || 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Description: {{ workbook.desciption || 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Price: {{ workbook.price || 0 }} $
+                </c-text>
               </c-box>
-            </c-flex>
-          </c-box>
+            </c-box>
+          </c-flex>
         </c-box>
       </c-box>
     </c-box>
@@ -332,13 +328,17 @@ export default {
     }
   },
   async fetch() {
-    const response = await this.$axios.$get('api/v1/workbooks')
-    this.workbooks = response || []
+    this.workbooks = await this.$axios.$get('/api/v1/public/workbooks')
   },
   methods: {
     coordinateMouse(event) {
       this.coordinateX = event.clientX
       this.coordinateY = event.clientY
+    },
+    sortedWorkbooks() {
+      return this.workbooks.slice().sort((previous, next) => {
+        return previous.id > next.id ? 1 : -1
+      })
     },
   },
 }

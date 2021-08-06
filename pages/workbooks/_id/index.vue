@@ -287,7 +287,9 @@ export default {
   },
   async fetch() {
     const workbookId = this.$route.params.id
-    const response = await this.$axios.$get(`api/v1/workbooks/${workbookId}`)
+    const response = await this.$axios.$get(
+      `api/v1/public/workbooks/${workbookId}`
+    )
     this.workbookFields = { ...this.workbookFields, ...response }
   },
 }
