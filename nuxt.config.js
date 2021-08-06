@@ -66,7 +66,15 @@ export default {
     // https://vue.chakra-ui.com/with-nuxt
     '@chakra-ui/nuxt',
     '@nuxtjs/emotion',
+    '@nuxtjs/dayjs',
   ],
+
+  dayjs: {
+    locales: ['en', 'ja'],
+    defaultLocale: 'en',
+    defaultTimeZone: 'Asia/Tokyo',
+    plugins: ['utc', 'timezone'],
+  },
   /**
    * Add extend the plugin options under the `chakra` key.
    **/
