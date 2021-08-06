@@ -4,24 +4,20 @@
     w="320px"
     as="nav"
     background-color="#FEFBF5"
-    class="border py-5 font-ibm"
+    class="border py-5"
   >
-    <c-box class="px-4 pb-5">
-      <c-box as="h4" size="sm" class="text-base font-ibm">
-        Drop and drag item
-      </c-box>
-      <c-box class="border rounded-md mt-3 w-full h-20"></c-box>
-    </c-box>
+    <upload-image />
     <hr />
 
     <c-box class="px-4 py-5">
       <c-flex class="justify-between font-semibold">
-        <p as="p" size="sm" class="text-base font-ibm">Images</p>
-        <p as="h4" size="sm" class="text-base text-blue-700">
+        <p as="p" size="sm" class="text-sm">Images</p>
+        <p as="h4" size="sm" class="text-sm text-blue-700">
           <c-icon w="5" name="plus" class="icon" />
           Upload
         </p>
       </c-flex>
+
       <c-flex class="py-5 space-x-2" align-items="center">
         <c-input-group w="210px">
           <c-input-left-element>
@@ -114,3 +110,13 @@
     </c-box>
   </c-flex>
 </template>
+
+<script>
+import UploadImage from '@/components/Upload/UploadImage.vue'
+
+export default {
+  components: {
+    UploadImage,
+  },
+}
+</script>
