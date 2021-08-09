@@ -17,51 +17,35 @@
                 <c-stack :spacing="5">
                   <c-form-control display="flex" align-items="center">
                     <c-form-label width="100px">Title</c-form-label>
-                    <c-input
-                      flex="1"
-                      type="text"
-                      :value="workbook.title"
-                      readonly="true"
-                    />
+                    <c-text>{{ workbook.title }}</c-text>
                   </c-form-control>
 
                   <c-form-control display="flex" align-items="center">
                     <c-form-label width="100px">By</c-form-label>
-                    <c-input flex="1" type="text" readonly="true" />
+                    <c-text>
+                      {{
+                        workbook.owner ? workbook.owner.username : 'updating...'
+                      }}
+                    </c-text>
                   </c-form-control>
 
                   <c-form-control display="flex">
                     <c-flex w="50%" align-items="center">
                       <c-form-label width="100px"> Edition </c-form-label>
-                      <c-input
-                        flex="1"
-                        type="text"
-                        readonly="true"
-                        :value="workbook.edition"
-                      />
+                      <c-text>{{ workbook.edition }}</c-text>
                     </c-flex>
                     <c-flex w="50%" align-items="center">
                       <c-form-label width="100px" px="2">
                         Language
                       </c-form-label>
-                      <c-input
-                        flex="1"
-                        type="text"
-                        readonly="true"
-                        :value="workbook.language"
-                      />
+                      <c-text>{{ workbook.language || 'updating...' }}</c-text>
                     </c-flex>
                   </c-form-control>
 
                   <c-form-control display="flex">
-                    <c-flex display="flex" w="80%" align-items="center">
+                    <c-flex display="flex" w="30%" align-items="center">
                       <c-form-label width="100px"> Price </c-form-label>
-                      <c-input
-                        flex="1"
-                        type="text"
-                        readonly="true"
-                        :value="workbook.price"
-                      />
+                      <c-text>{{ workbook.price }}</c-text>
                     </c-flex>
                     <c-box display="flex" w="20%" pl="2">
                       <c-select readonly="true">
@@ -72,21 +56,16 @@
 
                   <c-form-control display="flex" align-items="center">
                     <c-form-label width="100px"> Categories </c-form-label>
-                    <c-input
-                      flex="1"
-                      type="text"
-                      readonly="true"
-                      :value="workbook.categories"
-                    />
+                    <c-text>{{ workbook.categories || 'updating...' }}</c-text>
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
             <c-box mt="4">
-              <c-textarea readonly="true" placeholder="Description" text->{{
-                workbook.content
-              }}</c-textarea>
+              <c-textarea readonly="true" placeholder="Description">
+                {{ workbook.content }}
+              </c-textarea>
             </c-box>
 
             <c-box my="10">
