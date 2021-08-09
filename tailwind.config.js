@@ -3,13 +3,14 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   purge: [],
   presets: [],
+  mode: 'jit',
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1280px',
+      xl: '1367px',
       '2xl': '1536px',
     },
     colors: {
@@ -26,6 +27,17 @@ module.exports = {
       indigo: colors.indigo,
       purple: colors.violet,
       pink: colors.pink,
+      // config color by Figma
+      celticBlue: '#215ED8',
+      eerieBlack: '#262015',
+      darkLava: '#4D4535',
+      darkSilver: '#797264',
+      quickSilver: '#AFA99C',
+      paleSilver: '#C6C1B8',
+      timberWolf: '#DBD9D4',
+      cultured: '#F9F8F6',
+      vapers: '#E5E2DC',
+      'dark-gray': '#FEFBF5',
     },
     spacing: {
       px: '1px',
@@ -248,6 +260,7 @@ module.exports = {
     },
     fontFamily: {
       sans: [
+        'IBM Plex Sans',
         'ui-sans-serif',
         'system-ui',
         '-apple-system',
@@ -272,6 +285,7 @@ module.exports = {
         'serif',
       ],
       mono: [
+        'IBM Plex Mono',
         'ui-monospace',
         'SFMono-Regular',
         'Menlo',
@@ -281,6 +295,8 @@ module.exports = {
         '"Courier New"',
         'monospace',
       ],
+      ibm: ['IBM Plex Sans'],
+      'ibm-momo': ['IBM Plex Mono'],
     },
     fontSize: {
       xs: ['0.75rem', { lineHeight: '1rem' }],

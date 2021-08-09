@@ -1,5 +1,5 @@
 <template>
-  <div v-if="editor" class="ProseMirror border border-gray-200">
+  <div v-if="editor" class="ProseMirror border border-gray-200 px-4">
     <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
       <button
         :class="{ 'is-active': editor.isActive('bold') }"
@@ -8,7 +8,7 @@
         bold
       </button>
       <button
-        :class="{ 'is-active': editor.isActive('italic') }"
+        :class="{ 'is-active roun': editor.isActive('italic') }"
         @click="editor.chain().focus().toggleItalic().run()"
       >
         italic
@@ -204,21 +204,25 @@ h2 {
 
 .bubble-menu {
   display: flex;
-  background-color: #0d0d0d;
-  padding: 0.4rem;
-  border-radius: 0.5rem;
+  background-color: #d3d3d3;
+  border-radius: 0.75rem;
 
   button {
     border: none;
     background: none;
-    color: #fff;
+    color: #000;
     font-size: 0.85rem;
     font-weight: 500;
     padding: 0 0.4rem;
+    line-height: 1;
+    text-align: center;
 
     &:hover,
     &.is-active {
       color: #a975ff;
+    }
+    &:focus {
+      outline: none;
     }
   }
 }

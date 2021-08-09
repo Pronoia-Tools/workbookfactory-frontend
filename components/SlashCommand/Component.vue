@@ -1,15 +1,30 @@
 <template>
-  <div class="items">
-    <button
+  <c-box class="items">
+    <c-button
       v-for="(item, index) in items"
       :key="index"
       class="item"
       :class="{ 'is-selected': index === selectedIndex }"
       @click="selectItem(index)"
     >
-      {{ item.title }}
-    </button>
-  </div>
+      <c-flex class="items-center">
+        <c-image
+          :src="require('@/static/icons/heading-solid.svg')"
+          alt="slash-heading"
+          class="w-7 h-7 mr-4"
+        />
+
+        <c-box>
+          <c-text class="text-base font-semibold text-eerieBlack">
+            {{ item.title }}
+          </c-text>
+          <c-text class="text-xs font-normal text-darkSilver">
+            {{ item.description }}
+          </c-text>
+        </c-box>
+      </c-flex>
+    </c-button>
+  </c-box>
 </template>
 
 <script>
@@ -96,15 +111,16 @@ export default {
 .item {
   display: block;
   width: 100%;
+  height: 64px;
   text-align: left;
-  background: #0d0d0d;
+  background: #fff;
   border: none;
-  padding: 0.2rem 0.5rem;
-  color: white;
+  padding: 0.5rem 1rem;
+  color: #262015;
 
   &.is-selected,
   &:hover {
-    color: #a975ff;
+    background-color: #e8e8e8;
   }
 }
 </style>

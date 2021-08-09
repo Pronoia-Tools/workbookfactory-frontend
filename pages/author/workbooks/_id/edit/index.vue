@@ -16,56 +16,45 @@
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
                   <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px" font-size="sm"
-                      >Title</c-form-label
-                    >
-                    <c-input
-                      flex="1"
-                      type="text"
-                      size="sm"
-                      :value="workbook.title"
-                    />
+                    <c-form-label width="100px">Title</c-form-label>
+                    <c-input v-model="workbook.title" flex="1" type="text" />
                   </c-form-control>
-
-                  <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px" font-size="sm">By</c-form-label>
-                    <c-input flex="1" type="text" size="sm" />
-                  </c-form-control>
-
                   <c-form-control display="flex" align-items="center">
                     <c-box display="flex" w="50%">
-                      <c-form-label width="100px" font-size="sm">
-                        Edition
-                      </c-form-label>
-                      <c-input flex="1" type="text" size="sm" />
+                      <c-form-label width="100px"> Edition </c-form-label>
+                      <c-input
+                        v-model="workbook.edition"
+                        flex="1"
+                        type="text"
+                      />
                     </c-box>
                     <c-box display="flex" w="50%">
-                      <c-form-label width="100px" font-size="sm" px="2">
+                      <c-form-label width="100px" px="2">
                         Languge
                       </c-form-label>
-                      <c-input flex="1" type="text" size="sm" />
+                      <c-input
+                        v-model="workbook.language"
+                        flex="1"
+                        type="text"
+                      />
                     </c-box>
                   </c-form-control>
 
                   <c-form-control display="flex" align-items="center">
                     <c-box display="flex" w="80%">
-                      <c-form-label width="100px" font-size="sm">
-                        Price
-                      </c-form-label>
-                      <c-input flex="1" type="text" size="sm" />
+                      <c-form-label width="100px"> Price </c-form-label>
+                      <c-input v-model="workbook.price" flex="1" type="text" />
                     </c-box>
                     <c-box display="flex" w="20%" pl="2">
-                      <c-select size="sm">
+                      <c-select v-model="workbook.curency">
                         <option selected>USD</option>
                       </c-select>
                     </c-box>
                   </c-form-control>
 
                   <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px" font-size="sm">
-                      Categories
-                    </c-form-label>
-                    <c-input flex="1" type="text" size="sm" />
+                    <c-form-label width="100px"> Categories </c-form-label>
+                    <c-input flex="1" type="text" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
@@ -73,80 +62,18 @@
 
             <c-box mt="4">
               <c-textarea
+                v-model="workbook.description"
                 placeholder="Description"
-                text-size="sm"
+                text-
                 class="min-h-[200px]"
-                >{{ workbook.front_matter }}</c-textarea
-              >
+              ></c-textarea>
             </c-box>
 
-            <c-box my="10">
-              <c-heading as="h2" size="md"> For Coaches </c-heading>
-              <c-flex my="5">
-                <c-box w="50%" px="2">
-                  <c-heading as="h4" size="sm">
-                    Send a copy to a client
-                  </c-heading>
-                  <c-flex direction="column">
-                    <c-checkbox my="2" default-is-checked size="sm">
-                      Create custom Client Workbook
-                    </c-checkbox>
-                    <c-checkbox my="2" size="sm">
-                      Client Pays for Workbook
-                    </c-checkbox>
-                    <c-form-control display="flex" align-items="center">
-                      <c-input flex="1" type="text" size="sm" />
-                    </c-form-control>
-                    <c-button mt="10" variant-color="blue" size="sm">
-                      Send invation
-                    </c-button>
-                  </c-flex>
-                </c-box>
-
-                <c-box w="50%" px="2">
-                  <c-heading as="h4" size="sm">
-                    Send a copy to a client
-                  </c-heading>
-                  <c-flex direction="column">
-                    <c-checkbox my="2" default-is-checked size="sm">
-                      eWorkbook is available for purchase by clients leaving the
-                      practice
-                    </c-checkbox>
-                    <c-text font-size="sm"
-                      >Active Clients Using this eWorkbook</c-text
-                    >
-                    <c-box mt="20px" width="100%">
-                      <c-box as="table" width="100%">
-                        <c-box as="thead">
-                          <c-box
-                            as="tr"
-                            color="#B5B5C3 !important"
-                            background-color="#F3F6F9"
-                            letter-spacing="1px"
-                            px="5px"
-                            font-size="0.8rem"
-                            text-transform="uppercase"
-                            font-weight="600"
-                            text-align="left"
-                          >
-                            <c-box as="th" width="10%">Name</c-box>
-                            <c-box as="th" width="10%">Email</c-box>
-                            <c-box as="th" width="10%">Answers</c-box>
-                          </c-box>
-                        </c-box>
-                        <c-box as="tbody" py="4" font-size="sm">
-                          <c-box as="tr">
-                            <c-box as="td">Fish Fisherman</c-box>
-                            <c-box as="td">fish@fish.com</c-box>
-                            <c-box as="td"></c-box>
-                          </c-box>
-                        </c-box>
-                      </c-box>
-                    </c-box>
-                  </c-flex>
-                </c-box>
-              </c-flex>
-            </c-box>
+            <c-flex mt="8" align-items="center" justify-content="flex-end">
+              <c-button variant-color="blue" size="md" @click="submitForm">
+                Submit
+              </c-button>
+            </c-flex>
           </c-box>
         </c-box>
       </c-box>
@@ -162,12 +89,46 @@ export default {
   },
   data() {
     return {
-      workbook: {},
+      workbook: {
+        title: '',
+        language: '',
+        price: '',
+        currency: '',
+        description: '',
+        categories: '',
+        image: '',
+      },
     }
   },
   async fetch() {
     const id = this.$route.params.id
-    this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+    const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+    this.workbook = { ...this.workbook, ...workbook }
+  },
+  methods: {
+    async submitForm() {
+      const id = this.$route.params.id
+      const params = {
+        title: this.workbook.title,
+        language: this.workbook.language,
+        edition: this.workbook.edition,
+        price: this.workbook.price,
+        description: this.workbook.description,
+        currency: this.workbook.currency,
+        categories: this.workbook.categories,
+      }
+      const response = await this.$axios.$put(`api/v1/workbooks/${id}`, params)
+      if (response) {
+        this.$toast({
+          title: 'Success',
+          description: "You're updated workbook successfully.",
+          status: 'success',
+          duration: 2000,
+          position: 'top-right',
+        })
+        this.$router.push('/author/workbooks')
+      }
+    },
   },
 }
 </script>

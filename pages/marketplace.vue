@@ -2,7 +2,7 @@
   <c-box class="container mx-auto py-24">
     <c-box class="px-6 md:px-12">
       <!-- New releases -->
-      <c-box class="mb-12">
+      <!--<c-box class="mb-12">
         <c-text class="mb-3" font-size="28px">New releases</c-text>
         <c-box
           class="border border-gray-200 p-4"
@@ -54,10 +54,10 @@
             <div slot="pagination" class="swiper-pagination"></div>
           </swiper>
         </c-box>
-      </c-box>
+      </c-box> -->
 
       <!-- Most popular -->
-      <c-box class="mb-12">
+      <!-- <c-box class="mb-12">
         <c-text class="mb-3" font-size="28px" x>Most popular</c-text>
         <c-box
           class="boder border-gray-200 p-4"
@@ -109,37 +109,23 @@
             <div slot="pagination" class="swiper-pagination"></div>
           </swiper>
         </c-box>
-      </c-box>
+      </c-box> -->
 
       <!-- All workbooks -->
       <c-box>
-        <c-text class="mb-3" font-size="28px">All workbooks</c-text>
+        <c-text class="mb-5 text-3xl">All workbooks</c-text>
         <c-box
           class="border border-gray-200"
           box-shadow="0px 0px 1px 1px #E2E8F0"
         >
           <c-box class="mb-10 p-8 border-bottom border-gray-100">
             <c-flex class="mb-6 items-center">
-              <svg
-                id="Capa_1"
-                enable-background="new 0 0 512 512"
-                height="15"
-                width="15"
-                viewBox="0 0 512 512"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g>
-                  <path
-                    d="m187.304 252.717c8.045 11.642 5.64 1.941 5.64 233.997 0 20.766 23.692 32.651 40.39 20.23 71.353-53.797 85.609-58.456 85.609-83.619 0-169.104-1.971-159.594 5.64-170.608l115.869-157.718h-369.016z"
-                  />
-                  <path
-                    d="m484.221 12.86c-4.14-7.93-12.26-12.86-21.199-12.86h-414.156c-19.305 0-30.664 21.777-19.59 37.6.091.152-1.257-1.693 20.12 27.4h413.095c18.217-24.793 30.394-35.505 21.73-52.14z"
-                  />
-                </g>
-              </svg>
-              <c-text class="font-semibold ml-2" font-size="20px"
-                >Filter</c-text
-              >
+              <c-image
+                :src="require('@/static/icons/filter.svg')"
+                alt="filter"
+                class="w-4 h-4"
+              />
+              <c-text class="font-semibold ml-2 text-xl">Filter</c-text>
             </c-flex>
 
             <!-- filter form -->
@@ -198,41 +184,11 @@
                     </c-number-input>
                   </c-flex>
 
-                  <svg
-                    id="Capa_1"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    x="0px"
-                    y="0px"
-                    width="35px"
-                    height="15px"
-                    viewBox="0 0 357 357"
-                    style="enable-background: new 0 0 357 357"
-                    xml:space="preserve"
-                    class="mx-4"
-                  >
-                    <g>
-                      <g id="remove">
-                        <path d="M357,204H0v-51h357V204z" />
-                      </g>
-                    </g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                    <g></g>
-                  </svg>
+                  <c-image
+                    :src="require('@/static/icons/dash.svg')"
+                    alt="dash"
+                    class="w-9 h-4 mx-4"
+                  />
 
                   <c-flex class="items-center">
                     <c-text class="text-gray-600 mr-3" font-size="1.4rem">
@@ -259,40 +215,76 @@
             </c-flex>
 
             <!-- button submit -->
-            <c-flex class="w-full flex-row-reverse items-center -ml-10">
+            <c-flex class="w-full justify-end items-center -ml-10">
+              <c-button variant-color="blue" variant="outline" class="mr-4">
+                Cancel
+              </c-button>
               <c-button variant-color="blue">Apply Filters</c-button>
-              <c-button class="mr-4">Cancel</c-button>
             </c-flex>
           </c-box>
 
-          <c-box class="p-8">
-            <c-flex class="items-center flex-wrap">
-              <c-box class="w-full p-3 md:w-1/3 md:p-2 lg:w-1/4 lg:p-4">
+          <c-flex
+            v-if="sortedWorkbooks().length"
+            class="items-center flex-wrap p-8"
+          >
+            <c-box
+              v-for="workbook in sortedWorkbooks()"
+              :key="workbook.id"
+              class="
+                workbook
+                relative
+                w-full
+                p-3
+                md:w-1/3 md:p-2
+                lg:w-1/4 lg:p-4
+              "
+              @mouseover.native="workbookID = workbook.id"
+              @mouseleave.native="workbookID = 0"
+              @mousemove="coordinateMouse"
+            >
+              <nuxt-link :to="`/workbooks/${workbook.id}`">
                 <c-image
-                  :src="require('@/static/default.png')"
+                  :src="require('@/static/workbook.jpg')"
                   alt="img-workbooks"
+                  class="h-96"
                 />
+              </nuxt-link>
+              <c-box
+                v-if="workbookID === workbook.id"
+                class="
+                  bubble-menu
+                  fixed
+                  block
+                  overflow-hidden
+                  w-60
+                  border border-gray-200
+                  rounded-md
+                  bg-gray-100
+                  p-4
+                  z-10
+                "
+                :top="coordinateY + 10"
+                :left="coordinateX + 10"
+              >
+                <c-text class="mb-4">
+                  Title: {{ workbook.title || 'updating...' }} {{ workbook.id }}
+                </c-text>
+                <c-text class="mb-4">
+                  Author:
+                  {{ workbook.owner ? workbook.owner.username : 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Language: {{ workbook.language || 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Description: {{ workbook.desciption || 'updating...' }}
+                </c-text>
+                <c-text class="mb-4">
+                  Price: {{ workbook.price || 0 }} $
+                </c-text>
               </c-box>
-              <c-box class="w-full p-3 md:w-1/3 md:p-2 lg:w-1/4 lg:p-4">
-                <c-image
-                  :src="require('@/static/default.png')"
-                  alt="img-workbooks"
-                />
-              </c-box>
-              <c-box class="w-full p-3 md:w-1/3 md:p-2 lg:w-1/4 lg:p-4">
-                <c-image
-                  :src="require('@/static/default.png')"
-                  alt="img-workbooks"
-                />
-              </c-box>
-              <c-box class="w-full p-3 md:w-1/3 md:p-2 lg:w-1/4 lg:p-4">
-                <c-image
-                  :src="require('@/static/default.png')"
-                  alt="img-workbooks"
-                />
-              </c-box>
-            </c-flex>
-          </c-box>
+            </c-box>
+          </c-flex>
         </c-box>
       </c-box>
     </c-box>
@@ -300,12 +292,12 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+// import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
   components: {
-    Swiper,
-    SwiperSlide,
+    // Swiper,
+    // SwiperSlide,
   },
   data() {
     return {
@@ -332,7 +324,25 @@ export default {
           },
         },
       },
+      workbooks: [],
+      workbookID: 0,
+      coordinateX: 0,
+      coordinateY: 0,
     }
+  },
+  async fetch() {
+    this.workbooks = await this.$axios.$get('/api/v1/public/workbooks')
+  },
+  methods: {
+    coordinateMouse(event) {
+      this.coordinateX = event.clientX
+      this.coordinateY = event.clientY
+    },
+    sortedWorkbooks() {
+      return this.workbooks.slice().sort((previous, next) => {
+        return previous.id > next.id ? 1 : -1
+      })
+    },
   },
 }
 </script>
@@ -347,6 +357,23 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: white;
+  }
+}
+
+.workbook:hover {
+  .bubble-menu {
+    animation-name: showInfor;
+    animation-duration: 1s;
+  }
+}
+
+@keyframes showInfor {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 </style>
