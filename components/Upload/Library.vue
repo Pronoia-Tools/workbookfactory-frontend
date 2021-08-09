@@ -29,83 +29,8 @@
         <c-icon name="list" color="blue.700" />
       </c-flex>
 
-      <c-box class="grid grid-cols-2 gap-4 auto-rows-auto">
-        <c-box w="100%">
-          <c-image
-            class="rounded-md shadow-sm"
-            src="https://bit.ly/chakra-jonathan-bakebwa"
-            alt="Jonathan Bakebwa"
-          />
-          <p class="text-xs mt-2">
-            <span
-              class="
-                block
-                font-semibold
-                whitespace-nowrap
-                overflow-ellipsis overflow-hidden
-              "
-              >A name of the this picture
-            </span>
-            <span class="block text-darkSilver">1920x1080 - 128kb</span>
-          </p>
-        </c-box>
-        <c-box w="100%">
-          <c-image
-            class="rounded-md shadow-sm"
-            src="https://bit.ly/chakra-jonathan-bakebwa"
-            alt="Jonathan Bakebwa"
-          />
-          <p class="text-xs mt-2">
-            <span
-              class="
-                block
-                font-semibold
-                whitespace-nowrap
-                overflow-ellipsis overflow-hidden
-              "
-              >A name of the picture</span
-            >
-            <span class="block text-darkSilver">1920x1080 - 128kb</span>
-          </p>
-        </c-box>
-        <c-box w="100%">
-          <c-image
-            class="rounded-md shadow-sm"
-            src="https://bit.ly/chakra-jonathan-bakebwa"
-            alt="Jonathan Bakebwa"
-          />
-          <p class="text-xs mt-2">
-            <span
-              class="
-                block
-                font-semibold
-                whitespace-nowrap
-                overflow-ellipsis overflow-hidden
-              "
-              >A name of the picture</span
-            >
-            <span class="block text-darkSilver">1920x1080 - 128kb</span>
-          </p>
-        </c-box>
-        <c-box w="100%">
-          <c-image
-            class="rounded-md shadow-sm"
-            src="https://bit.ly/chakra-jonathan-bakebwa"
-            alt="Jonathan Bakebwa"
-          />
-          <p class="text-xs mt-2">
-            <span
-              class="
-                block
-                font-semibold
-                whitespace-nowrap
-                overflow-ellipsis overflow-hidden
-              "
-              >A name of the picture</span
-            >
-            <span class="block text-darkSilver">1920x1080 - 128kb</span>
-          </p>
-        </c-box>
+      <c-box class="">
+        <images />
       </c-box>
     </c-box>
   </c-flex>
@@ -113,10 +38,12 @@
 
 <script>
 import UploadImage from '@/components/Upload/UploadImage.vue'
+import Images from '@/components/Upload/Images.vue'
 
 export default {
   components: {
     UploadImage,
+    Images,
   },
 }
 </script>

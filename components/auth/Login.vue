@@ -199,6 +199,7 @@ export default {
   computed: {
     ...mapGetters('auth', {
       getterLoginStatus: 'getLoginStatus',
+      getterAuthData: 'getAuthData',
     }),
   },
 
@@ -227,6 +228,9 @@ export default {
           position: 'top-right',
         })
         this.$router.push('/')
+        this.$axios.onRequest((config) => {
+          config.headers.common.Authorization = `Bearer ${this.getterAuthData?.token}`
+        })
       } else {
         this.$toast({
           title: 'Failed',

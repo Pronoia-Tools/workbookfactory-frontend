@@ -11,13 +11,14 @@
         style="z-index: 1"
         accept="image/*"
         multiple="false"
-        @change="previewImgs"
+        @change="handleChange"
       />
     </c-box>
   </c-box>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   components: {},
   data() {
@@ -29,7 +30,10 @@ export default {
     }
   },
   methods: {
-    previewImgs(event) {
+    ...mapActions('upload', {
+      uploadImage: 'uploadImage',
+    }),
+    async handleChange(event) {
       if (this.dropped === 0) this.files.push(...event.currentTarget.files)
       this.error = ''
       if (!this.files.length) return false
@@ -37,7 +41,8 @@ export default {
 
       const data = new FormData()
       data.append('image', image)
-      this.$axios.$post('api/v1/images', data)
+      await this.uploadImage(data)
+      this.files = []
     },
   },
 }
