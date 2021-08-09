@@ -30,6 +30,7 @@ module.exports = {
       // config color by Figma
       celticBlue: '#215ED8',
       eerieBlack: '#262015',
+      darkLava: '#4D4535',
       darkSilver: '#797264',
       quickSilver: '#AFA99C',
       paleSilver: '#C6C1B8',
