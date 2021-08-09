@@ -33,14 +33,13 @@
                 class="
                   items-center
                   justify-center
-                  rotate-45
                   px-3
                   py-1
                   md:px-4 md:py-2
                   hover:bg-gray-200
                 "
               >
-                <c-text class="-rotate-45"> 1 </c-text>
+                <c-text> 1 </c-text>
               </c-flex>
             </a>
           </c-list-item>
@@ -58,14 +57,13 @@
                 class="
                   items-center
                   justify-center
-                  rotate-45
                   px-3
                   py-1
                   md:px-4 md:py-2
                   hover:bg-gray-200
                 "
               >
-                <c-text class="-rotate-45">{{ page }}</c-text>
+                <c-text>{{ page }}</c-text>
               </c-flex>
             </a>
           </c-list-item>
@@ -80,14 +78,13 @@
                 class="
                   items-center
                   justify-center
-                  rotate-45
                   px-3
                   py-1
                   md:px-4 md:py-2
                   hover:bg-gray-200
                 "
               >
-                <c-text class="-rotate-45">{{ totalPages }}</c-text>
+                <c-text>{{ totalPages }}</c-text>
               </c-flex>
             </a>
           </c-list-item>

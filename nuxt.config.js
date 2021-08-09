@@ -17,6 +17,14 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,400;1,600;1,700&display=swap',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap',
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;700;800;900&display=swap',
+      },
     ],
   },
 
@@ -58,7 +66,15 @@ export default {
     // https://vue.chakra-ui.com/with-nuxt
     '@chakra-ui/nuxt',
     '@nuxtjs/emotion',
+    '@nuxtjs/dayjs',
   ],
+
+  dayjs: {
+    locales: ['en', 'ja'],
+    defaultLocale: 'en',
+    defaultTimeZone: 'Asia/Tokyo',
+    plugins: ['utc', 'timezone'],
+  },
   /**
    * Add extend the plugin options under the `chakra` key.
    **/

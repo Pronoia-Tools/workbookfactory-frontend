@@ -1,6 +1,6 @@
 <template>
-  <node-view-wrapper class="toc">
-    <ul class="toc__list">
+  <nav class="toc__list mx-6 my-6">
+    <ul class="px-2 py-4 text-darkSilver">
       <li
         v-for="(heading, index) in headings"
         :key="index"
@@ -12,72 +12,22 @@
         </a>
       </li>
     </ul>
-  </node-view-wrapper>
+  </nav>
 </template>
 
 <script>
-import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-2'
-
 export default {
-  components: {
-    NodeViewWrapper,
-  },
-
-  props: nodeViewProps,
-
-  data() {
-    return {
-      headings: [],
-    }
-  },
-
-  mounted() {
-    this.editor.on('update', this.handleUpdate)
-    this.$nextTick(this.handleUpdate)
-  },
-
-  methods: {
-    handleUpdate() {
-      const headings = []
-      const transaction = this.editor.state.tr
-
-      this.editor.state.doc.descendants((node, pos) => {
-        if (node.type.name === 'heading') {
-          const id = `heading-${headings.length + 1}`
-
-          if (node.attrs.id !== id) {
-            transaction.setNodeMarkup(pos, undefined, {
-              ...node.attrs,
-              id,
-            })
-          }
-
-          headings.push({
-            level: node.attrs.level,
-            text: node.textContent,
-            id,
-          })
-        }
-      })
-
-      transaction.setMeta('preventUpdate', true)
-
-      this.editor.view.dispatch(transaction)
-
-      this.headings = headings
+  props: {
+    headings: {
+      type: Array,
+      default: null,
     },
+  },
+  data() {
+    return {}
   },
 }
 </script>
-
-<style lang="scss">
-/* Basic editor styles */
-// .ProseMirror {
-//   > * + * {
-//     margin-top: 0.75em;
-//   }
-// }
-</style>
 
 <style lang="scss" scoped>
 .toc {
@@ -97,28 +47,29 @@ export default {
       letter-spacing: 0.025rem;
       font-size: 0.75rem;
       text-transform: uppercase;
-      opacity: 0.5;
     }
   }
 
   &__item {
+    font-size: 14px;
+    padding-top: 4px;
     a:hover {
       opacity: 0.5;
     }
 
-    &--3 {
+    &--2 {
       padding-left: 1rem;
     }
 
-    &--4 {
+    &--3 {
       padding-left: 2rem;
     }
 
-    &--5 {
+    &--4 {
       padding-left: 3rem;
     }
 
-    &--6 {
+    &--5 {
       padding-left: 4rem;
     }
   }

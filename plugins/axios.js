@@ -27,13 +27,13 @@ export default function ({
       return new Promise((resolve, reject) => {
         $axios
           .post('/api/token/refresh/', {
-            refresh_token: token,
+            refresh: token,
           })
           .then((response) => {
             if (response.status === 200) {
-              app.$cookies.set('access_token', response.data.access_token)
-              app.$cookies.set('refresh_token', response.data.refresh_token)
-              originalRequest.headers.Authorization = `Bearer ${response.data.access_token}`
+              app.$cookies.set('access_token', response.data.access)
+              // app.$cookies.set('refresh_token', response.data.refresh)
+              originalRequest.headers.Authorization = `Bearer ${response.data.access}`
             }
             resolve(response)
           })

@@ -31,7 +31,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -67,7 +66,6 @@
               required
               class="
                 appearance-none
-                rounded-none
                 relative
                 block
                 w-full
@@ -179,6 +177,13 @@ import { mapActions, mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 
+export const emailFormatter = (value) => {
+  if (!value) return value
+  const parts = value.split('@')
+  parts[1] = parts[1].toLowerCase()
+  return parts.join('@')
+}
+
 export default {
   mixins: [validationMixin],
   data() {
@@ -191,7 +196,7 @@ export default {
   validations: {
     email: {
       required,
-      email,
+      email: (val) => email(emailFormatter(val)),
     },
     password: { required, minLength: minLength(6) },
   },
@@ -199,6 +204,7 @@ export default {
   computed: {
     ...mapGetters('auth', {
       getterLoginStatus: 'getLoginStatus',
+      getterAuthData: 'getAuthData',
     }),
   },
 
@@ -227,6 +233,9 @@ export default {
           position: 'top-right',
         })
         this.$router.push('/')
+        this.$axios.onRequest((config) => {
+          config.headers.common.Authorization = `Bearer ${this.getterAuthData?.token}`
+        })
       } else {
         this.$toast({
           title: 'Failed',

@@ -17,7 +17,7 @@
     <c-box as="li" class="lg:py-0 h-full">
       <nuxt-link
         class="h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
-        to="/"
+        to="/libraries"
       >
         <span>Your Library</span>
       </nuxt-link>
@@ -51,5 +51,6 @@
 <style scoped>
 a.nuxt-link-exact-active {
   border-bottom: 3px #215ed8 solid;
+  color: #000;
 }
 </style>

@@ -1,12 +1,11 @@
 <template>
-  <c-box box-shadow="0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%)">
+  <c-box box-shadow="0px -1px 0px #AFA99C">
     <c-flex
-      class="justify-between h-14"
+      class="justify-between h-14 bg-dark-gray border-gray-200 border-b"
       align="center"
       px="15px"
-      background-color="white"
     >
-      <c-box display="flex" class="font-ibm text-sm">
+      <c-box display="flex" class="text-sm">
         <nuxt-link to="/">
           <c-image
             w="100%"
@@ -50,7 +49,7 @@
                 py="2"
               >
                 <c-image
-                  rounded="full"
+                  rounded="3px"
                   h="40px"
                   w="40px"
                   src="https://bit.ly/chakra-jonathan-bakebwa"
@@ -83,7 +82,7 @@
             left-0
             top-0
             flex-col
-            bg-white
+            bg-dark-gray
             h-full
             w-3/4
             z-20
