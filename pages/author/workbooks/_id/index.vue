@@ -1,71 +1,81 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
+    <!-- side bar -->
     <side-bar>
       <editor-sidebar />
     </side-bar>
+
+    <!-- content -->
     <c-box w="80%">
-      <c-box mx="4" my="5" py="5" background-color="#fff">
-        <c-box px="2rem">
+      <c-box class="m-5 py-5 bg-white">
+        <c-box class="px-2">
           <c-box>
             <c-heading as="h2" size="md"> eWorkbook Information </c-heading>
           </c-box>
 
-          <c-box py="10">
+          <c-box class="py-10">
             <c-grid template-columns="repeat(3, 1fr)" gap="6">
               <c-grid-item col-span="1" bg="blue.300" />
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
-                  <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px">Title</c-form-label>
+                  <!-- title -->
+                  <c-flex class="items-center">
+                    <c-text class="font-semibold w-24"> Title: </c-text>
                     <c-text>{{ workbook.title }}</c-text>
-                  </c-form-control>
+                  </c-flex>
 
-                  <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px">By</c-form-label>
+                  <!-- author -->
+                  <c-flex class="items-center">
+                    <c-text class="font-semibold w-24"> By: </c-text>
                     <c-text>
                       {{
                         workbook.owner ? workbook.owner.username : 'updating...'
                       }}
                     </c-text>
-                  </c-form-control>
+                  </c-flex>
 
-                  <c-form-control display="flex">
-                    <c-flex w="50%" align-items="center">
-                      <c-form-label width="100px"> Edition </c-form-label>
+                  <c-flex>
+                    <!-- edition -->
+                    <c-flex class="w-1/2 items-center">
+                      <c-text class="font-semibold w-24"> Edition: </c-text>
                       <c-text>{{ workbook.edition }}</c-text>
                     </c-flex>
-                    <c-flex w="50%" align-items="center">
-                      <c-form-label width="100px" px="2">
-                        Language
-                      </c-form-label>
+
+                    <!-- language -->
+                    <c-flex class="w-1/2 items-center">
+                      <c-text class="font-semibold w-24"> Language: </c-text>
                       <c-text>{{ workbook.language || 'updating...' }}</c-text>
                     </c-flex>
-                  </c-form-control>
+                  </c-flex>
 
-                  <c-form-control display="flex">
-                    <c-flex display="flex" w="30%" align-items="center">
-                      <c-form-label width="100px"> Price </c-form-label>
+                  <c-flex class="items-center">
+                    <!-- price -->
+                    <c-flex class="items-center w-1/4">
+                      <c-text class="font-semibold w-24"> Price: </c-text>
                       <c-text>{{ workbook.price }}</c-text>
                     </c-flex>
-                    <c-box display="flex" w="20%" pl="2">
-                      <c-select readonly="true">
-                        <option selected>USD</option>
-                      </c-select>
-                    </c-box>
-                  </c-form-control>
 
-                  <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px"> Categories </c-form-label>
+                    <!-- currency unit -->
+                    <c-box class="w-20">
+                      <c-input readonly="true" value="USD" />
+                    </c-box>
+                  </c-flex>
+
+                  <c-flex class="items-center">
+                    <c-text class="font-semibold w-24"> Categories: </c-text>
                     <c-text>{{ workbook.categories || 'updating...' }}</c-text>
-                  </c-form-control>
+                  </c-flex>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="4">
-              <c-textarea readonly="true" placeholder="Description">
-                {{ workbook.content }}
-              </c-textarea>
+            <c-box mt="8">
+              <c-text class="font-semibold mb-2"> Description: </c-text>
+              <c-textarea
+                readonly="true"
+                :value="workbook.description"
+                placeholder="Description"
+              />
             </c-box>
 
             <c-box my="10">

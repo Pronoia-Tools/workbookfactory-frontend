@@ -36,11 +36,55 @@
             </c-button>
           </c-box>
         </c-box>
-        <c-box as="ul" class="flex">
+        <c-box as="ul" class="flex items-center">
+          <c-flex class="items-center">
+            <!-- cart -->
+            <c-box as="li" class="relative px-4">
+              <c-image
+                :src="require('@/static/icons/shopping-cart.svg')"
+                alt="shopping-cart"
+                class="w-7 h-7"
+              />
+
+              <c-box
+                class="
+                  absolute
+                  w-5
+                  h-5
+                  bg-black
+                  text-white text-center text-xs
+                  border
+                  rounded-full
+                  -top-1
+                  right-1
+                "
+              >
+                0
+              </c-box>
+            </c-box>
+
+            <!-- book -->
+            <c-box as="li" class="px-4">
+              <c-image
+                :src="require('@/static/icons/books.svg')"
+                alt="books"
+                class="w-7 h-7"
+              />
+            </c-box>
+
+            <!-- notifications -->
+            <c-box as="li" class="px-4">
+              <c-image
+                :src="require('@/static/icons/bell.svg')"
+                alt="bell"
+                class="w-7 h-7"
+              />
+            </c-box>
+          </c-flex>
+
           <c-box as="li" px="2">
             <c-menu>
               <c-menu-button
-                _hover="{backgroundColor:transparent }"
                 _active="{backgroundColor:transparent}"
                 _focus="{outline:none}"
                 background-color="transparent"
@@ -58,6 +102,8 @@
                 <c-icon name="chevron-down" />
               </c-menu-button>
               <c-menu-list>
+                <c-menu-divider />
+                <c-menu-item>Profile</c-menu-item>
                 <c-menu-divider />
                 <c-menu-item cursor="pointer" @click="logout()">
                   <span>Logout</span>
@@ -126,9 +172,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-div > li {
-  @apply px-8 py-2;
-}
-</style>
