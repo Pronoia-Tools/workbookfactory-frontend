@@ -15,44 +15,55 @@
               <c-grid-item col-span="1" bg="blue.300" />
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
-                  <c-form-control display="flex" align-items="center">
-                    <c-form-label width="100px">Title</c-form-label>
+                  <!-- title -->
+                  <c-form-control class="flex items-center">
+                    <c-form-label width="100px"> Title </c-form-label>
                     <c-input v-model="workbook.title" flex="1" type="text" />
                   </c-form-control>
-                  <c-form-control display="flex" align-items="center">
-                    <c-box display="flex" w="50%">
+
+                  <c-form-control class="flex items-center">
+                    <!-- edition -->
+                    <c-flex class="items-center w-1/2">
                       <c-form-label width="100px"> Edition </c-form-label>
                       <c-input
                         v-model="workbook.edition"
                         flex="1"
                         type="text"
                       />
-                    </c-box>
-                    <c-box display="flex" w="50%">
-                      <c-form-label width="100px" px="2">
-                        Languge
-                      </c-form-label>
-                      <c-input
+                    </c-flex>
+
+                    <!-- language -->
+                    <c-flex class="items-center w-1/2">
+                      <c-form-label width="100px"> Language </c-form-label>
+                      <c-select
                         v-model="workbook.language"
+                        placeholder="Select Language"
                         flex="1"
-                        type="text"
-                      />
-                    </c-box>
+                      >
+                        <option value="English">English</option>
+                        <option value="America">America</option>
+                        <option value="Vietnamese">Vietnamese</option>
+                      </c-select>
+                    </c-flex>
                   </c-form-control>
 
-                  <c-form-control display="flex" align-items="center">
-                    <c-box display="flex" w="80%">
+                  <c-form-control class="flex items-center">
+                    <!-- price -->
+                    <c-flex class="items-center w-4/5">
                       <c-form-label width="100px"> Price </c-form-label>
                       <c-input v-model="workbook.price" flex="1" type="text" />
-                    </c-box>
-                    <c-box display="flex" w="20%" pl="2">
+                    </c-flex>
+
+                    <!-- currency -->
+                    <c-flex class="items-center w-1/5 pl-2">
                       <c-select v-model="workbook.curency">
                         <option selected>USD</option>
                       </c-select>
-                    </c-box>
+                    </c-flex>
                   </c-form-control>
 
-                  <c-form-control display="flex" align-items="center">
+                  <!-- categories -->
+                  <c-form-control class="flex items-center">
                     <c-form-label width="100px"> Categories </c-form-label>
                     <c-input flex="1" type="text" />
                   </c-form-control>
