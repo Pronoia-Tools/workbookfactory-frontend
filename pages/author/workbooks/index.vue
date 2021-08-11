@@ -1,7 +1,7 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
     <side-bar>
-      <editor-sidebar />
+      <author-sidebar />
     </side-bar>
     <c-box class="w-full lg:w-4/5" overflow="hidden">
       <c-box mx="4" my="5" py="5" background-color="#fff">
@@ -100,12 +100,12 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import EditorSidebar from '@/components/SideBar/EditorSidebar.vue'
+import AuthorSidebar from '@/components/SideBar/AuthorSidebar.vue'
 
 export default {
   components: {
     'side-bar': SideBar,
-    'editor-sidebar': EditorSidebar,
+    'author-sidebar': AuthorSidebar,
   },
   props: {},
   data() {

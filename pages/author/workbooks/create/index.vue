@@ -2,7 +2,7 @@
   <c-flex direction="row" w="100%">
     <!-- side bar -->
     <side-bar>
-      <editor-sidebar />
+      <author-sidebar />
     </side-bar>
 
     <!-- content -->
@@ -93,13 +93,12 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import EditorSidebar from '@/components/SideBar/EditorSidebar.vue'
-// import WorkbookApi from '@/apis/author/workbook'
+import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
 
 export default {
   components: {
     'side-bar': SideBar,
-    'editor-sidebar': EditorSidebar,
+    'author-sidebar': AuthorSideBar,
   },
   data() {
     return {

@@ -1,7 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
     <c-box w="20%">
-      <side-bar> </side-bar>
+      <side-bar>
+        <author-sidebar />
+      </side-bar>
     </c-box>
     <c-box w="80%">
       <c-box mx="4" my="5" py="5" background-color="#fff">
@@ -94,9 +96,12 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
+
 export default {
   components: {
     'side-bar': SideBar,
+    'author-sidebar': AuthorSideBar,
   },
   data() {
     return {
