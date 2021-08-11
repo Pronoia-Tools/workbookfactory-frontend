@@ -6,16 +6,32 @@
     <c-box class="w-full lg:w-4/5" overflow="hidden">
       <c-box mx="4" my="5" py="5" background-color="#fff">
         <c-box px="2rem">
-          <c-box mt="20px" display="flex" justify-content="flex-end">
+          <!-- create & search -->
+          <c-flex class="items-center mt-5 justify-between">
+            <!-- create -->
+            <nuxt-link to="/author/workbooks/create">
+              <c-button
+                right-icon="arrow-forward"
+                variant-color="blue"
+                variant="outline"
+              >
+                Create new workbook
+              </c-button>
+            </nuxt-link>
+
+            <!-- search -->
             <c-input-group>
               <c-input-left-element>
                 <c-icon name="searchIcon" color="gray.300" />
               </c-input-left-element>
               <c-input type="text" placeholder="Search" />
             </c-input-group>
-          </c-box>
+          </c-flex>
+
+          <!-- list of workbooks -->
           <c-box min-height="300px" mt="20px" width="100%" overflow-x="auto">
             <c-box as="table" width="100%">
+              <!-- table head -->
               <c-box as="thead">
                 <c-box
                   as="tr"
@@ -29,7 +45,7 @@
                   text-align="left"
                 >
                   <c-box as="th" width="10px"> # </c-box>
-                  <c-box as="th" width="200px">Title</c-box>
+                  <c-box as="th" width="400px">Title</c-box>
                   <c-box as="th" width="100px">Published</c-box>
                   <c-box as="th" width="50px">Edition</c-box>
                   <c-box as="th" width="100px">Language</c-box>
@@ -38,6 +54,8 @@
                   <c-box as="th" width="100px"></c-box>
                 </c-box>
               </c-box>
+
+              <!-- table body -->
               <c-box
                 v-if="workbooks.length > 0"
                 as="tbody"
@@ -55,6 +73,7 @@
                   <c-box as="td">
                     {{ workbook.price }} {{ workbook.curency }}
                   </c-box>
+
                   <c-box as="td">
                     <span v-if="workbook.published">
                       Published to marketplace
@@ -64,30 +83,45 @@
                     </span>
                     <span v-else> Draft </span>
                   </c-box>
-                  <c-box as="td">
-                    <nuxt-link :to="`/author/workbooks/${workbook.id}`">
+
+                  <c-flex class="items-center" as="td">
+                    <!-- preview -->
+                    <c-box class="mx-1">
+                      <nuxt-link :to="`/author/workbooks/${workbook.id}`">
+                        <c-icon-button
+                          variant="outline"
+                          variant-color="vue"
+                          icon="eyeIcon"
+                          aria-label="Detail"
+                          size="sm"
+                        />
+                      </nuxt-link>
+                    </c-box>
+
+                    <!-- edit -->
+                    <c-box class="mx-1">
+                      <nuxt-link :to="`/author/workbooks/${workbook.id}/edit`">
+                        <c-icon-button
+                          variant="outline"
+                          variant-color="vue"
+                          icon="editIcon"
+                          aria-label="Edit"
+                          size="sm"
+                        />
+                      </nuxt-link>
+                    </c-box>
+
+                    <!-- delete -->
+                    <c-box class="mx-1">
                       <c-icon-button
                         variant="outline"
                         variant-color="vue"
-                        icon="eyeIcon"
-                        aria-label="Detail"
+                        icon="trashIcon"
+                        aria-label="Trash"
+                        size="sm"
                       />
-                    </nuxt-link>
-                    <nuxt-link :to="`/author/workbooks/${workbook.id}/edit`">
-                      <c-icon-button
-                        variant="outline"
-                        variant-color="vue"
-                        icon="editIcon"
-                        aria-label="Edit"
-                      />
-                    </nuxt-link>
-                    <c-icon-button
-                      variant="outline"
-                      variant-color="vue"
-                      icon="trashIcon"
-                      aria-label="Trash"
-                    />
-                  </c-box>
+                    </c-box>
+                  </c-flex>
                 </c-box>
               </c-box>
             </c-box>
