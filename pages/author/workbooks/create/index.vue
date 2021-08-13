@@ -7,10 +7,10 @@
 
     <!-- content -->
     <c-box w="80%">
-      <c-box class="m-5 py-5 bg-white">
+      <c-box class="py-5 m-5">
         <c-box class="px-2">
           <c-box>
-            <c-heading as="h2" size="md"> eWorkbook Information </c-heading>
+            <c-heading as="h2" size="md">Workbook Information </c-heading>
           </c-box>
 
           <c-box class="py-10">
@@ -19,64 +19,33 @@
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
                   <!-- title -->
-                  <c-form-control class="flex items-center">
+                  <c-form-control is-required class="flex items-center">
                     <c-form-label width="100px"> Title </c-form-label>
                     <c-input v-model="workbookTitle" flex="1" type="text" />
                   </c-form-control>
 
-                  <c-form-control class="flex">
-                    <!-- edition -->
-                    <c-flex class="items-center w-1/2 mr-4">
-                      <c-form-label width="100px"> Edition </c-form-label>
-                      <c-input v-model="workbookEdition" flex="1" type="text" />
-                    </c-flex>
-
-                    <!-- language -->
-                    <c-flex class="items-center w-1/2">
-                      <c-form-label width="100px"> Language </c-form-label>
-                      <c-select
-                        v-model="workbookLanguage"
-                        placeholder="Select Language"
-                        flex="1"
-                      >
-                        <option
-                          v-for="language in languages"
-                          :key="language.id"
-                        >
-                          {{ language.value }}
-                        </option>
-                      </c-select>
-                    </c-flex>
-                  </c-form-control>
-
-                  <c-form-control class="flex">
-                    <!-- price -->
-                    <c-flex class="items-center w-4/5">
-                      <c-form-label width="100px"> Price </c-form-label>
-                      <c-input v-model="workbookPrice" flex="1" type="text" />
-                    </c-flex>
-
-                    <!-- currency unit -->
-                    <c-box display="flex" w="20%" pl="2">
-                      <c-select
-                        v-model="workbookCurrency"
-                        placeholder="Select Unit"
-                      >
-                        <option
-                          v-for="currency in currencies"
-                          :key="currency.id"
-                        >
-                          {{ currency.unit }}
-                        </option>
-                      </c-select>
-                    </c-box>
-                  </c-form-control>
-
+                  <c-flex>
+                    <c-form-control is-required class="flex">
+                      <!-- price -->
+                      <c-flex class="items-center w-4/5">
+                        <c-form-label width="100px">Price</c-form-label>
+                        <c-input v-model="workbookPrice" flex="1" type="text" />
+                      </c-flex>
+                    </c-form-control>
+                    <c-form-control is-required>
+                      <!-- edition -->
+                      <c-flex class="items-center w-1/2 mr-4">
+                        <c-form-label width="100px"> Edition </c-form-label>
+                        <c-input v-model="workbookEdition" flex="1" type="text" />
+                      </c-flex>
+                    </c-form-control>
+                  </c-flex>
+                  
                   <!-- categories -->
-                  <c-form-control class="flex items-center">
-                    <c-form-label width="100px"> Categories </c-form-label>
+                  <c-form-control is-required class="flex items-center">
+                    <c-form-label width="100px">Categories</c-form-label>
                     <c-input
-                      v-model="workbookCategories"
+                      v-model="workbookTags"
                       flex="1"
                       type="text"
                     />
@@ -108,9 +77,10 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
-import { LANGUAGES, CURRENCY_UNIT } from '@/utils/constants'
+import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
 export default {
+  fetchOnServer: false,
   components: {
     'side-bar': SideBar,
     'author-sidebar': AuthorSideBar,
@@ -119,13 +89,12 @@ export default {
     return {
       workbookTitle: '',
       workbookLanguage: '',
-      workbookPrice: '',
-      workbookCurrency: '',
+      workbookEdition: 1,
+      workbookPrice: 0.0,
       workbookDescription: '',
-      workbookCategories: '',
-      workbookEdition: '',
-      languages: LANGUAGES,
-      currencies: CURRENCY_UNIT,
+      workbookTags: 'test',
+      supportedLanguages: LANGUAGES,
+      supportCurrencies: CURRENCY_UNITS
     }
   },
   methods: {
@@ -135,12 +104,12 @@ export default {
         language: this.workbookLanguage,
         edition: this.workbookEdition,
         price: this.workbookPrice,
-        description: this.workbookDescription,
-        currency: this.workbookCurrency,
-        categories: this.workbookCategories,
+        tags: ['test'],
+        description: this.workbookDescription
       }
+      
       const response = await this.$axios.$post('api/v1/workbooks', params)
-
+      
       if (response) {
         this.$toast({
           title: 'Success',

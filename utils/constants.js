@@ -13,7 +13,7 @@ export const LANGUAGES = [
   },
 ]
 
-export const CURRENCY_UNIT = [
+export const CURRENCY_UNITS = [
   {
     id: 1,
     unit: 'USD',

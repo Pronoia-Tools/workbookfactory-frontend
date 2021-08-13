@@ -1,11 +1,6 @@
 export default function ({
   $axios,
-  __isRetryRequest,
-  store,
   app,
-  redirect,
-  payload,
-  next,
 }) {
   $axios.onRequest((config) => {
     if (app.$cookies.get('access_token') && app.$cookies.get('refresh_token')) {
