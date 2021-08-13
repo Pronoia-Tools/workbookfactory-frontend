@@ -1,6 +1,16 @@
 <template>
   <div
-    class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8"
+    class="
+      flex
+      items-center
+      justify-center
+      min-h-screen
+      px-4
+      py-12
+      bg-gray-50
+      sm:px-6
+      lg:px-8
+    "
   >
     <div class="w-full max-w-md space-y-8">
       <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
@@ -19,13 +29,33 @@
               type="email"
               autocomplete="email"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:outline-none
+                focus:ring-indigo-500
+                focus:border-indigo-500
+                focus:z-10
+                sm:text-sm
+              "
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
             <div v-if="$v.email.$error" class="invalid-feedback">
-              <span v-if="!$v.email.required">Email is required</span>
-              <span v-if="!$v.email.email">Email is invalid</span>
+              <span v-if="!$v.email.required" class="text-xs text-red-500"
+                >Email is required</span
+              >
+              <span v-if="!$v.email.email" class="text-xs text-red-500"
+                >Email is invalid</span
+              >
             </div>
           </div>
 
@@ -38,15 +68,33 @@
               type="password"
               autocomplete="current-password"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:outline-none
+                focus:ring-indigo-500
+                focus:border-indigo-500
+                focus:z-10
+                sm:text-sm
+              "
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
             <div v-if="$v.password.$error" class="invalid-feedback">
-              <span v-if="!$v.password.required">Password is required</span>
-              <span v-if="!$v.password.minLength"
-                >Password must be at least 6 characters</span
-              >
+              <span v-if="!$v.password.required" class="text-xs text-red-500">
+                Password is required
+              </span>
+              <span v-if="!$v.password.minLength" class="text-xs text-red-500">
+                Password must be at least 6 characters
+              </span>
             </div>
           </div>
         </div>
@@ -57,7 +105,14 @@
               id="remember_me"
               name="remember_me"
               type="checkbox"
-              class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              class="
+                w-4
+                h-4
+                text-indigo-600
+                border-gray-300
+                rounded
+                focus:ring-indigo-500
+              "
             />
             <label for="remember_me" class="block ml-2 text-sm text-gray-900">
               Remember me
@@ -77,7 +132,26 @@
         <div>
           <button
             type="button"
-            class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            class="
+              relative
+              flex
+              justify-center
+              w-full
+              px-4
+              py-2
+              text-sm
+              font-medium
+              text-white
+              bg-indigo-600
+              border border-transparent
+              rounded-md
+              group
+              hover:bg-indigo-700
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-indigo-500
+            "
             @click="login()"
           >
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -141,7 +215,7 @@ export default {
     async login() {
       // stop here if form is invalid
       this.$v.$touch()
-      
+
       if (!this.$v.$invalid) {
         await this.actionLogin({
           email: this.email,
@@ -170,7 +244,7 @@ export default {
           })
           this.$router.push('/login')
         }
-      }     
+      }
     },
   },
 }
