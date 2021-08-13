@@ -209,3 +209,5 @@ static/sw.*
 
 # Vim swap files
 *.swp
+
+static/sw.js

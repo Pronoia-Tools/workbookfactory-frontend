@@ -142,7 +142,7 @@ export default {
       // stop here if form is invalid
       this.$v.$touch()
       
-      if (this.$v.$valid) {
+      if (!this.$v.$invalid) {
         await this.actionLogin({
           email: this.email,
           password: this.password,
