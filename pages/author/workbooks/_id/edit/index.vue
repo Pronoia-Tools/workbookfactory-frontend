@@ -1,7 +1,9 @@
 <template>
   <c-flex direction="row" w="100%" min-h="95vh">
     <c-box w="20%">
-      <side-bar> </side-bar>
+      <side-bar>
+        <author-sidebar />
+      </side-bar>
     </c-box>
     <c-box w="80%">
       <c-box mx="4" my="5" py="5" background-color="#fff">
@@ -23,7 +25,7 @@
 
                   <c-form-control class="flex items-center">
                     <!-- edition -->
-                    <c-flex class="items-center w-1/2">
+                    <c-flex class="items-center w-1/2 mr-4">
                       <c-form-label width="100px"> Edition </c-form-label>
                       <c-input
                         v-model="workbook.edition"
@@ -40,24 +42,36 @@
                         placeholder="Select Language"
                         flex="1"
                       >
-                        <option value="English">English</option>
-                        <option value="America">America</option>
-                        <option value="Vietnamese">Vietnamese</option>
+                        <option
+                          v-for="language in languages"
+                          :key="language.id"
+                          :value="language.value"
+                        >
+                          {{ language.value }}
+                        </option>
                       </c-select>
                     </c-flex>
                   </c-form-control>
 
                   <c-form-control class="flex items-center">
                     <!-- price -->
-                    <c-flex class="items-center w-4/5">
+                    <c-flex class="items-center w-4/5 mr-2">
                       <c-form-label width="100px"> Price </c-form-label>
                       <c-input v-model="workbook.price" flex="1" type="text" />
                     </c-flex>
 
                     <!-- currency -->
-                    <c-flex class="items-center w-1/5 pl-2">
-                      <c-select v-model="workbook.curency">
-                        <option selected>USD</option>
+                    <c-flex class="items-center w-1/5">
+                      <c-select
+                        v-model="workbook.currency"
+                        placeholder="Select Unit"
+                      >
+                        <option
+                          v-for="currency in currencies"
+                          :key="currency.id"
+                        >
+                          {{ currency.unit }}
+                        </option>
                       </c-select>
                     </c-flex>
                   </c-form-control>
@@ -71,13 +85,12 @@
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="4">
+            <c-box mt="8">
               <c-textarea
                 v-model="workbook.description"
+                :value="workbook.description"
                 placeholder="Description"
-                text-
-                class="min-h-[200px]"
-              ></c-textarea>
+              />
             </c-box>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
@@ -94,9 +107,13 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
+import { LANGUAGES, CURRENCY_UNIT } from '~/utils/constants'
+
 export default {
   components: {
     'side-bar': SideBar,
+    'author-sidebar': AuthorSideBar,
   },
   data() {
     return {
@@ -109,6 +126,8 @@ export default {
         categories: '',
         image: '',
       },
+      languages: LANGUAGES,
+      currencies: CURRENCY_UNIT,
     }
   },
   async fetch() {
