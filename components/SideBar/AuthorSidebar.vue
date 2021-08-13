@@ -43,7 +43,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'AuthorSideBar',
+}
 </script>
 
 <style scoped>

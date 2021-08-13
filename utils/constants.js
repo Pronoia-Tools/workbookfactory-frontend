@@ -1,15 +1,15 @@
 export const LANGUAGES = [
   {
     id: 1,
-    value: 'English',
+    name: 'English',
   },
   {
     id: 2,
-    value: 'American',
+    name: 'American',
   },
   {
     id: 3,
-    value: 'Vietnamese',
+    name: 'Vietnamese',
   },
 ]
 

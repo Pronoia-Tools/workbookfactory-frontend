@@ -43,7 +43,7 @@
                           v-for="language in languages"
                           :key="language.id"
                         >
-                          {{ language.value }}
+                          {{ language.name }}
                         </option>
                       </c-select>
                     </c-flex>
@@ -137,8 +137,9 @@ export default {
         price: this.workbookPrice,
         description: this.workbookDescription,
         currency: this.workbookCurrency,
-        categories: this.workbookCategories,
+        tags: this.workbookCategories.split(','),
       }
+
       const response = await this.$axios.$post('api/v1/workbooks', params)
 
       if (response) {

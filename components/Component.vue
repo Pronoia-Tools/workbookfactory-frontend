@@ -9,6 +9,7 @@
 import { NodeViewWrapper, NodeViewContent, nodeViewProps } from '@tiptap/vue-2'
 
 export default {
+  name: 'CommponentVue',
   components: {
     NodeViewWrapper,
     NodeViewContent,

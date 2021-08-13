@@ -61,9 +61,19 @@
                     </c-box>
                   </c-flex>
 
+                  <!-- tags -->
                   <c-flex class="items-center">
-                    <c-text class="font-semibold w-24"> Categories: </c-text>
-                    <c-text>{{ workbook.categories || 'updating...' }}</c-text>
+                    <c-text class="font-semibold w-24"> Tags: </c-text>
+                    <c-stack :spacing="4" align-items="start" is-inline>
+                      <c-tag
+                        v-for="(tag, index) in workbook.tags"
+                        :key="index"
+                        class="mr-2"
+                        variant-color="vue"
+                      >
+                        {{ tag || 'updating...' }}
+                      </c-tag>
+                    </c-stack>
                   </c-flex>
                 </c-stack>
               </c-grid-item>
@@ -153,11 +163,13 @@ export default {
     'side-bar': SideBar,
     'author-sidebar': AuthorSideBar,
   },
+
   data() {
     return {
       workbook: {},
     }
   },
+
   async fetch() {
     const id = this.$route.params.id
     this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)

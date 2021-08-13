@@ -45,9 +45,8 @@
                         <option
                           v-for="language in languages"
                           :key="language.id"
-                          :value="language.value"
                         >
-                          {{ language.value }}
+                          {{ language.name }}
                         </option>
                       </c-select>
                     </c-flex>
@@ -76,10 +75,11 @@
                     </c-flex>
                   </c-form-control>
 
-                  <!-- categories -->
+                  <!-- tags -->
                   <c-form-control class="flex items-center">
                     <c-form-label width="100px"> Categories </c-form-label>
-                    <c-input flex="1" type="text" />
+                    <!-- <c-input v-model="workbook.tags" flex="1" type="text" /> -->
+                    <tag-input v-if="workbook.tags" :tag-list="workbook.tags" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
@@ -88,8 +88,8 @@
             <c-box mt="8">
               <c-textarea
                 v-model="workbook.description"
-                :value="workbook.description"
                 placeholder="Description"
+                :value="workbook.description"
               />
             </c-box>
 
@@ -108,12 +108,14 @@
 <script>
 import SideBar from '@/components/SideBar.vue'
 import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
+import TagInput from '@/components/TagInput'
 import { LANGUAGES, CURRENCY_UNIT } from '~/utils/constants'
 
 export default {
   components: {
     'side-bar': SideBar,
     'author-sidebar': AuthorSideBar,
+    'tag-input': TagInput,
   },
   data() {
     return {
@@ -123,21 +125,31 @@ export default {
         price: '',
         currency: '',
         description: '',
-        categories: '',
+        tags: [],
         image: '',
       },
+      tagList: [],
       languages: LANGUAGES,
       currencies: CURRENCY_UNIT,
     }
   },
+
   async fetch() {
     const id = this.$route.params.id
     const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+
     this.workbook = { ...this.workbook, ...workbook }
   },
+
   methods: {
     async submitForm() {
-      const id = this.$route.params.id
+      // const id = this.$route.params.id
+      // if (typeof this.workbook.tags === 'string') {
+      //   this.workbook.tags = this.workbook.tags.split(',')
+      // }
+
+      await console.log('2 tags', typeof this.workbook.tags)
+
       const params = {
         title: this.workbook.title,
         language: this.workbook.language,
@@ -145,19 +157,27 @@ export default {
         price: this.workbook.price,
         description: this.workbook.description,
         currency: this.workbook.currency,
-        categories: this.workbook.categories,
+        tags: this.workbook.tags,
       }
-      const response = await this.$axios.$put(`api/v1/workbooks/${id}`, params)
-      if (response) {
-        this.$toast({
-          title: 'Success',
-          description: "You're updated workbook successfully.",
-          status: 'success',
-          duration: 2000,
-          position: 'top-right',
-        })
-        this.$router.push('/author/workbooks')
-      }
+      console.log(
+        '🚀 ~ file: index.vue ~ line 156 ~ submitForm ~ params',
+        params
+      )
+
+      console.log('edit tags', this.workbook.tags)
+
+      // const response = await this.$axios.$put(`api/v1/workbooks/${id}`, params)
+
+      // if (response) {
+      //   this.$toast({
+      //     title: 'Success',
+      //     description: "You're updated workbook successfully.",
+      //     status: 'success',
+      //     duration: 2000,
+      //     position: 'top-right',
+      //   })
+      //   this.$router.push('/author/workbooks')
+      // }
     },
   },
 }
