@@ -1,13 +1,13 @@
 <template>
-  <c-flex direction="row" w="100%" min-h="95vh">
+  <c-flex class="" direction="row" w="100%" min-h="95vh">
     <side-bar>
       <author-sidebar />
     </side-bar>
-    <c-box class="w-full lg:w-4/5" overflow="hidden">
-      <c-box mx="4" my="5" py="5" background-color="#fff">
+    <c-box class="w-full font-mono lg:w-4/5" overflow="hidden">
+      <c-box mx="4" my="5" py="5">
         <c-box px="2rem">
           <!-- create & search -->
-          <c-flex class="items-center mt-5 justify-between">
+          <c-flex class="items-center justify-between mt-5">
             <!-- create -->
             <nuxt-link to="/author/workbooks/create">
               <c-button

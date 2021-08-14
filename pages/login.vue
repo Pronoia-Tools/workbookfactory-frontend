@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8"
+    class="flex items-center justify-center min-h-screen px-4 py-12 font-mono bg-gray-50 sm:px-6 lg:px-8"
   >
     <div class="w-full max-w-md space-y-8">
       <h2 class="mt-6 text-3xl font-extrabold text-center text-gray-900">
@@ -23,7 +23,7 @@
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
-            <div v-if="$v.email.$error" class="invalid-feedback">
+            <div v-if="$v.email.$error" class="text-xs text-red-500">
               <span v-if="!$v.email.required">Email is required</span>
               <span v-if="!$v.email.email">Email is invalid</span>
             </div>
@@ -42,7 +42,7 @@
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
-            <div v-if="$v.password.$error" class="invalid-feedback">
+            <div v-if="$v.password.$error" class="text-xs text-red-500">
               <span v-if="!$v.password.required">Password is required</span>
               <span v-if="!$v.password.minLength"
                 >Password must be at least 6 characters</span
@@ -67,7 +67,7 @@
           <div class="text-sm">
             <nuxt-link
               to="/register"
-              class="font-medium text-indigo-600 hover:text-indigo-500"
+              class="text-indigo-600 hover:text-indigo-500"
             >
               Don't have account?
             </nuxt-link>
@@ -75,15 +75,17 @@
         </div>
 
         <div>
-          <button
-            type="button"
-            class="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            @click="login()"
+          <c-button
+            :is-loading="isLoading"
+            loading-text="Logging in"
+            variant-color="blue"
+            class="relative flex justify-center w-full px-4 py-2 text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700"
+            @click="loginHandler()"
           >
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg
-                class="w-5 h-5 text-indigo-500 group-hover:text-indigo-400"
+                class="w-5 h-5 text-white group-hover:text-indigo-400"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -97,7 +99,7 @@
               </svg>
             </span>
             Sign in
-          </button>
+          </c-button>
         </div>
       </form>
     </div>
@@ -131,23 +133,24 @@ export default {
     ...mapGetters('auth', {
       getterLoginStatus: 'getLoginStatus',
       getterAuthData: 'getAuthData',
+      isLoading: 'getIsLoading'
     }),
   },
 
   methods: {
-    ...mapActions('auth', {
-      actionLogin: 'login',
+    ...mapActions({
+      login: 'auth/login',
     }),
-    async login() {
+    async loginHandler() {
       // stop here if form is invalid
       this.$v.$touch()
       
       if (!this.$v.$invalid) {
-        await this.actionLogin({
+        await this.login({
           email: this.email,
           password: this.password,
         })
-
+        
         if (this.getterLoginStatus) {
           this.$toast({
             title: 'Success',

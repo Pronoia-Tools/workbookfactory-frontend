@@ -39,7 +39,6 @@
     "nuxt": "^2.15.3",
     "swiper": "^6.7.5",
     "vue-awesome-swiper": "^4.1.1",
-    "vue-router": "^3.5.2",
     "vuedraggable": "^2.24.3",
     "vuelidate": "^0.7.6",
     "vuex-persist": "^3.1.3",

@@ -9,6 +9,7 @@ const state = () => {
       tokenExp: '',
     },
     isLoggedIn: false,
+    isLoading: false,
   }
 }
 
@@ -19,19 +20,27 @@ const getters = {
   getAuthData(state) {
     return state.authData
   },
+  getIsLoading(state) {
+    return state.isLoading
+  }
 }
 
 const actions = {
   async login({ commit }, payload) {
-    const response = await this.$axios
-      .$post('/api/token/', payload)
-      .catch((error) => {
-        console.log(error)
-      })
-
-    if (response) {
+    try {
+      await commit('setLoading', true)
+      const response = await this.$axios
+        .$post('/api/token/', payload)
+        .catch((error) => {
+          console.log(error)
+        })
       await commit('saveTokenData', response)
+      await commit('setLoading', false)
+    } catch (e) {
+      await commit('setLoading', false)
+      console.log('Login error: ', e)
     }
+    
   },
 
   logout({ commit }) {
@@ -55,6 +64,10 @@ const mutations = {
 
     state.authData = newTokenData
     state.isLoggedIn = !!response.access
+  },
+
+  setLoading(state, payload) {
+    state.isLoading = payload
   },
 
   removeTokenData(state) {
