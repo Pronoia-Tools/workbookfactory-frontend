@@ -22,9 +22,13 @@ const getters = {
 
 const actions = {
   async getCartItems({ commit }) {
-    const response = await this.$axios.$get('/api/v1/cart/')
+    try {
+      const response = await this.$axios.$get('/api/v1/cart/')
 
-    if (response) await commit('updateCartItems', response)
+      if (response) await commit('updateCartItems', response)
+    } catch (error) {
+      console.log(error.message)
+    }
   },
 
   async addCartItem({ commit }, payload) {

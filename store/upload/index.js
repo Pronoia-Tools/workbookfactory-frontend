@@ -12,9 +12,14 @@ const getters = {
 
 const actions = {
   async getLibrariesImages({ commit }, payload) {
-    const images = await this.$axios.$get('api/v1/images')
-    if (images) {
-      await commit('setList', images)
+    try {
+      const images = await this.$axios.$get('api/v1/images')
+
+      if (images) {
+        await commit('setList', images)
+      }
+    } catch (error) {
+      console.log(error.message)
     }
   },
 
@@ -24,7 +29,9 @@ const actions = {
       if (response) {
         await commit('addToList', response)
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message)
+    }
   },
 }
 

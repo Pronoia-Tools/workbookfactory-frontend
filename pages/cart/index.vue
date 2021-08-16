@@ -92,7 +92,17 @@ export default {
     }
   },
   async fetch() {
-    this.workbooks = await this.$axios.$get('api/v1/workbooks')
+    try {
+      this.workbooks = await this.$axios.$get('api/v1/workbooks')
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>

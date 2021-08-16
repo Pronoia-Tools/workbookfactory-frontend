@@ -289,11 +289,21 @@ export default {
     }
   },
   async fetch() {
-    const workbookId = this.$route.params.id
-    const response = await this.$axios.$get(
-      `api/v1/public/workbooks/${workbookId}`
-    )
-    this.workbookFields = { ...this.workbookFields, ...response }
+    try {
+      const workbookId = this.$route.params.id
+      const response = await this.$axios.$get(
+        `api/v1/public/workbooks/${workbookId}`
+      )
+      this.workbookFields = { ...this.workbookFields, ...response }
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>

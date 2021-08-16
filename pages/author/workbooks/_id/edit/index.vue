@@ -169,32 +169,55 @@ export default {
     }
   },
   async fetch() {
-    const id = this.$route.params.id
-    const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
-    this.workbook = { ...this.workbook, ...workbook }
+    try {
+      const id = this.$route.params.id
+      const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+      this.workbook = { ...this.workbook, ...workbook }
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
   methods: {
     async submitForm() {
-      const id = this.$route.params.id
-      const params = {
-        title: this.workbook.title,
-        language: this.workbook.language,
-        edition: this.workbook.edition,
-        price: this.workbook.price,
-        description: this.workbook.description,
-        currency: this.workbook.currency,
-        categories: this.workbook.categories,
-      }
-      const response = await this.$axios.$put(`api/v1/workbooks/${id}`, params)
-      if (response) {
+      try {
+        const id = this.$route.params.id
+        const params = {
+          title: this.workbook.title,
+          language: this.workbook.language,
+          edition: this.workbook.edition,
+          price: this.workbook.price,
+          description: this.workbook.description,
+          currency: this.workbook.currency,
+          categories: this.workbook.categories,
+        }
+        const response = await this.$axios.$put(
+          `api/v1/workbooks/${id}`,
+          params
+        )
+        if (response) {
+          this.$toast({
+            title: 'Success',
+            description: "You're updated workbook successfully.",
+            status: 'success',
+            duration: 2000,
+            position: 'top-right',
+          })
+          this.$router.push('/author/workbooks')
+        }
+      } catch (error) {
         this.$toast({
-          title: 'Success',
-          description: "You're updated workbook successfully.",
-          status: 'success',
+          title: 'Failed',
+          description: 'Something wrong happen',
+          status: 'error',
           duration: 2000,
           position: 'top-right',
         })
-        this.$router.push('/author/workbooks')
       }
     },
   },

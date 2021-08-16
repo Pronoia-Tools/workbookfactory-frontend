@@ -137,26 +137,36 @@ export default {
   },
   methods: {
     async submitForm() {
-      const params = {
-        title: this.workbookTitle,
-        language: this.workbookLanguage,
-        edition: this.workbookEdition,
-        price: this.workbookPrice,
-        tags: ['test'],
-        description: this.workbookDescription,
-      }
+      try {
+        const params = {
+          title: this.workbookTitle,
+          language: this.workbookLanguage,
+          edition: this.workbookEdition,
+          price: this.workbookPrice,
+          tags: ['test'],
+          description: this.workbookDescription,
+        }
 
-      const response = await this.$axios.$post('api/v1/workbooks', params)
+        const response = await this.$axios.$post('api/v1/workbooks', params)
 
-      if (response) {
+        if (response) {
+          this.$toast({
+            title: 'Success',
+            description: "You're created workbook successfully.",
+            status: 'success',
+            duration: 2000,
+            position: 'top-right',
+          })
+          this.$router.push('/author/workbooks')
+        }
+      } catch (error) {
         this.$toast({
-          title: 'Success',
-          description: "You're created workbook successfully.",
-          status: 'success',
+          title: 'Failed',
+          description: 'Something wrong happen',
+          status: 'error',
           duration: 2000,
           position: 'top-right',
         })
-        this.$router.push('/author/workbooks')
       }
     },
   },

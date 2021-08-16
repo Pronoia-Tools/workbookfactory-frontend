@@ -1,21 +1,21 @@
 <template>
-  <c-box class="container mx-auto my-8">
-    <c-box>
+  <c-box class="container mx-auto my-8 px-4">
+    <c-box class="mb-6">
       <h1 class="text-3xl font-ibm">Your Library</h1>
     </c-box>
-    <c-box
+    <c-flex
       v-cloak
       v-if="libraries && libraries.length"
-      class="my-6 grid grid-flow-col lg:grid-cols-4 lg:gap-4 products"
+      class="items-center flex-wrap"
     >
       <c-box
         v-for="library in libraries"
         :key="library.id"
-        class="product-item"
+        class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-[70px] px-8 md:px-4"
       >
         <workbook-item :workbooks="library.workbooks" />
       </c-box>
-    </c-box>
+    </c-flex>
   </c-box>
 </template>
 
@@ -31,14 +31,18 @@ export default {
     }
   },
   async fetch() {
-    const response = await this.$axios.$get('api/v1/libraries')
-    this.libraries = response
+    try {
+      const response = await this.$axios.$get('api/v1/libraries')
+      this.libraries = response
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>
-
-<style lang="scss">
-.product-img:hover .overlay {
-  opacity: 1;
-}
-</style>

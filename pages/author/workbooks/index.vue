@@ -186,8 +186,18 @@ export default {
     }
   },
   async fetch() {
-    const response = await this.$axios.$get('api/v1/workbooks')
-    this.workbooks = response || []
+    try {
+      const response = await this.$axios.$get('api/v1/workbooks')
+      this.workbooks = response || []
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>
