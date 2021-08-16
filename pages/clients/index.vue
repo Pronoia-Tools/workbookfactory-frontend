@@ -2,7 +2,36 @@
   <c-flex direction="row" w="100%" h="95vh">
     <!-- sidebar with slot -->
     <side-bar>
-      <clients-sidebar />
+      <c-flex
+        direction="column"
+        w="100%"
+        align="flex-start"
+        as="nav"
+        class="nav"
+      >
+        <c-flex
+          my="10px"
+          w="100%"
+          border-bottom="1px"
+          border-color="gray.200"
+          py="8"
+          pl="8"
+          justify="space-between"
+          align="center"
+        >
+          <c-text font-size="20px" cursor="default">Clients</c-text>
+          <c-image
+            :src="require('@/static/icons/chevronDown.svg')"
+            alt="chevron-down"
+            class="w-4 h-4"
+          />
+        </c-flex>
+        <c-list>
+          <c-list-item px="8" py="4">
+            <c-box> Client Listing </c-box>
+          </c-list-item>
+        </c-list>
+      </c-flex>
     </side-bar>
 
     <!-- table clients -->
@@ -59,12 +88,7 @@
 </template>
 
 <script>
-import ClientsSidebar from '../../components/SideBar/ClientsSidebar.vue'
-
 export default {
-  components: {
-    'clients-sidebar': ClientsSidebar,
-  },
   data() {
     return {
       items: [

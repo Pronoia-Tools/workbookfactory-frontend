@@ -1,7 +1,36 @@
 <template>
   <c-flex direction="row" w="100%" h="95vh">
     <side-bar>
-      <clients-sidebar />
+      <c-flex
+        direction="column"
+        w="100%"
+        align="flex-start"
+        as="nav"
+        class="nav"
+      >
+        <c-flex
+          my="10px"
+          w="100%"
+          border-bottom="1px"
+          border-color="gray.200"
+          py="8"
+          pl="8"
+          justify="space-between"
+          align="center"
+        >
+          <c-text font-size="20px" cursor="default">Clients</c-text>
+          <c-image
+            :src="require('@/static/icons/chevronDown.svg')"
+            alt="chevron-down"
+            class="w-4 h-4"
+          />
+        </c-flex>
+        <c-list>
+          <c-list-item px="8" py="4">
+            <c-box> Client Listing </c-box>
+          </c-list-item>
+        </c-list>
+      </c-flex>
     </side-bar>
     <c-box class="w-full mx-3 my-10">
       <c-flex my="10" direction="row" justify="space-between" align="center">
@@ -41,13 +70,11 @@
 </template>
 
 <script>
-import ClientsSidebar from '@/components/SideBar/ClientsSidebar.vue'
 import Comment from '@/components/Clients/Comment.vue'
 import Points from '@/components/Clients/Points.vue'
 
 export default {
   components: {
-    'clients-sidebar': ClientsSidebar,
     comment: Comment,
     points: Points,
   },
