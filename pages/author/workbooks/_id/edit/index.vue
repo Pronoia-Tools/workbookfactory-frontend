@@ -119,7 +119,7 @@
                   <!-- categories -->
                   <c-form-control class="flex items-center">
                     <c-form-label width="100px"> Categories </c-form-label>
-                    <c-input flex="1" type="text" />
+                    <c-input v-model="workbook.tags" flex="1" type="text" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
@@ -134,7 +134,13 @@
             </c-box>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
-              <c-button variant-color="blue" size="md" @click="submitForm">
+              <c-button
+                :is-loading="isLoading"
+                loading-text="Submitting"
+                variant-color="blue"
+                size="md"
+                @click="submitForm"
+              >
                 Submit
               </c-button>
             </c-flex>
@@ -155,13 +161,14 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       workbook: {
         title: '',
         language: '',
         price: '',
         currency: '',
         description: '',
-        categories: '',
+        tags: '',
         image: '',
       },
       languages: LANGUAGES,
@@ -185,6 +192,7 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.isLoading = true
       try {
         const id = this.$route.params.id
         const params = {
@@ -194,7 +202,7 @@ export default {
           price: this.workbook.price,
           description: this.workbook.description,
           currency: this.workbook.currency,
-          categories: this.workbook.categories,
+          tags: this.workbook.tags,
         }
         const response = await this.$axios.$put(
           `api/v1/workbooks/${id}`,
@@ -219,6 +227,7 @@ export default {
           position: 'top-right',
         })
       }
+      this.isLoading = false
     },
   },
 }

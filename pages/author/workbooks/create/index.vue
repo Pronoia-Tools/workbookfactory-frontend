@@ -103,7 +103,13 @@
             </c-box>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
-              <c-button variant-color="blue" size="md" @click="submitForm">
+              <c-button
+                :is-loading="isLoading"
+                loading-text="Submitting"
+                variant-color="blue"
+                size="md"
+                @click="submitForm"
+              >
                 Submit
               </c-button>
             </c-flex>
@@ -137,6 +143,7 @@ export default {
   },
   methods: {
     async submitForm() {
+      this.isLoading = true
       try {
         const params = {
           title: this.workbookTitle,
@@ -168,6 +175,7 @@ export default {
           position: 'top-right',
         })
       }
+      this.isLoading = false
     },
   },
 }
