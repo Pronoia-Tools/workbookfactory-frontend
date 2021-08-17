@@ -61,13 +61,15 @@
       <!-- table of content -->
       <table-of-content :headings="headings" />
     </side-bar>
+
     <c-box
       w="60%"
       p="10"
       class="editor h-full border border-gray-200 m-10 flex-1"
     >
       <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
-        <button
+        <!-- bold -->
+        <c-button
           :class="{ 'is-active': editor.isActive('bold') }"
           @click="editor.chain().focus().toggleBold().run()"
         >
@@ -76,8 +78,10 @@
             alt="bold"
             class="w-4 h-4"
           />
-        </button>
-        <button
+        </c-button>
+
+        <!-- italic -->
+        <c-button
           :class="{ 'is-active roun': editor.isActive('italic') }"
           @click="editor.chain().focus().toggleItalic().run()"
         >
@@ -86,8 +90,10 @@
             alt="italic"
             class="w-4 h-4"
           />
-        </button>
-        <button
+        </c-button>
+
+        <!-- strike -->
+        <c-button
           :class="{ 'is-active': editor.isActive('strike') }"
           @click="editor.chain().focus().toggleStrike().run()"
         >
@@ -96,11 +102,12 @@
             alt="strikethrough"
             class="w-4 h-4"
           />
-        </button>
+        </c-button>
       </bubble-menu>
 
       <editor-content h="100%" :editor="editor" />
     </c-box>
+
     <library />
   </c-flex>
 </template>
@@ -282,6 +289,7 @@ export default {
       this.editor.view.dispatch(transaction)
       this.headings = headings
     },
+
     onFileChange(event) {
       // const selectedFile = event.target.files[0]
 

@@ -86,24 +86,30 @@
                   </c-flex>
 
                   <!-- categories -->
-                  <c-form-control is-required class="flex items-center">
+                  <c-form-control is-required class="flex">
                     <c-form-label width="100px">Categories</c-form-label>
-                    <c-input v-model="workbookTags" flex="1" type="text" />
+                    <tag-input :tag-list="workbookTags" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="4">
+            <c-form-control mt="8">
+              <c-form-label class="mb-2"> Description </c-form-label>
               <c-textarea
                 v-model="workbookDescription"
                 placeholder="Description"
-                min-height="300px"
-              ></c-textarea>
-            </c-box>
+              />
+            </c-form-control>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
-              <c-button variant-color="blue" size="md" @click="submitForm">
+              <c-button
+                :is-loading="isLoading"
+                loading-text="Submitting"
+                variant-color="blue"
+                size="md"
+                @click="submitForm"
+              >
                 Submit
               </c-button>
             </c-flex>
@@ -115,6 +121,7 @@
 </template>
 
 <script>
+import TagInput from '@/components/TagInput'
 import SideBar from '@/components/SideBar.vue'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
@@ -122,6 +129,7 @@ export default {
   fetchOnServer: false,
   components: {
     'side-bar': SideBar,
+    'tag-input': TagInput,
   },
   data() {
     return {
@@ -130,34 +138,46 @@ export default {
       workbookEdition: 1,
       workbookPrice: 0.0,
       workbookDescription: '',
-      workbookTags: 'test',
+      workbookTags: [],
       supportedLanguages: LANGUAGES,
       supportCurrencies: CURRENCY_UNITS,
     }
   },
   methods: {
     async submitForm() {
-      const params = {
-        title: this.workbookTitle,
-        language: this.workbookLanguage,
-        edition: this.workbookEdition,
-        price: this.workbookPrice,
-        tags: ['test'],
-        description: this.workbookDescription,
-      }
+      this.isLoading = true
+      try {
+        const params = {
+          title: this.workbookTitle,
+          language: this.workbookLanguage,
+          edition: this.workbookEdition,
+          price: this.workbookPrice,
+          tags: this.workbookTags,
+          description: this.workbookDescription,
+        }
 
-      const response = await this.$axios.$post('api/v1/workbooks', params)
+        const response = await this.$axios.$post('api/v1/workbooks', params)
 
-      if (response) {
+        if (response) {
+          this.$toast({
+            title: 'Success',
+            description: "You're created workbook successfully.",
+            status: 'success',
+            duration: 2000,
+            position: 'top-right',
+          })
+          this.$router.push('/author/workbooks')
+        }
+      } catch (error) {
         this.$toast({
-          title: 'Success',
-          description: "You're created workbook successfully.",
-          status: 'success',
+          title: 'Failed',
+          description: 'Something wrong happen',
+          status: 'error',
           duration: 2000,
           position: 'top-right',
         })
-        this.$router.push('/author/workbooks')
       }
+      this.isLoading = false
     },
   },
 }

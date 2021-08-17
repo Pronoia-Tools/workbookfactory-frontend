@@ -1,5 +1,5 @@
 <template>
-  <div
+  <c-box
     class="
       min-h-screen
       flex
@@ -12,18 +12,25 @@
       lg:px-8
     "
   >
-    <div class="max-w-md w-full space-y-8">
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+    <c-box class="max-w-md w-full space-y-8">
+      <c-heading
+        as="h2"
+        size="xl"
+        class="mt-6 text-center text-3xl font-extrabold text-gray-900"
+      >
         Register your account
-      </h2>
+      </c-heading>
 
-      <form class="mt-8 space-y-6" method="POST">
-        <input type="hidden" name="remember" value="true" />
-        <div class="rounded-md">
+      <c-form-control class="mt-8 space-y-6" method="POST">
+        <c-input type="hidden" name="remember" value="true" />
+
+        <c-box class="rounded-md">
           <!-- user name -->
-          <div class="mb-6">
-            <label for="user_name" class="sr-only">User Name</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="user_name" class="sr-only">
+              User Name
+            </c-form-label>
+            <c-input
               id="user_name"
               v-model="user_name"
               name="user_name"
@@ -36,32 +43,31 @@
                 w-full
                 px-3
                 py-2
-                border border-gray-300
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="User name"
               :class="{ 'is-invalid': $v.user_name.$error }"
             />
-            <div v-if="$v.user_name.$error" class="invalid-feedback">
+            <c-box v-if="$v.user_name.$error" class="invalid-feedback">
               <span v-if="!$v.user_name.required">User name is required</span>
-            </div>
-            <div v-if="isError.username" class="invalid-feedback">
+            </c-box>
+            <c-box v-if="isError.username" class="invalid-feedback">
               <span v-for="(error, index) in isError.username" :key="index">
                 {{ error }}
               </span>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- first name -->
-          <div class="mb-6">
-            <label for="first_name" class="sr-only">First Name</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="first_name" class="sr-only"
+              >First Name</c-form-label
+            >
+            <c-input
               id="first_name"
               v-model="first_name"
               name="first_name"
@@ -78,23 +84,23 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="First name"
               :class="{ 'is-invalid': $v.first_name.$error }"
             />
-            <div v-if="$v.first_name.$error" class="invalid-feedback">
+            <c-box v-if="$v.first_name.$error" class="invalid-feedback">
               <span v-if="!$v.first_name.required">First name is required</span>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- last name -->
-          <div class="mb-6">
-            <label for="last_name" class="sr-only">Last name</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="last_name" class="sr-only"
+              >Last name</c-form-label
+            >
+            <c-input
               id="last_name"
               v-model="last_name"
               name="last_name"
@@ -111,23 +117,23 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="Last name"
               :class="{ 'is-invalid': $v.last_name.$error }"
             />
-            <div v-if="$v.last_name.$error" class="invalid-feedback">
+            <c-box v-if="$v.last_name.$error" class="invalid-feedback">
               <span v-if="!$v.last_name.required">Last name is required</span>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- email -->
-          <div class="mb-6">
-            <label for="email-address" class="sr-only">Email address</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="email-address" class="sr-only"
+              >Email address</c-form-label
+            >
+            <c-input
               id="email-address"
               v-model="email"
               name="email"
@@ -145,29 +151,27 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
-            <div v-if="$v.email.$error" class="invalid-feedback">
+            <c-box v-if="$v.email.$error" class="invalid-feedback">
               <span v-if="!$v.email.required">Email is required</span>
               <span v-if="!$v.email.email">Email is invalid</span>
-            </div>
-            <div v-if="isError.email" class="invalid-feedback">
+            </c-box>
+            <c-box v-if="isError.email" class="invalid-feedback">
               <span v-for="(error, index) in isError.email" :key="index">
                 {{ error }}
               </span>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- password -->
-          <div class="mb-6">
-            <label for="password" class="sr-only">Password</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="password" class="sr-only">Password</c-form-label>
+            <c-input
               id="password"
               v-model="password"
               name="password"
@@ -185,31 +189,31 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
-            <div v-if="$v.password.$error" class="invalid-feedback">
+            <c-box v-if="$v.password.$error" class="invalid-feedback">
               <span v-if="!$v.password.required">Password is required</span>
               <span v-if="!$v.password.minLength">
                 Password must be at least 8 characters
               </span>
-            </div>
-            <div v-if="isError.password1" class="invalid-feedback">
+            </c-box>
+            <c-box v-if="isError.password1" class="invalid-feedback">
               <p v-for="(error, index) in isError.password1" :key="index">
                 {{ error }}
               </p>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- confirm password -->
-          <div class="mb-6">
-            <label for="confirm_password" class="sr-only">Password</label>
-            <input
+          <c-box class="mb-6">
+            <c-form-label for="confirm_password" class="sr-only"
+              >Password</c-form-label
+            >
+            <c-input
               id="confirm_password"
               v-model="confirm_password"
               name="confirm_password"
@@ -227,34 +231,32 @@
                 placeholder-gray-500
                 text-gray-900
                 rounded-md
-                focus:outline-none
-                focus:ring-indigo-500
-                focus:border-indigo-500
-                focus:z-10
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
                 sm:text-sm
               "
               placeholder="Confirm password"
               :class="{ 'is-invalid': $v.confirm_password.$error }"
             />
-            <div v-if="$v.confirm_password.$error" class="invalid-feedback">
+            <c-box v-if="$v.confirm_password.$error" class="invalid-feedback">
               <span v-if="!$v.confirm_password.required">
                 Confirm password is required
               </span>
               <span v-if="!$v.confirm_password.minLength">
                 Confirm password must be at least 8 characters
               </span>
-            </div>
-            <div
+            </c-box>
+            <c-box
               v-if="!$v.confirm_password.sameAsPassword"
               class="invalid-feedback"
             >
               <span>Passwords must be identical</span>
-            </div>
-          </div>
+            </c-box>
+          </c-box>
+
           <!-- checkbox -->
-          <div class="mb-6 flex">
+          <c-box class="mb-6 flex">
             <!-- is_active -->
-            <div class="flex items-center mr-10">
+            <c-box class="flex items-center mr-10">
               <input
                 id="is-active"
                 v-model="isActive"
@@ -262,12 +264,16 @@
                 type="checkbox"
                 class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded"
               />
-              <label for="is-active" class="ml-2 block text-sm text-gray-900">
+              <c-form-label
+                for="is-active"
+                class="ml-2 block text-sm text-gray-900"
+              >
                 Active
-              </label>
-            </div>
+              </c-form-label>
+            </c-box>
+
             <!-- is_staff -->
-            <div class="flex items-center">
+            <c-box class="flex items-center">
               <input
                 id="is-staff"
                 v-model="isStaff"
@@ -275,25 +281,30 @@
                 type="checkbox"
                 class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded"
               />
-              <label for="is-staff" class="ml-2 block text-sm text-gray-900">
+              <c-form-label
+                for="is-staff"
+                class="ml-2 block text-sm text-gray-900"
+              >
                 Staff
-              </label>
-            </div>
-          </div>
-        </div>
+              </c-form-label>
+            </c-box>
+          </c-box>
+        </c-box>
 
-        <div class="text-sm">
+        <c-box class="text-sm">
           <nuxt-link
             to="/login"
             class="font-medium text-indigo-600 hover:text-indigo-500"
           >
             Already have an account?
           </nuxt-link>
-        </div>
+        </c-box>
 
-        <div>
-          <button
+        <c-box>
+          <c-button
             type="button"
+            variant="solid"
+            variant-color="blue"
             class="
               group
               relative
@@ -305,21 +316,15 @@
               border border-transparent
               text-sm
               font-medium
-              rounded-md
-              text-white
-              bg-indigo-600
               hover:bg-indigo-700
-              focus:outline-none
-              focus:ring-2
-              focus:ring-offset-2
-              focus:ring-indigo-500
+              focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
             "
             @click="registerUser()"
           >
             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg
-                class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                class="h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -333,11 +338,11 @@
               </svg>
             </span>
             Register
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
+          </c-button>
+        </c-box>
+      </c-form-control>
+    </c-box>
+  </c-box>
 </template>
 
 <script>

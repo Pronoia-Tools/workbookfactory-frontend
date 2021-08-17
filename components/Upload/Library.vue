@@ -11,11 +11,11 @@
 
     <c-box class="px-4 py-5">
       <c-flex class="justify-between font-semibold">
-        <p as="p" size="sm" class="text-sm">Images</p>
-        <p as="h4" size="sm" class="text-sm text-blue-700">
+        <c-text size="sm" class="text-sm">Images</c-text>
+        <c-heading as="h4" size="sm" class="text-sm text-blue-700">
           <c-icon w="5" name="plus" class="icon" />
           Upload
-        </p>
+        </c-heading>
       </c-flex>
 
       <c-flex class="py-5 space-x-2" align-items="center">

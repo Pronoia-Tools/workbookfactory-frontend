@@ -22,7 +22,7 @@ const getters = {
   },
   getIsLoading(state) {
     return state.isLoading
-  }
+  },
 }
 
 const actions = {
@@ -36,11 +36,10 @@ const actions = {
         })
       await commit('saveTokenData', response)
       await commit('setLoading', false)
-    } catch (e) {
+    } catch (error) {
       await commit('setLoading', false)
-      console.log('Login error: ', e)
+      console.log('Login error: ', error)
     }
-    
   },
 
   logout({ commit }) {

@@ -117,24 +117,31 @@
                   </c-form-control>
 
                   <!-- categories -->
-                  <c-form-control class="flex items-center">
+                  <c-form-control class="flex">
                     <c-form-label width="100px"> Categories </c-form-label>
-                    <c-input flex="1" type="text" />
+                    <tag-input v-if="workbook.tags" :tag-list="workbook.tags" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="8">
+            <c-form-control mt="8">
+              <c-form-label class="mb-2"> Description </c-form-label>
               <c-textarea
                 v-model="workbook.description"
                 :value="workbook.description"
                 placeholder="Description"
               />
-            </c-box>
+            </c-form-control>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
-              <c-button variant-color="blue" size="md" @click="submitForm">
+              <c-button
+                :is-loading="isLoading"
+                loading-text="Submitting"
+                variant-color="blue"
+                size="md"
+                @click="submitForm"
+              >
                 Submit
               </c-button>
             </c-flex>
@@ -147,21 +154,24 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import TagInput from '@/components/TagInput'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
 export default {
   components: {
     'side-bar': SideBar,
+    'tag-input': TagInput,
   },
   data() {
     return {
+      isLoading: false,
       workbook: {
         title: '',
         language: '',
         price: '',
         currency: '',
         description: '',
-        categories: '',
+        tags: [],
         image: '',
       },
       languages: LANGUAGES,
@@ -169,33 +179,59 @@ export default {
     }
   },
   async fetch() {
-    const id = this.$route.params.id
-    const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
-    this.workbook = { ...this.workbook, ...workbook }
+    try {
+      const id = this.$route.params.id
+      const workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+      this.workbook = { ...this.workbook, ...workbook }
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
   methods: {
     async submitForm() {
-      const id = this.$route.params.id
-      const params = {
-        title: this.workbook.title,
-        language: this.workbook.language,
-        edition: this.workbook.edition,
-        price: this.workbook.price,
-        description: this.workbook.description,
-        currency: this.workbook.currency,
-        categories: this.workbook.categories,
-      }
-      const response = await this.$axios.$put(`api/v1/workbooks/${id}`, params)
-      if (response) {
+      this.isLoading = true
+      try {
+        const id = this.$route.params.id
+        const params = {
+          title: this.workbook.title,
+          language: this.workbook.language,
+          edition: this.workbook.edition,
+          price: this.workbook.price,
+          description: this.workbook.description,
+          currency: this.workbook.currency,
+          tags: this.workbook.tags,
+        }
+        const response = await this.$axios.$put(
+          `api/v1/workbooks/${id}`,
+          params
+        )
+
+        if (response) {
+          this.$toast({
+            title: 'Success',
+            description: "You're updated workbook successfully.",
+            status: 'success',
+            duration: 2000,
+            position: 'top-right',
+          })
+          this.$router.push('/author/workbooks')
+        }
+      } catch (error) {
         this.$toast({
-          title: 'Success',
-          description: "You're updated workbook successfully.",
-          status: 'success',
+          title: 'Failed',
+          description: 'Something wrong happen',
+          status: 'error',
           duration: 2000,
           position: 'top-right',
         })
-        this.$router.push('/author/workbooks')
       }
+      this.isLoading = false
     },
   },
 }

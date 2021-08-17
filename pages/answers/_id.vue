@@ -84,8 +84,18 @@ export default {
     }
   },
   async fetch() {
-    const response = await this.$axios.$get('/api/v1/questions')
-    return (this.items = response)
+    try {
+      const response = await this.$axios.$get('/api/v1/questions')
+      this.items = response
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>
