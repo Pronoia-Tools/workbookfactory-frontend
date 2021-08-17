@@ -29,6 +29,7 @@
 
 <script>
 export default {
+  name: 'SlashCommandComponent',
   props: {
     items: {
       type: Array,

@@ -2,7 +2,47 @@
   <c-flex direction="row" w="100%">
     <!-- side bar -->
     <side-bar>
-      <author-sidebar />
+      <c-flex direction="column" w="100%" align="center" as="nav" class="nav">
+        <c-box class="w-full">
+          <c-box as="ul" class="mt-4 text-sm">
+            <c-box as="li" class="">
+              <nuxt-link to="" class="p-4 flex">
+                <c-flex class="w-full items-center">
+                  <span class="flex-1"> Sale</span>
+                </c-flex>
+              </nuxt-link>
+            </c-box>
+            <c-box as="li" class="">
+              <nuxt-link to="author/workbooks" class="p-4 flex">
+                <c-flex class="w-full items-center">
+                  <span class="flex-1"> Workbooks</span>
+                  <c-icon w="5" name="chevronRight" class="icon" />
+                </c-flex>
+              </nuxt-link>
+              <c-box as="ul">
+                <c-box as="li" class="">
+                  <nuxt-link
+                    to="/author/workbooks/create"
+                    class="p-4 flex items-center"
+                  >
+                    <span class="ml-2 flex-1 font-bold">
+                      Create New Workbook
+                      <c-icon w="5" name="plus" class="icon" />
+                    </span>
+                  </nuxt-link>
+                </c-box>
+              </c-box>
+            </c-box>
+            <c-box as="li" class="">
+              <nuxt-link to="/" class="p-4 flex">
+                <c-flex class="w-full items-center">
+                  <span class="flex-1"> Customer</span>
+                </c-flex>
+              </nuxt-link>
+            </c-box>
+          </c-box>
+        </c-box>
+      </c-flex>
     </side-bar>
 
     <!-- content -->
@@ -36,19 +76,19 @@
                       <!-- edition -->
                       <c-flex class="items-center w-1/2 mr-4">
                         <c-form-label width="100px"> Edition </c-form-label>
-                        <c-input v-model="workbookEdition" flex="1" type="text" />
+                        <c-input
+                          v-model="workbookEdition"
+                          flex="1"
+                          type="text"
+                        />
                       </c-flex>
                     </c-form-control>
                   </c-flex>
-                  
+
                   <!-- categories -->
                   <c-form-control is-required class="flex items-center">
                     <c-form-label width="100px">Categories</c-form-label>
-                    <c-input
-                      v-model="workbookTags"
-                      flex="1"
-                      type="text"
-                    />
+                    <c-input v-model="workbookTags" flex="1" type="text" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
@@ -76,14 +116,12 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
-import AuthorSideBar from '@/components/SideBar/AuthorSidebar.vue'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
 export default {
   fetchOnServer: false,
   components: {
     'side-bar': SideBar,
-    'author-sidebar': AuthorSideBar,
   },
   data() {
     return {
@@ -94,7 +132,7 @@ export default {
       workbookDescription: '',
       workbookTags: 'test',
       supportedLanguages: LANGUAGES,
-      supportCurrencies: CURRENCY_UNITS
+      supportCurrencies: CURRENCY_UNITS,
     }
   },
   methods: {
@@ -105,11 +143,11 @@ export default {
         edition: this.workbookEdition,
         price: this.workbookPrice,
         tags: ['test'],
-        description: this.workbookDescription
+        description: this.workbookDescription,
       }
-      
+
       const response = await this.$axios.$post('api/v1/workbooks', params)
-      
+
       if (response) {
         this.$toast({
           title: 'Success',

@@ -17,6 +17,7 @@
 
 <script>
 export default {
+  name: 'TableOfContentComponent',
   props: {
     headings: {
       type: Array,
