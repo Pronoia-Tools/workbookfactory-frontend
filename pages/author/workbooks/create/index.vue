@@ -86,21 +86,21 @@
                   </c-flex>
 
                   <!-- categories -->
-                  <c-form-control is-required class="flex items-center">
+                  <c-form-control is-required class="flex">
                     <c-form-label width="100px">Categories</c-form-label>
-                    <c-input v-model="workbookTags" flex="1" type="text" />
+                    <tag-input :tag-list="workbookTags" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="4">
+            <c-form-control mt="8">
+              <c-form-label class="mb-2"> Description </c-form-label>
               <c-textarea
                 v-model="workbookDescription"
                 placeholder="Description"
-                min-height="300px"
-              ></c-textarea>
-            </c-box>
+              />
+            </c-form-control>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
               <c-button
@@ -121,6 +121,7 @@
 </template>
 
 <script>
+import TagInput from '@/components/TagInput'
 import SideBar from '@/components/SideBar.vue'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
@@ -128,6 +129,7 @@ export default {
   fetchOnServer: false,
   components: {
     'side-bar': SideBar,
+    'tag-input': TagInput,
   },
   data() {
     return {
@@ -136,7 +138,7 @@ export default {
       workbookEdition: 1,
       workbookPrice: 0.0,
       workbookDescription: '',
-      workbookTags: 'test',
+      workbookTags: [],
       supportedLanguages: LANGUAGES,
       supportCurrencies: CURRENCY_UNITS,
     }
@@ -150,7 +152,7 @@ export default {
           language: this.workbookLanguage,
           edition: this.workbookEdition,
           price: this.workbookPrice,
-          tags: ['test'],
+          tags: this.workbookTags,
           description: this.workbookDescription,
         }
 

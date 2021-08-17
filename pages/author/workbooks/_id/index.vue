@@ -102,8 +102,22 @@
                   </c-flex>
 
                   <c-flex class="items-center">
-                    <c-text class="font-semibold w-24"> Categories: </c-text>
-                    <c-text>{{ workbook.categories || 'updating...' }}</c-text>
+                    <c-text class="font-semibold w-24"> Tags: </c-text>
+                    <c-stack
+                      v-if="workbook.tags && workbook.tags.length > 0"
+                      :spacing="4"
+                      align-items="start"
+                      is-inline
+                    >
+                      <c-tag
+                        v-for="(tag, index) in workbook.tags"
+                        :key="index"
+                        class="mr-2"
+                        variant-color="vue"
+                      >
+                        {{ tag || 'updating...' }}
+                      </c-tag>
+                    </c-stack>
                   </c-flex>
                 </c-stack>
               </c-grid-item>
@@ -193,16 +207,25 @@ export default {
   },
   data() {
     return {
-      workbook: {},
+      workbook: {
+        tags: [],
+      },
     }
   },
   async fetch() {
-    const id = this.$route.params.id
-    this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
-    console.log(
-      '🚀 ~ file: index.vue ~ line 164 ~ fetch ~ this.workbook',
-      this.workbook
-    )
+    try {
+      const id = this.$route.params.id
+
+      this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+    } catch (error) {
+      this.$toast({
+        title: 'Failed',
+        description: 'Something wrong happen',
+        status: 'error',
+        duration: 2000,
+        position: 'top-right',
+      })
+    }
   },
 }
 </script>

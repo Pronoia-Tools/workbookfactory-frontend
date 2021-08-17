@@ -117,21 +117,22 @@
                   </c-form-control>
 
                   <!-- categories -->
-                  <c-form-control class="flex items-center">
+                  <c-form-control class="flex">
                     <c-form-label width="100px"> Categories </c-form-label>
-                    <c-input v-model="workbook.tags" flex="1" type="text" />
+                    <tag-input v-if="workbook.tags" :tag-list="workbook.tags" />
                   </c-form-control>
                 </c-stack>
               </c-grid-item>
             </c-grid>
 
-            <c-box mt="8">
+            <c-form-control mt="8">
+              <c-form-label class="mb-2"> Description </c-form-label>
               <c-textarea
                 v-model="workbook.description"
                 :value="workbook.description"
                 placeholder="Description"
               />
-            </c-box>
+            </c-form-control>
 
             <c-flex mt="8" align-items="center" justify-content="flex-end">
               <c-button
@@ -153,11 +154,13 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import TagInput from '@/components/TagInput'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
 export default {
   components: {
     'side-bar': SideBar,
+    'tag-input': TagInput,
   },
   data() {
     return {
@@ -168,7 +171,7 @@ export default {
         price: '',
         currency: '',
         description: '',
-        tags: '',
+        tags: [],
         image: '',
       },
       languages: LANGUAGES,
@@ -208,6 +211,7 @@ export default {
           `api/v1/workbooks/${id}`,
           params
         )
+
         if (response) {
           this.$toast({
             title: 'Success',
