@@ -109,7 +109,13 @@ export default {
 </script>
 
 <style lang="scss">
-.product-img:hover .overlay {
-  opacity: 1;
+.product-img {
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.05);
+    .overlay {
+      opacity: 1;
+    }
+  }
 }
 </style>

@@ -13,6 +13,8 @@
       lg:px-8
     "
   >
+    <loading-screen v-if="isLoading" />
+
     <c-box class="w-full max-w-md space-y-8">
       <c-heading
         as="h2"
@@ -180,8 +182,10 @@ import { mapActions, mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import { toLower } from 'lodash'
+import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
+  components: { LoadingScreen },
   mixins: [validationMixin],
   layout: 'login',
 
