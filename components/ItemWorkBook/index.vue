@@ -5,7 +5,9 @@
       class="
         product-img
         relative
-        h-[500px]
+        h-[400px]
+        xl:h-[450px]
+        lg:h-[400px]
         w-full
         bg-center bg-no-repeat bg-cover
         rounded-md

@@ -6,12 +6,12 @@
     <c-flex
       v-cloak
       v-if="libraries && libraries.length"
-      class="items-center flex-wrap"
+      class="items-center flex-wrap md:space-x-4 lg:space-x-10"
     >
       <c-box
         v-for="library in libraries"
         :key="library.id"
-        class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-[70px] px-8 md:px-4"
+        class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 mb-[70px] px-2 md:px-0"
       >
         <workbook-item :workbooks="library.workbooks" />
       </c-box>

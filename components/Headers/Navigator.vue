@@ -14,33 +14,33 @@
       text-quickSilver
     "
   >
-    <c-box as="li" class="lg:py-0 h-full">
+    <c-box as="li" class="lg:py-0 lg:h-full">
       <nuxt-link
-        class="h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
+        class="h-auto lg:h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
         to="/libraries"
       >
         <span>Your Library</span>
       </nuxt-link>
     </c-box>
-    <c-box as="li" class="lg:py-0 h-full">
+    <c-box as="li" class="lg:py-0 lg:h-full">
       <nuxt-link
-        class="h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
+        class="h-auto lg:h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
         to="/author/workbooks"
       >
         <span>Workbook Factory</span></nuxt-link
       >
     </c-box>
-    <c-box as="li" class="lg:py-0 h-full">
+    <c-box as="li" class="lg:py-0 lg:h-full">
       <nuxt-link
-        class="h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
+        class="h-auto lg:h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
         to="/"
       >
         <span>Coach's Dashboard</span></nuxt-link
       >
     </c-box>
-    <c-box as="li" class="lg:py-0 h-full">
+    <c-box as="li" class="lg:py-0 lg:h-full">
       <nuxt-link
-        class="h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
+        class="h-auto lg:h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
         to="/marketplace"
         ><span> Marketplace</span></nuxt-link
       >
