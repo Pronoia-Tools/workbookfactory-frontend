@@ -28,9 +28,7 @@
 
         <c-box class="-space-y-px rounded-md shadow-sm">
           <c-box class="mb-6">
-            <c-form-label for="email-address" class="sr-only"
-              >Email address</c-form-label
-            >
+            <c-form-label for="email-address">Email</c-form-label>
             <c-input
               id="email-address"
               v-model="email"
@@ -64,7 +62,7 @@
           </c-box>
 
           <c-box>
-            <c-form-label for="password" class="sr-only">Password</c-form-label>
+            <c-form-label for="password">Password</c-form-label>
             <c-input
               id="password"
               v-model="password"

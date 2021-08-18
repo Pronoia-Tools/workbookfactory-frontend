@@ -9,7 +9,7 @@
       >
         <c-flex v-if="!isEmpty" class="items-center flex-wrap p-8">
           <c-box
-            v-for="workbook in sortedWorkbooks()"
+            v-for="workbook in sortedWorkbooks"
             :key="workbook.id"
             class="workbook relative w-full p-3 md:w-1/3 md:p-2 lg:w-1/4 lg:p-4"
             @mouseover.native="workbookID = workbook.id"
@@ -88,7 +88,6 @@
 import { isEmpty } from 'lodash'
 
 export default {
-  components: {},
   data() {
     return {
       workbooks: [],
@@ -114,15 +113,18 @@ export default {
     }
   },
 
-  methods: {
-    coordinateMouse(event) {
-      this.coordinateX = event.clientX
-      this.coordinateY = event.clientY
-    },
+  computed: {
     sortedWorkbooks() {
       return this.workbooks.slice().sort((previous, next) => {
         return previous.id > next.id ? 1 : -1
       })
+    },
+  },
+
+  methods: {
+    coordinateMouse(event) {
+      this.coordinateX = event.clientX
+      this.coordinateY = event.clientY
     },
   },
 }
