@@ -12,6 +12,8 @@
       lg:px-8
     "
   >
+    <loading-screen v-if="isLoading" />
+
     <c-box class="max-w-md w-full space-y-8">
       <c-heading
         as="h2"
@@ -302,6 +304,8 @@
 
         <c-box>
           <c-button
+            :is-loading="isLoading"
+            loading-text="Registering"
             type="button"
             variant="solid"
             variant-color="blue"
@@ -348,6 +352,7 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export const emailFormatter = (value) => {
   if (!value) return value
@@ -357,6 +362,7 @@ export const emailFormatter = (value) => {
 }
 
 export default {
+  components: { LoadingScreen },
   mixins: [validationMixin],
   layout: 'login',
   data() {
@@ -370,6 +376,7 @@ export default {
       isActive: false,
       isStaff: false,
       isError: {},
+      isLoading: false,
     }
   },
 
@@ -390,6 +397,8 @@ export default {
   },
   methods: {
     async registerUser() {
+      this.isLoading = true
+
       // stop here if form is invalid
       this.$v.$touch()
       if (this.$v.$invalid) {
@@ -398,7 +407,7 @@ export default {
 
       try {
         const response = await this.$axios.$post(
-          '/api/rest-auth/registration/',
+          '/api/rest-auth/registration',
           {
             username: this.user_name,
             first_name: this.first_name,
@@ -433,6 +442,8 @@ export default {
         }
         this.isError = error.response.data
       }
+
+      this.isLoading = false
     },
   },
 }

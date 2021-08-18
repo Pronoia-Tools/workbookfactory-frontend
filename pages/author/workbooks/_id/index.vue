@@ -55,7 +55,14 @@
 
           <c-box class="py-10">
             <c-grid template-columns="repeat(3, 1fr)" gap="6">
-              <c-grid-item col-span="1" bg="blue.300" />
+              <c-grid-item col-span="1">
+                <c-image
+                  :src="require('@/static/cover.png')"
+                  alt="workbook"
+                  class="mx-auto"
+                />
+              </c-grid-item>
+
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
                   <!-- title -->
@@ -130,66 +137,6 @@
                 :value="workbook.description"
                 placeholder="Description"
               />
-            </c-box>
-
-            <c-box my="10">
-              <c-heading as="h2" size="md"> For Coaches </c-heading>
-              <c-flex my="5">
-                <c-box w="50%" px="2">
-                  <c-heading as="h4"> Send a copy to a client </c-heading>
-                  <c-flex direction="column">
-                    <c-checkbox my="2" default-is-checked>
-                      Create custom Client Workbook
-                    </c-checkbox>
-                    <c-checkbox my="2"> Client Pays for Workbook </c-checkbox>
-                    <c-form-control display="flex" align-items="center">
-                      <c-input flex="1" type="text" />
-                    </c-form-control>
-                    <c-button mt="10" variant-color="blue">
-                      Send invation
-                    </c-button>
-                  </c-flex>
-                </c-box>
-
-                <c-box w="50%" px="2">
-                  <c-heading as="h4"> Send a copy to a client </c-heading>
-                  <c-flex direction="column">
-                    <c-checkbox my="2" default-is-checked>
-                      eWorkbook is available for purchase by clients leaving the
-                      practice
-                    </c-checkbox>
-                    <c-text>Active Clients Using this eWorkbook</c-text>
-                    <c-box mt="20px" width="100%">
-                      <c-box as="table" width="100%">
-                        <c-box as="thead">
-                          <c-box
-                            as="tr"
-                            color="#B5B5C3 !important"
-                            background-color="#F3F6F9"
-                            letter-spacing="1px"
-                            px="5px"
-                            font-size="0.8rem"
-                            text-transform="uppercase"
-                            font-weight="600"
-                            text-align="left"
-                          >
-                            <c-box as="th" width="10%">Name</c-box>
-                            <c-box as="th" width="10%">Email</c-box>
-                            <c-box as="th" width="10%">Answers</c-box>
-                          </c-box>
-                        </c-box>
-                        <c-box as="tbody" py="4">
-                          <c-box as="tr">
-                            <c-box as="td">Fish Fisherman</c-box>
-                            <c-box as="td">fish@fish.com</c-box>
-                            <c-box as="td"></c-box>
-                          </c-box>
-                        </c-box>
-                      </c-box>
-                    </c-box>
-                  </c-flex>
-                </c-box>
-              </c-flex>
             </c-box>
           </c-box>
         </c-box>
