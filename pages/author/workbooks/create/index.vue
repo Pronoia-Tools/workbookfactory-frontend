@@ -6,15 +6,15 @@
         <c-box class="w-full">
           <c-box as="ul" class="mt-4 text-sm">
             <c-box as="li" class="">
-              <nuxt-link to="" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Sale</span>
                 </c-flex>
               </nuxt-link>
             </c-box>
             <c-box as="li" class="">
-              <nuxt-link to="author/workbooks" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="author/workbooks" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Workbooks</span>
                   <c-icon w="5" name="chevronRight" class="icon" />
                 </c-flex>
@@ -23,9 +23,9 @@
                 <c-box as="li" class="">
                   <nuxt-link
                     to="/author/workbooks/create"
-                    class="p-4 flex items-center"
+                    class="flex items-center p-4"
                   >
-                    <span class="ml-2 flex-1 font-bold">
+                    <span class="flex-1 ml-2 font-bold">
                       Create New Workbook
                       <c-icon w="5" name="plus" class="icon" />
                     </span>
@@ -34,8 +34,8 @@
               </c-box>
             </c-box>
             <c-box as="li" class="">
-              <nuxt-link to="/" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="/" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Customer</span>
                 </c-flex>
               </nuxt-link>
@@ -55,7 +55,9 @@
 
           <c-box class="py-10">
             <c-grid template-columns="repeat(3, 1fr)" gap="6">
-              <c-grid-item col-span="1" bg="blue.300" />
+              <c-grid-item col-span="1">
+                <upload-images :max="1" max-error="Max files exceed" @changed="handleImages" />
+              </c-grid-item>
               <c-grid-item col-span="2">
                 <c-stack :spacing="5">
                   <!-- title -->
@@ -123,6 +125,7 @@
 <script>
 import TagInput from '@/components/TagInput'
 import SideBar from '@/components/SideBar.vue'
+import UploadImages from "vue-upload-drop-images";
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
 
 export default {
@@ -130,10 +133,13 @@ export default {
   components: {
     'side-bar': SideBar,
     'tag-input': TagInput,
+    'upload-images': UploadImages
   },
   data() {
     return {
+      isLoading: false,
       workbookTitle: '',
+      workbookCoverImage: null,
       workbookLanguage: '',
       workbookEdition: 1,
       workbookPrice: 0.0,
@@ -144,19 +150,34 @@ export default {
     }
   },
   methods: {
+    handleImages(files) {
+      const file = files[0];
+      this.workbookCoverImage = file;
+    },
     async submitForm() {
       this.isLoading = true
       try {
-        const params = {
+        const data = {
           title: this.workbookTitle,
           language: this.workbookLanguage,
           edition: this.workbookEdition,
           price: this.workbookPrice,
           tags: this.workbookTags,
           description: this.workbookDescription,
+          cover_image: this.workbookCoverImage
         }
 
-        const response = await this.$axios.$post('api/v1/workbooks', params)
+        // Trying to create an record with both data and file, so using form-data here so only call API 1
+        const formData = new FormData();
+        formData.append('cover_image', this.workbookCoverImage);
+        formData.append('data', JSON.stringify(data));
+
+        const response = await this.$axios({
+          url: 'api/v1/workbooks', 
+          data: formData, 
+          method: 'post',
+          headers: { "Content-Type": "multipart/form-data" }
+        });
 
         if (response) {
           this.$toast({
@@ -176,8 +197,9 @@ export default {
           duration: 2000,
           position: 'top-right',
         })
+      } finally {
+        this.isLoading = false
       }
-      this.isLoading = false
     },
   },
 }

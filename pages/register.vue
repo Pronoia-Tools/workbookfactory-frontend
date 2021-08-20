@@ -1,24 +1,14 @@
 <template>
   <c-box
-    class="
-      min-h-screen
-      flex
-      items-center
-      justify-center
-      bg-gray-50
-      py-12
-      px-4
-      sm:px-6
-      lg:px-8
-    "
+    class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8"
   >
     <loading-screen v-if="isLoading" />
 
-    <c-box class="max-w-md w-full space-y-8">
+    <c-box class="w-full max-w-md space-y-8">
       <c-heading
         as="h2"
         size="xl"
-        class="mt-6 text-center text-3xl font-extrabold text-gray-900"
+        class="mt-6 text-3xl font-extrabold text-center text-gray-900"
       >
         Register your account
       </c-heading>
@@ -38,19 +28,7 @@
               name="user_name"
               type="text"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="User name"
               :class="{ 'is-invalid': $v.user_name.$error }"
             />
@@ -75,20 +53,7 @@
               name="first_name"
               type="text"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="First name"
               :class="{ 'is-invalid': $v.first_name.$error }"
             />
@@ -108,20 +73,7 @@
               name="last_name"
               type="text"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Last name"
               :class="{ 'is-invalid': $v.last_name.$error }"
             />
@@ -142,20 +94,7 @@
               type="email"
               autocomplete="email"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
@@ -180,20 +119,7 @@
               type="password"
               autocomplete="off"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
@@ -222,20 +148,7 @@
               type="password"
               autocomplete="current-password"
               required
-              class="
-                appearance-none
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                border border-gray-300
-                placeholder-gray-500
-                text-gray-900
-                rounded-md
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Confirm password"
               :class="{ 'is-invalid': $v.confirm_password.$error }"
             />
@@ -252,43 +165,6 @@
               class="invalid-feedback"
             >
               <span>Passwords must be identical</span>
-            </c-box>
-          </c-box>
-
-          <!-- checkbox -->
-          <c-box class="mb-6 flex">
-            <!-- is_active -->
-            <c-box class="flex items-center mr-10">
-              <input
-                id="is-active"
-                v-model="isActive"
-                name="is-active"
-                type="checkbox"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded"
-              />
-              <c-form-label
-                for="is-active"
-                class="ml-2 block text-sm text-gray-900"
-              >
-                Active
-              </c-form-label>
-            </c-box>
-
-            <!-- is_staff -->
-            <c-box class="flex items-center">
-              <input
-                id="is-staff"
-                v-model="isStaff"
-                name="is-staff"
-                type="checkbox"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 rounded"
-              />
-              <c-form-label
-                for="is-staff"
-                class="ml-2 block text-sm text-gray-900"
-              >
-                Staff
-              </c-form-label>
             </c-box>
           </c-box>
         </c-box>
@@ -309,26 +185,13 @@
             type="button"
             variant="solid"
             variant-color="blue"
-            class="
-              group
-              relative
-              w-full
-              flex
-              justify-center
-              py-2
-              px-4
-              border border-transparent
-              text-sm
-              font-medium
-              hover:bg-indigo-700
-              focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-            "
+            class="relative flex justify-center w-full px-4 py-2 text-sm font-medium border border-transparent group hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             @click="registerUser()"
           >
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <!-- Heroicon name: solid/lock-closed -->
               <svg
-                class="h-5 w-5 text-white"
+                class="w-5 h-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
@@ -407,7 +270,7 @@ export default {
 
       try {
         const response = await this.$axios.$post(
-          '/api/rest-auth/registration',
+          '/api/rest-auth/registration/',
           {
             username: this.user_name,
             first_name: this.first_name,

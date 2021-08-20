@@ -6,15 +6,15 @@
           <c-box class="w-full">
             <c-box as="ul" class="mt-4 text-sm">
               <c-box as="li" class="">
-                <nuxt-link to="" class="p-4 flex">
-                  <c-flex class="w-full items-center">
+                <nuxt-link to="" class="flex p-4">
+                  <c-flex class="items-center w-full">
                     <span class="flex-1"> Sale</span>
                   </c-flex>
                 </nuxt-link>
               </c-box>
               <c-box as="li" class="">
-                <nuxt-link to="author/workbooks" class="p-4 flex">
-                  <c-flex class="w-full items-center">
+                <nuxt-link to="author/workbooks" class="flex p-4">
+                  <c-flex class="items-center w-full">
                     <span class="flex-1"> Workbooks</span>
                     <c-icon w="5" name="chevronRight" class="icon" />
                   </c-flex>
@@ -23,9 +23,9 @@
                   <c-box as="li" class="">
                     <nuxt-link
                       to="/author/workbooks/create"
-                      class="p-4 flex items-center"
+                      class="flex items-center p-4"
                     >
-                      <span class="ml-2 flex-1 font-bold">
+                      <span class="flex-1 ml-2 font-bold">
                         Create New Workbook
                         <c-icon w="5" name="plus" class="icon" />
                       </span>
@@ -34,8 +34,8 @@
                 </c-box>
               </c-box>
               <c-box as="li" class="">
-                <nuxt-link to="/" class="p-4 flex">
-                  <c-flex class="w-full items-center">
+                <nuxt-link to="/" class="flex p-4">
+                  <c-flex class="items-center w-full">
                     <span class="flex-1"> Customer</span>
                   </c-flex>
                 </nuxt-link>
@@ -98,21 +98,6 @@
                     <c-flex class="items-center w-4/5 mr-2">
                       <c-form-label width="100px"> Price </c-form-label>
                       <c-input v-model="workbook.price" flex="1" type="text" />
-                    </c-flex>
-
-                    <!-- currency -->
-                    <c-flex class="items-center w-1/5">
-                      <c-select
-                        v-model="workbook.currency"
-                        placeholder="Select Unit"
-                      >
-                        <option
-                          v-for="currency in currencies"
-                          :key="currency.id"
-                        >
-                          {{ currency.unit }}
-                        </option>
-                      </c-select>
                     </c-flex>
                   </c-form-control>
 

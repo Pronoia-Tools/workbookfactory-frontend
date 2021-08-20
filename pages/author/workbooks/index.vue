@@ -5,15 +5,15 @@
         <c-box class="w-full">
           <c-box as="ul" class="mt-4 text-sm">
             <c-box as="li" class="">
-              <nuxt-link to="" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Sale</span>
                 </c-flex>
               </nuxt-link>
             </c-box>
             <c-box as="li" class="">
-              <nuxt-link to="author/workbooks" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="author/workbooks" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Workbooks</span>
                   <c-icon w="5" name="chevronRight" class="icon" />
                 </c-flex>
@@ -22,9 +22,9 @@
                 <c-box as="li" class="">
                   <nuxt-link
                     to="/author/workbooks/create"
-                    class="p-4 flex items-center"
+                    class="flex items-center p-4"
                   >
-                    <span class="ml-2 flex-1 font-bold">
+                    <span class="flex-1 ml-2 font-bold">
                       Create New Workbook
                       <c-icon w="5" name="plus" class="icon" />
                     </span>
@@ -33,8 +33,8 @@
               </c-box>
             </c-box>
             <c-box as="li" class="">
-              <nuxt-link to="/" class="p-4 flex">
-                <c-flex class="w-full items-center">
+              <nuxt-link to="/" class="flex p-4">
+                <c-flex class="items-center w-full">
                   <span class="flex-1"> Customer</span>
                 </c-flex>
               </nuxt-link>
@@ -161,6 +161,20 @@
                         size="sm"
                       />
                     </c-box>
+                    
+                    <!-- go to editor -->
+                    <c-box class="mx-1">
+                      <nuxt-link :to="`/author/workbooks/${workbook.id}/editor`">
+                        <c-icon-button
+                          variant="outline"
+                          variant-color="vue"
+                          icon="arrow-forward"
+                          aria-label="Edit"
+                          size="sm"
+                        />
+                      </nuxt-link>
+                    </c-box>
+
                   </c-flex>
                 </c-box>
               </c-box>
