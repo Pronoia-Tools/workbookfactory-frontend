@@ -29,9 +29,7 @@
         <c-box class="rounded-md">
           <!-- user name -->
           <c-box class="mb-6">
-            <c-form-label for="user_name" class="sr-only">
-              User Name
-            </c-form-label>
+            <c-form-label for="user_name"> User Name </c-form-label>
             <c-input
               id="user_name"
               v-model="user_name"
@@ -66,9 +64,7 @@
 
           <!-- first name -->
           <c-box class="mb-6">
-            <c-form-label for="first_name" class="sr-only"
-              >First Name</c-form-label
-            >
+            <c-form-label for="first_name">First Name</c-form-label>
             <c-input
               id="first_name"
               v-model="first_name"
@@ -99,9 +95,7 @@
 
           <!-- last name -->
           <c-box class="mb-6">
-            <c-form-label for="last_name" class="sr-only"
-              >Last name</c-form-label
-            >
+            <c-form-label for="last_name">Last Name</c-form-label>
             <c-input
               id="last_name"
               v-model="last_name"
@@ -132,9 +126,7 @@
 
           <!-- email -->
           <c-box class="mb-6">
-            <c-form-label for="email-address" class="sr-only"
-              >Email address</c-form-label
-            >
+            <c-form-label for="email-address">Email</c-form-label>
             <c-input
               id="email-address"
               v-model="email"
@@ -172,7 +164,7 @@
 
           <!-- password -->
           <c-box class="mb-6">
-            <c-form-label for="password" class="sr-only">Password</c-form-label>
+            <c-form-label for="password">Password</c-form-label>
             <c-input
               id="password"
               v-model="password"
@@ -212,9 +204,7 @@
 
           <!-- confirm password -->
           <c-box class="mb-6">
-            <c-form-label for="confirm_password" class="sr-only"
-              >Password</c-form-label
-            >
+            <c-form-label for="confirm_password">Confirm Password</c-form-label>
             <c-input
               id="confirm_password"
               v-model="confirm_password"
