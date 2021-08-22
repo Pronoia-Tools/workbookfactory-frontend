@@ -1,5 +1,5 @@
 <template>
-  <div v-if="editor" class="ProseMirror border border-gray-200 px-4">
+  <div v-if="editor" class="px-4 border border-gray-200 ProseMirror">
     <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
       <button
         :class="{ 'is-active': editor.isActive('bold') }"
@@ -125,9 +125,9 @@ export default {
                   },
                 },
               ]
-                .filter((item) =>
-                  item.title.toLowerCase().startsWith(query.toLowerCase())
-                )
+                // .filter((item) =>
+                //   // item.title.toLowerCase().startsWith(query.toLowerCase())
+                // )
                 .slice(0, 10)
             },
             render: () => {

@@ -203,11 +203,12 @@ export default {
   data() {
     return {
       workbooks: [],
-      isLoading: true,
+      isLoading: false,
     }
   },
   async fetch() {
     try {
+      this.isLoading = true;
       const response = await this.$axios.$get('api/v1/workbooks')
       this.workbooks = response || []
     } catch (error) {
@@ -218,12 +219,9 @@ export default {
         duration: 2000,
         position: 'top-right',
       })
+    } finally {
+      this.isLoading = false;
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 1500)
   },
 }
 </script>

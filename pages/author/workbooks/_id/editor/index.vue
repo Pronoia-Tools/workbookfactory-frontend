@@ -19,7 +19,7 @@
                 <c-flex
                   v-else
                   alt="workbook-cover"
-                  class="flex-col items-center justify-center w-full h-full rounded-md  bg-vapers"
+                  class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
                 >
                   <c-image
                     class="w-4 h-4"
@@ -125,6 +125,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       preDefinedComponents: [],
       editor: null,
       editable: false,
@@ -132,7 +133,22 @@ export default {
       workbookCover: null,
     }
   },
+  fetch() {
+    
+    try {
+      this.isLoading = true;
+      const {
+        params: {
+          id,
+        }
+      } = this.$route;
 
+      console.log('id', id);
+    } catch {
+    } finally {
+      this.isLoading = false;
+    }
+  },
   mounted() {
     this.editor = new Editor({
       content: `
@@ -201,8 +217,7 @@ export default {
                       .run()
                   },
                 },
-              ]
-                .filter((item) =>
+              ].filter((item) =>
                   item.title.toLowerCase().startsWith(query.toLowerCase())
                 )
                 .slice(0, 10)
