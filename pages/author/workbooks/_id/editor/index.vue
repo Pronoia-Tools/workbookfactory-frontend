@@ -274,6 +274,8 @@ export default {
         }),
       ],
     })
+
+    this.editor.on('update', this.handleUpdate)
   },
 
   beforeDestroy() {
@@ -282,32 +284,45 @@ export default {
 
   methods: {
     handleUpdate() {
-      const headings = [];
+      const headings = []
+      const transaction = this.editor.state.tr
 
-      headings.push(this.level1Headings);
-      
-      console.log(this.headings)
-      // const transaction = this.editor.state.tr
+      this.editor.state.doc.descendants((node, pos) => {
+        if (node.type.name === 'heading') {
+          const id = `heading-${headings.length + 1}`
+          if (node.attrs.id !== id) {
+            transaction.setNodeMarkup(pos, undefined, {
+              ...node.attrs,
+              id,
+            })
+          }
+          headings.push({
+            level: node.attrs.level,
+            text: node.textContent,
+            id,
+          })
+        }
+      })
+      transaction.setMeta('preventUpdate', true)
+      this.editor.view.dispatch(transaction)
+      this.headings = headings
 
-      // this.editor.state.doc.descendants((node, pos) => {
-      //   if (node.type.name === 'heading') {
-      //     const id = `heading-${headings.length + 1}`
-      //     if (node.attrs.id !== id) {
-      //       transaction.setNodeMarkup(pos, undefined, {
-      //         ...node.attrs,
-      //         id,
-      //       })
-      //     }
-      //     headings.push({
-      //       level: node.attrs.level,
-      //       text: node.textContent,
-      //       id,
-      //     })
-      //   }
-      // })
-      // transaction.setMeta('preventUpdate', true)
-      // this.editor.view.dispatch(transaction)
-      this.headings = headings.flat();
+      console.log(this.editor.getJSON())
+      this.updateWorkbookContent();
+    },
+
+    async updateWorkbookContent() {
+      try {
+        const workbookId = this.workbook.id;
+
+        const { data } = await this.$axios.patch(`api/v1/workbooks/${workbookId}`, {
+          content: this.editor.getJSON()
+        });
+
+        console.log('data', data);
+      } catch(error) {
+        console.log("updateWorkbookContent", error)
+      }
     },
 
     onFileChange(event) {

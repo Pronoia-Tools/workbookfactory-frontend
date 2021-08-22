@@ -13,14 +13,6 @@
         </a>
       </li>
     </ul>
-    <c-box v-else>
-      <c-input 
-        variant="flushed"
-        placeholder="Create new chapter, ex: 1.1 A journey start" 
-        @keyup.enter="createChapter"
-      >
-      </c-input>
-    </c-box>
   </nav>
 </template>
 
@@ -38,29 +30,7 @@ export default {
       isLoading: false
     }
   },
-  methods: {
-    async createChapter(event) {
-      try {
-        const {
-          params: {
-            id
-          }
-        } = await this.$route;
-        const title = event.target.value;
-        
-        const { data } = await this.$axios.post(`api/v1/workbooks/${id}/chapters`, {
-          title
-        })
-
-        console.log('data', data)
-        
-      } catch (error) {
-        console.log('createChapter', error)
-      } finally {
-        this.isLoading = false;
-      }
-    }
-  }
+  methods: {}
 }
 </script>
 
