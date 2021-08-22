@@ -205,14 +205,8 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import { toLower } from 'lodash';
 import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
-
-export const emailFormatter = (value) => {
-  if (!value) return value
-  const parts = value.split('@')
-  parts[1] = parts[1].toLowerCase()
-  return parts.join('@')
-}
 
 export default {
   components: { LoadingScreen },
@@ -239,7 +233,7 @@ export default {
     last_name: { required },
     email: {
       required,
-      email: (val) => email(emailFormatter(val)),
+      email: (val) => email(toLower(val)),
     },
     password: { required, minLength: minLength(8) },
     confirm_password: {

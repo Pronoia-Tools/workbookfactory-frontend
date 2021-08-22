@@ -5,11 +5,11 @@
         <c-box class="p-6">
           <c-box class="mb-4">
             <!-- workbook cover -->
-            <c-text class="text-base text-eerieBlack font-semibold mb-3">
+            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
               Workbook cover
             </c-text>
-            <c-box class="workbook-cover relative h-60 w-40">
-              <c-flex class="absolute w-full h-full justify-center">
+            <c-box class="relative w-40 workbook-cover h-60">
+              <c-flex class="absolute justify-center w-full h-full">
                 <c-image
                   v-if="workbookCover"
                   :src="workbookCover"
@@ -19,27 +19,19 @@
                 <c-flex
                   v-else
                   alt="workbook-cover"
-                  class="
-                    h-full
-                    w-full
-                    bg-vapers
-                    items-center
-                    justify-center
-                    rounded-md
-                    flex-col
-                  "
+                  class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
                 >
                   <c-image
                     class="w-4 h-4"
                     :src="require('@/static/icons/iconUpload.svg')"
                     alt="icons"
                   />
-                  <span class="text-sm pt-2">Upload</span>
+                  <span class="pt-2 text-sm">Upload</span>
                 </c-flex>
               </c-flex>
               <c-input
                 type="file"
-                class="text-center absolute z-10 opacity-0 p-10"
+                class="absolute z-10 p-10 text-center opacity-0"
                 accept="image/*"
                 @change="onFileChange"
               />
@@ -48,7 +40,7 @@
 
           <!-- workbook title -->
           <c-box>
-            <c-text class="text-base text-eerieBlack font-semibold mb-3">
+            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
               Workbook title
             </c-text>
             <c-input id="wtitle" placeholder="Workbook title..." />
@@ -65,7 +57,7 @@
     <c-box
       w="60%"
       p="10"
-      class="editor h-full border border-gray-200 m-10 flex-1"
+      class="flex-1 h-full m-10 border border-gray-200 editor"
     >
       <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
         <!-- bold -->
@@ -118,7 +110,6 @@ import tippy from 'tippy.js'
 import Library from '@/components/Upload/Library.vue'
 import StarterKit from '@tiptap/starter-kit'
 import SideBar from '@/components/SideBar.vue'
-import Component from '@/components/TableOfContent/Component.vue'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
 import SlashCommands from '@/components/SlashCommand'
 import SlashComponent from '@/components/SlashCommand/Component.vue'
@@ -126,7 +117,6 @@ import SlashComponent from '@/components/SlashCommand/Component.vue'
 export default {
   components: {
     'side-bar': SideBar,
-    'table-of-content': Component,
     library: Library,
     EditorContent,
     BubbleMenu,
@@ -210,10 +200,10 @@ export default {
                   },
                 },
               ]
-                .filter((item) =>
-                  item.title.toLowerCase().startsWith(query.toLowerCase())
-                )
-                .slice(0, 10)
+                // .filter((item) =>
+                //   // item.title.toLowerCase().startsWith(query.toLowerCase())
+                // )
+                // .slice(0, 10)
             },
             render: () => {
               let component

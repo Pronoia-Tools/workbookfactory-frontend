@@ -129,7 +129,6 @@ export default {
     return {
       isLoading: false,
       workbook: null,
-      chapters: null,
       preDefinedComponents: [],
       editor: null,
       editable: false,
@@ -150,10 +149,26 @@ export default {
       const { data } = await this.$axios.get(`api/v1/workbooks/${id}`);
 
       this.workbook = data;
+      this.handleUpdate();
     } catch(error) {
       console.log('error', error)
     } finally {
       this.isLoading = false;
+    }
+  },
+
+  computed: {
+    chapters() {
+      return this.workbook?.chapter_set || [];
+    },
+    level1Headings() { 
+      return this.chapters.map((chapter, index) => { 
+        return {
+          level: 0,
+          text: `${index}. ${chapter.title}`,
+          id: `heading-${index + 1}`
+        }
+      });
     }
   },
   mounted() {
@@ -259,8 +274,6 @@ export default {
         }),
       ],
     })
-    this.editor.on('update', this.handleUpdate)
-    this.$nextTick(this.handleUpdate)
   },
 
   beforeDestroy() {
@@ -269,28 +282,32 @@ export default {
 
   methods: {
     handleUpdate() {
-      const headings = []
-      const transaction = this.editor.state.tr
+      const headings = [];
 
-      this.editor.state.doc.descendants((node, pos) => {
-        if (node.type.name === 'heading') {
-          const id = `heading-${headings.length + 1}`
-          if (node.attrs.id !== id) {
-            transaction.setNodeMarkup(pos, undefined, {
-              ...node.attrs,
-              id,
-            })
-          }
-          headings.push({
-            level: node.attrs.level,
-            text: node.textContent,
-            id,
-          })
-        }
-      })
-      transaction.setMeta('preventUpdate', true)
-      this.editor.view.dispatch(transaction)
-      this.headings = headings
+      headings.push(this.level1Headings);
+      
+      console.log(this.headings)
+      // const transaction = this.editor.state.tr
+
+      // this.editor.state.doc.descendants((node, pos) => {
+      //   if (node.type.name === 'heading') {
+      //     const id = `heading-${headings.length + 1}`
+      //     if (node.attrs.id !== id) {
+      //       transaction.setNodeMarkup(pos, undefined, {
+      //         ...node.attrs,
+      //         id,
+      //       })
+      //     }
+      //     headings.push({
+      //       level: node.attrs.level,
+      //       text: node.textContent,
+      //       id,
+      //     })
+      //   }
+      // })
+      // transaction.setMeta('preventUpdate', true)
+      // this.editor.view.dispatch(transaction)
+      this.headings = headings.flat();
     },
 
     onFileChange(event) {

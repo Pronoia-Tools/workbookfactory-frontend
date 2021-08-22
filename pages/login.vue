@@ -1,17 +1,6 @@
 <template>
   <c-box
-    class="
-      flex
-      items-center
-      justify-center
-      min-h-screen
-      px-4
-      py-12
-      font-mono
-      bg-gray-50
-      sm:px-6
-      lg:px-8
-    "
+    class="flex items-center justify-center min-h-screen px-4 py-12 font-mono bg-gray-50 sm:px-6 lg:px-8"
   >
     <loading-screen v-if="isLoading" />
 
@@ -36,20 +25,7 @@
               type="email"
               autocomplete="email"
               required
-              class="
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                text-gray-900
-                placeholder-gray-500
-                border border-gray-300
-                rounded-md
-                appearance-none
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
@@ -70,20 +46,7 @@
               type="password"
               autocomplete="current-password"
               required
-              class="
-                relative
-                block
-                w-full
-                px-3
-                py-2
-                text-gray-900
-                placeholder-gray-500
-                border border-gray-300
-                rounded-md
-                appearance-none
-                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
-                sm:text-sm
-              "
+              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
@@ -104,14 +67,7 @@
               id="remember_me"
               name="remember_me"
               type="checkbox"
-              class="
-                w-4
-                h-4
-                text-indigo-600
-                border-gray-300
-                rounded
-                focus:ring-indigo-500
-              "
+              class="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
             />
             <c-form-label
               for="remember_me"
@@ -136,19 +92,7 @@
             :is-loading="isLoading"
             loading-text="Logging in"
             variant-color="blue"
-            class="
-              relative
-              flex
-              justify-center
-              w-full
-              px-4
-              py-2
-              text-white
-              border border-transparent
-              rounded-md
-              group
-              hover:bg-indigo-700
-            "
+            class="relative flex justify-center w-full px-4 py-2 text-white border border-transparent rounded-md group hover:bg-indigo-700"
             @click="loginHandler()"
           >
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -209,15 +153,18 @@ export default {
       isLoading: 'getIsLoading',
     }),
   },
-
+  mounted() {
+    console.log('hereheher')
+  },
   methods: {
     ...mapActions({
       login: 'auth/login',
     }),
+    
     async loginHandler() {
       // stop here if form is invalid
       this.$v.$touch()
-
+      
       if (!this.$v.$invalid) {
         await this.login({
           email: this.email,

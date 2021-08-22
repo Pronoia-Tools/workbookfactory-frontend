@@ -153,15 +153,9 @@ export default {
       workbookTags: [],
       supportedLanguages: LANGUAGES,
       supportCurrencies: CURRENCY_UNITS,
-      isLoading: true,
     }
   },
 
-  mounted() {
-    setTimeout(() => {
-      this.isLoading = false
-    }, 1500)
-  },
   methods: {
     handleImages(files) {
       const file = files[0];
