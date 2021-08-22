@@ -1,252 +1,321 @@
 <template font-size="sm">
   <c-box class="container mx-auto" my="10">
-    <c-box color="#b5b4a1eb">
-      <c-breadcrumb separator="›">
-        <c-breadcrumb-item>
-          <c-breadcrumb-link href="#">Home</c-breadcrumb-link>
-        </c-breadcrumb-item>
+    <loading-screen v-if="isLoading" />
 
-        <c-breadcrumb-item>
-          <c-breadcrumb-link href="#">The desire map</c-breadcrumb-link>
-        </c-breadcrumb-item>
-      </c-breadcrumb>
-    </c-box>
-    <c-box>
-      <c-grid template-columns="repeat(2, 1fr)" gap="6" my="10">
-        <c-grid-item class="mx-auto" col-span="1">
-          <c-box>
-            <!-- https://bit.ly/chakra-naruto-uzumaki -->
-            <c-image :src="require('@/static/workbook.jpg')" alt="workbook" />
-          </c-box>
-        </c-grid-item>
+    <c-box v-else class="w-full">
+      <!-- bread crumb -->
+      <c-box color="#b5b4a1eb">
+        <c-breadcrumb separator="›">
+          <c-breadcrumb-item>
+            <c-breadcrumb-link href="#">Home</c-breadcrumb-link>
+          </c-breadcrumb-item>
+
+          <c-breadcrumb-item>
+            <c-breadcrumb-link href="#">The desire map</c-breadcrumb-link>
+          </c-breadcrumb-item>
+        </c-breadcrumb>
+      </c-box>
+
+      <!-- content -->
+      <c-grid template-columns="repeat(3, 1fr)" gap="6" my="10">
         <c-grid-item col-span="1">
-          <c-heading as="h1" size="lg" class="mb-3 uppercase">
-            {{ workbookFields.title }}
-          </c-heading>
-          <c-text mt="1" color="#b5b4a1eb" font-size="sm">
-            By {{ workbookFields.owner ? workbookFields.owner.username : null }}
-          </c-text>
-          <c-box mt="3">
-            <c-box mt="4" color="#b5b4a1eb" font-size="sm">
-              <span>Description:</span>
-              <span>{{ workbookFields.description }}</span>
-            </c-box>
-            <c-box mt="4" color="#b5b4a1eb" font-size="sm">
-              <span>Price: </span>
-              <span>${{ workbookFields.price || 0 }}</span>
-            </c-box>
-          </c-box>
-          <c-button
-            mt="6"
-            size="md"
-            height="50px"
-            width="250px"
-            border="2px"
-            border-color="green.500"
-            @click="addWorkbookToCart(workbookFields)"
+          <!-- workbook image -->
+          <c-image
+            :src="require('@/static/cover.png')"
+            alt="workbook"
+            class="mx-auto rounded-md mb-6"
+          />
+
+          <!-- add to cart -->
+          <c-flex class="w-full justify-center">
+            <c-button
+              left-icon="cart"
+              :is-loading="isLoading"
+              loading-text="Adding"
+              variant-color="blue"
+              @click="addWorkbookToCart(workbookFields)"
+            >
+              Add to cart
+            </c-button>
+          </c-flex>
+        </c-grid-item>
+
+        <c-grid-item col-span="2">
+          <!-- title -->
+          <c-heading as="h1" size="lg" class="mb-3 uppercase"> </c-heading>
+          <c-flex
+            class="
+              items-center
+              text-2xl text-eerieBlack
+              font-semibold font-ibm
+              mb-2
+            "
           >
-            Add to cart
-          </c-button>
+            <c-box as="p" class="mr-2"> Title: </c-box>
+            <c-box as="p">{{ workbookFields.title }}</c-box>
+          </c-flex>
+
+          <!-- author -->
+          <c-flex
+            class="
+              items-center
+              text-base text-darkSilver
+              uppercase
+              font-semibold font-ibm
+              mb-4
+            "
+          >
+            <c-box as="p" class="mr-2"> By: </c-box>
+            <c-box as="p">
+              {{
+                workbookFields.owner
+                  ? workbookFields.owner.username
+                  : 'updating...'
+              }}
+            </c-box>
+          </c-flex>
+
+          <!-- edition -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-1"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Edition: </c-box>
+            <c-box as="p">{{ workbookFields.edition }}</c-box>
+          </c-flex>
+
+          <!-- language -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-1"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Language: </c-box>
+            <c-box as="p">{{ workbookFields.language || 'updating...' }}</c-box>
+          </c-flex>
+
+          <!-- published -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-1"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Published: </c-box>
+            <c-box as="p">
+              {{ $dayjs(workbookFields.created).format('MM/DD/YYYY') }}
+            </c-box>
+          </c-flex>
+
+          <!-- price -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-1"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Price: </c-box>
+            <c-box as="p">${{ workbookFields.price }}</c-box>
+          </c-flex>
+
+          <!-- categories -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-1"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Tags: </c-box>
+            <c-stack
+              v-if="workbookFields.tags && workbookFields.tags.length > 0"
+              :spacing="4"
+              align-items="start"
+              is-inline
+            >
+              <c-tag
+                v-for="(tag, index) in workbookFields.tags"
+                :key="index"
+                class="mr-2"
+                variant-color="vue"
+              >
+                {{ tag || 'updating...' }}
+              </c-tag>
+            </c-stack>
+          </c-flex>
+
+          <!-- share with -->
+          <c-flex
+            class="items-center text-base text-darkLava font-ibm-momo mb-4"
+          >
+            <c-box as="p" class="font-semibold mr-2"> Share with: </c-box>
+            <c-box as="p">
+              {{ workbookFields.share ? workbookFields.share : '' }}
+            </c-box>
+          </c-flex>
+
+          <!-- description -->
+          <c-box class="text-darkLava text-base font-ibm-momo">
+            <c-box as="p" class="font-semibold mb-2"> Description: </c-box>
+            <c-box
+              as="p"
+              class="font-normal"
+              :class="[readMore ? 'wb-description-show' : 'wb-description']"
+            >
+              {{ workbookFields.description }}
+            </c-box>
+            <c-pseudo-box
+              as="button"
+              class="text-blue-500 underline focus:outline-none"
+              @click="readMore = !readMore"
+            >
+              {{ !readMore ? 'Read more' : 'Hide less' }}
+            </c-pseudo-box>
+          </c-box>
         </c-grid-item>
       </c-grid>
-      <c-box mt="10" font-size="sm">
-        <c-heading as="h3" size="lg">About the workbook</c-heading>
-        <c-box m="5" border="2px" border-color="#b5b4a1eb">
-          <c-grid template-columns="repeat(2, 1fr)" gap="6" py="10">
-            <c-grid-item col-span="1" px="3">
-              <c-box mt="2">
-                <span>Title: </span>
-                <span>{{ workbookFields.title }}</span>
-              </c-box>
-              <c-box mt="2">
-                <span>Author: </span>
-                <span>
-                  <nuxt-link
-                    to="/author/1/profile"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    {{
-                      workbookFields.owner
-                        ? workbookFields.owner.username
-                        : null
-                    }}
-                  </nuxt-link>
-                </span>
-              </c-box>
 
-              <c-box mt="2">
-                <span>Categories: </span>
-                <span>
-                  <nuxt-link
-                    to="/author/1/profile"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Category,
-                  </nuxt-link>
-                  <nuxt-link
-                    to="/author/1/profile"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Category 2,
-                  </nuxt-link>
-                  <nuxt-link
-                    to="/author/1/profile"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Category 3
-                  </nuxt-link>
-                </span>
-              </c-box>
-            </c-grid-item>
-            <c-grid-item col-span="1" px="3">
-              <c-box mt="2">
-                <span>Language: </span>
-                <span>
-                  <nuxt-link
-                    to="/author/1/profile"
-                    class="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    {{ workbookFields.language }}
-                  </nuxt-link>
-                </span>
-              </c-box>
-              <c-box mt="2">
-                <span>Edition: </span>
-                <span>{{ workbookFields.edition }}</span>
-              </c-box>
-              <c-box mt="2">
-                <span>Created: </span>
-                <span>
-                  {{ new Date(workbookFields.created).toLocaleString() }}
-                </span>
-              </c-box>
-            </c-grid-item>
-          </c-grid>
-        </c-box>
+      <!-- author's workbook related  -->
+      <c-box mt="10" font-size="sm">
         <c-box py="16">
           <c-heading as="h3" size="lg">
             More by
             {{ workbookFields.owner ? workbookFields.owner.username : null }}
           </c-heading>
+
           <c-box align="center" flex-wrap="wrap" mx="-5">
-            <c-box py="10">
+            <c-box py="4">
               <swiper class="swiper" :options="swiperOption">
+                <!-- 1 -->
                 <swiper-slide w="25%" px="5" py="8">
-                  <img src="@/static/default.png" alt="img-workbooks" />
+                  <img
+                    src="@/static/cover.png"
+                    alt="img-workbooks"
+                    object-fit="cover"
+                    class="rounded-md mb-3"
+                  />
+                  <c-box
+                    as="p"
+                    class="text-sm text-eerieBlack font-semibold font-ibm"
+                  >
+                    {{ workbookFields.title }}
+                  </c-box>
                 </swiper-slide>
+
+                <!-- 2 -->
                 <swiper-slide w="25%" px="5" py="8">
-                  <img src="@/static/default.png" alt="img-workbooks" />
+                  <img
+                    src="@/static/cover.png"
+                    alt="img-workbooks"
+                    object-fit="cover"
+                    class="rounded-md mb-3"
+                  />
+                  <c-box
+                    as="p"
+                    class="text-sm text-eerieBlack font-semibold font-ibm"
+                  >
+                    {{ workbookFields.title }}
+                  </c-box>
                 </swiper-slide>
+
+                <!-- 3 -->
                 <swiper-slide w="25%" px="5" py="8">
-                  <img src="@/static/default.png" alt="img-workbooks" />
-                </swiper-slide>
-                <swiper-slide w="25%" px="5" py="8">
-                  <img src="@/static/default.png" alt="img-workbooks" />
+                  <img
+                    src="@/static/cover.png"
+                    alt="img-workbooks"
+                    object-fit="cover"
+                    class="rounded-md mb-3"
+                  />
+                  <c-box
+                    as="p"
+                    class="text-sm text-eerieBlack font-semibold font-ibm"
+                  >
+                    {{ workbookFields.title }}
+                  </c-box>
                 </swiper-slide>
               </swiper>
             </c-box>
           </c-box>
         </c-box>
 
-        <!-- divider -->
         <c-divider />
 
         <!-- reviews -->
         <c-box class="mt-10 px-10 py-5">
-          <c-button class="mb-10" variant="outline" variant-color="blue">
-            Reviews
-          </c-button>
-
-          <!-- comment-1 -->
-          <c-flex
-            class="
-              w-full
-              flex-wrap
-              items-center
-              px-3
-              py-6
-              border-b border-gray-200
-            "
+          <c-box
+            as="p"
+            class="text-xl text-eerieBlack font-ibm font-semibold mb-4"
           >
-            <c-box class="w-full mb-4 md:w-1/6">
-              <c-avatar
-                name="you"
-                size="xl"
-                :src="require('@/static/default.png')"
-              />
-            </c-box>
-            <c-box class="w-full md:w-5/6">
-              <c-text class="text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eveniet, nulla laborum repudiandae error delectus perferendis
-                porro, ea a inventore molestias nisi reprehenderit ipsa nemo
-                quae, iusto quidem id officia eligendi.
-              </c-text>
-            </c-box>
-          </c-flex>
+            Customer reviews
+          </c-box>
 
-          <!-- comment-2 -->
-          <c-flex
-            class="
-              w-full
-              flex-wrap
-              items-center
-              px-3
-              py-6
-              border-b border-gray-200
-            "
-          >
-            <c-box class="w-full mb-4 md:w-1/6">
-              <c-avatar
-                name="you"
-                size="xl"
-                :src="require('@/static/default.png')"
-              />
-            </c-box>
-            <c-box class="w-full md:w-5/6">
-              <c-text class="text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eveniet, nulla laborum repudiandae error delectus perferendis
-                porro, ea a inventore molestias nisi reprehenderit ipsa nemo
-                quae, iusto quidem id officia eligendi.
-              </c-text>
-            </c-box>
-          </c-flex>
-
-          <!-- read more -->
-          <c-box v-show="readMore">
-            <c-flex
-              class="
-                w-full
-                flex-wrap
-                items-center
-                px-3
-                py-6
-                border-b border-gray-200
-              "
-            >
-              <c-box class="w-full mb-4 md:w-1/6">
-                <c-avatar
-                  name="you"
-                  size="xl"
-                  :src="require('@/static/default.png')"
+          <!-- comment -->
+          <c-grid template-columns="repeat(3, 1fr)" gap="6" my="10">
+            <!-- 1 -->
+            <c-grid-item col-span="1">
+              <c-flex class="items-center mb-5">
+                <c-image
+                  size="50px"
+                  object-fit="cover"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  class="rounded-full mr-3"
                 />
+                <c-box
+                  as="p"
+                  class="text-base text-eerieBlack font-ibm-momo font-semibold"
+                >
+                  Herry Cagrill
+                </c-box>
+              </c-flex>
+
+              <c-box as="p" class="text-sm text-darkLava font-ibm-momo">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam
+                recusandae impedit voluptate soluta quas suscipit. Deserunt
+                animi id ullam cupiditate facilis sapiente repellendus, culpa
+                eligendi ad natus nostrum aliquid aspernatur!
               </c-box>
-              <c-box class="w-full md:w-5/6">
-                <c-text class="text-lg">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Eveniet, nulla laborum repudiandae error delectus perferendis
-                  porro, ea a inventore molestias nisi reprehenderit ipsa nemo
-                  quae, iusto quidem id officia eligendi.
-                </c-text>
+            </c-grid-item>
+
+            <!-- 2 -->
+            <c-grid-item col-span="1">
+              <c-flex class="items-center mb-5">
+                <c-image
+                  size="50px"
+                  object-fit="cover"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  class="rounded-full mr-3"
+                />
+                <c-box
+                  as="p"
+                  class="text-base text-eerieBlack font-ibm-momo font-semibold"
+                >
+                  Herry Cagrill
+                </c-box>
+              </c-flex>
+
+              <c-box as="p" class="text-sm text-darkLava font-ibm-momo">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam
+                recusandae impedit voluptate soluta quas suscipit. Deserunt
+                animi id ullam cupiditate facilis sapiente repellendus, culpa
+                eligendi ad natus nostrum aliquid aspernatur!
               </c-box>
-            </c-flex>
-          </c-box>
-          <c-box class="mt-10 text-center">
-            <c-button variant-color="blue" @click="readMore = !readMore">
-              Read more
-            </c-button>
-          </c-box>
+            </c-grid-item>
+
+            <!-- 3 -->
+            <c-grid-item col-span="1">
+              <c-flex class="items-center mb-5">
+                <c-image
+                  size="50px"
+                  object-fit="cover"
+                  src="https://bit.ly/sage-adebayo"
+                  alt="Segun Adebayo"
+                  class="rounded-full mr-3"
+                />
+                <c-box
+                  as="p"
+                  class="text-base text-eerieBlack font-ibm-momo font-semibold"
+                >
+                  Herry Cagrill
+                </c-box>
+              </c-flex>
+
+              <c-box as="p" class="text-sm text-darkLava font-ibm-momo">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam
+                recusandae impedit voluptate soluta quas suscipit. Deserunt
+                animi id ullam cupiditate facilis sapiente repellendus, culpa
+                eligendi ad natus nostrum aliquid aspernatur!
+              </c-box>
+            </c-grid-item>
+          </c-grid>
         </c-box>
       </c-box>
     </c-box>
@@ -270,10 +339,8 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: 4,
-        slidesPerGroup: 4,
+        slidesPerView: 7,
         spaceBetween: 50,
-        loop: true,
         freeMode: true,
         navigation: true,
       },
@@ -288,6 +355,7 @@ export default {
         created: '',
       },
       readMore: false,
+      isLoading: true,
     }
   },
   async fetch() {
@@ -313,11 +381,17 @@ export default {
       isShowmessage: 'getMessage',
     }),
   },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
+  },
   methods: {
     ...mapActions({
       addToCart: 'cart/addWorkbookToCart',
     }),
     async addWorkbookToCart(workbook) {
+      this.isLoading = true
       await this.addToCart(workbook)
 
       if (this.isShowmessage) {
@@ -328,7 +402,9 @@ export default {
           duration: 2000,
           position: 'top-right',
         })
+        this.isLoading = false
       } else {
+        this.isLoading = false
         this.$toast({
           title: 'Success',
           description: 'This book has been added to cart.',
@@ -341,3 +417,19 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.wb-description {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.wb-description-show {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  overflow: hidden;
+}
+</style>

@@ -45,9 +45,10 @@
       </c-flex>
     </side-bar>
 
+    <loading-screen v-if="isLoading" />
     <!-- content -->
-    <c-box w="80%">
-      <c-box class="py-5 m-5">
+    <c-box v-else w="80%">
+      <c-box class="py-5 m-5 bg-white">
         <c-box class="px-2">
           <c-box>
             <c-heading as="h2" size="md"> eWorkbook Information </c-heading>
@@ -64,70 +65,116 @@
               </c-grid-item>
 
               <c-grid-item col-span="2">
-                <c-stack :spacing="5">
-                  <!-- title -->
-                  <c-flex class="items-center">
-                    <c-text class="w-24 font-semibold"> Title: </c-text>
-                    <c-text>{{ workbook.title }}</c-text>
-                  </c-flex>
+                <!-- title -->
+                <c-flex
+                  class="items-center mb-2 text-2xl font-semibold text-eerieBlack font-ibm"
+                >
+                  <c-box as="p" class="mr-2"> Title: </c-box>
+                  <c-box as="p">{{ workbook.title }}</c-box>
+                </c-flex>
 
-                  <!-- author -->
-                  <c-flex class="items-center">
-                    <c-text class="w-24 font-semibold"> By: </c-text>
-                    <c-text>
-                      {{
-                        workbook.owner ? workbook.owner.username : 'updating...'
-                      }}
-                    </c-text>
-                  </c-flex>
+                <!-- author -->
+                <c-flex
+                  class="items-center mb-4 text-base font-semibold uppercase text-darkSilver font-ibm"
+                >
+                  <c-box as="p" class="mr-2"> By: </c-box>
+                  <c-box as="p">
+                    {{
+                      workbook.owner ? workbook.owner.username : 'updating...'
+                    }}
+                  </c-box>
+                </c-flex>
 
-                  <c-flex>
-                    <!-- edition -->
-                    <c-flex class="items-center w-1/2">
-                      <c-text class="w-24 font-semibold"> Edition: </c-text>
-                      <c-text>{{ workbook.edition }}</c-text>
-                    </c-flex>
+                <!-- edition -->
+                <c-flex
+                  class="items-center mb-1 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Edition: </c-box>
+                  <c-box as="p">{{ workbook.edition }}</c-box>
+                </c-flex>
 
-                  </c-flex>
+                <!-- language -->
+                <c-flex
+                  class="items-center mb-1 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Language: </c-box>
+                  <c-box as="p">{{ workbook.language || 'updating...' }}</c-box>
+                </c-flex>
 
-                  <c-flex class="items-center">
-                    <!-- price -->
-                    <c-flex class="items-center w-1/4">
-                      <c-text class="w-24 font-semibold"> Price: </c-text>
-                      <c-text>{{ workbook.price }}</c-text>
-                    </c-flex>
-                  </c-flex>
+                <!-- published -->
+                <c-flex
+                  class="items-center mb-1 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Published: </c-box>
+                  <c-box as="p">
+                    {{ $dayjs(workbook.created).format('MM/DD/YYYY') }}
+                  </c-box>
+                </c-flex>
 
-                  <c-flex class="items-center">
-                    <c-text class="w-24 font-semibold"> Tags: </c-text>
-                    <c-stack
-                      v-if="workbook.tags && workbook.tags.length > 0"
-                      :spacing="4"
-                      align-items="start"
-                      is-inline
+                <!-- price -->
+                <c-flex
+                  class="items-center mb-1 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Price: </c-box>
+                  <c-box as="p">${{ workbook.price }}</c-box>
+                </c-flex>
+
+                <!-- categories -->
+                <c-flex
+                  class="items-center mb-1 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Tags: </c-box>
+                  <c-stack
+                    v-if="workbook.tags && workbook.tags.length > 0"
+                    :spacing="4"
+                    align-items="start"
+                    is-inline
+                  >
+                    <c-tag
+                      v-for="(tag, index) in workbook.tags"
+                      :key="index"
+                      class="mr-2"
+                      variant-color="vue"
                     >
-                      <c-tag
-                        v-for="(tag, index) in workbook.tags"
-                        :key="index"
-                        class="mr-2"
-                        variant-color="vue"
-                      >
-                        {{ tag || 'updating...' }}
-                      </c-tag>
-                    </c-stack>
-                  </c-flex>
-                </c-stack>
+                      {{ tag || 'updating...' }}
+                    </c-tag>
+                  </c-stack>
+                </c-flex>
+
+                <!-- share with -->
+                <c-flex
+                  class="items-center mb-4 text-base text-darkLava font-ibm-momo"
+                >
+                  <c-box as="p" class="mr-2 font-semibold"> Share with: </c-box>
+                  <c-box as="p">
+                    {{ workbook.share ? workbook.share : '' }}
+                  </c-box>
+                </c-flex>
+
+                <!-- description -->
+                <c-box class="text-base text-darkLava font-ibm-momo">
+                  <c-box as="p" class="mb-2 font-semibold">
+                    Description:
+                  </c-box>
+                  <c-box
+                    as="p"
+                    class="font-normal"
+                    :class="[
+                      readMore ? 'wb-description-show' : 'wb-description',
+                    ]"
+                  >
+                    {{ workbook.description }}
+                  </c-box>
+                  <c-pseudo-box
+                    as="button"
+                    class="text-blue-500 underline focus:outline-none"
+                    @click="readMore = !readMore"
+                  >
+                    {{ !readMore ? 'Read more' : 'Hide less' }}
+                  </c-pseudo-box>
+                </c-box>
               </c-grid-item>
             </c-grid>
-
-            <c-box mt="8">
-              <c-text class="mb-2 font-semibold"> Description: </c-text>
-              <c-textarea
-                readonly="true"
-                :value="workbook.description"
-                placeholder="Description"
-              />
-            </c-box>
           </c-box>
         </c-box>
       </c-box>
@@ -137,15 +184,20 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
   components: {
     'side-bar': SideBar,
+    LoadingScreen,
   },
   data() {
     return {
-      isLoading: false,
-      workbook: {},
+      workbook: {
+        tags: [],
+      },
+      isLoading: true,
+      readMore: false,
     }
   },
   async fetch() {
@@ -166,5 +218,26 @@ export default {
       this.isLoading = false;
     }
   },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
+  },
 }
 </script>
+
+<style scoped>
+.wb-description {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.wb-description-show {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  overflow: hidden;
+}
+</style>

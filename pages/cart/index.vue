@@ -1,76 +1,69 @@
 <template font-size="sm">
   <c-box class="container mx-auto" my="10">
-    <c-box color="#b5b4a1eb">
-      <c-breadcrumb separator="›">
-        <c-breadcrumb-item>
-          <c-breadcrumb-link href="#">Home</c-breadcrumb-link>
-        </c-breadcrumb-item>
+    <loading-screen v-if="isLoading" />
 
-        <c-breadcrumb-item is-current-page>
-          <c-breadcrumb-link href="#">Cart</c-breadcrumb-link>
-        </c-breadcrumb-item>
-      </c-breadcrumb>
-    </c-box>
-    <c-box my="5">
-      <c-heading as="h1" size="lg"> Cart </c-heading>
+    <c-box v-else class="w-full">
+      <c-box color="#b5b4a1eb">
+        <c-breadcrumb separator="›">
+          <c-breadcrumb-item>
+            <c-breadcrumb-link href="#">Home</c-breadcrumb-link>
+          </c-breadcrumb-item>
 
-      <c-flex class="my-10">
-        <!-- items list -->
-        <c-flex class="py-5 px-4" w="70%">
-          <c-box class="w-full">
-            <c-flex
-              v-for="item in cart"
-              :key="item.id"
-              class="w-full border border-gray-200 rounded-md p-5 mb-4"
-            >
-              <!-- image -->
-              <c-box>
-                <c-image
-                  size="100px"
-                  src="https://bit.ly/chakra-naruto-uzumaki"
-                  alt="Jonathan Bakebwa"
-                />
-              </c-box>
-              <!-- workbook information -->
-              <c-box class="mx-5 flex-1">
-                <!-- title -->
-                <c-text class="text-[20px] font-bold font-ibm mb-1">
-                  {{ item.workbook.title }}
-                </c-text>
+          <c-breadcrumb-item is-current-page>
+            <c-breadcrumb-link href="#">Cart</c-breadcrumb-link>
+          </c-breadcrumb-item>
+        </c-breadcrumb>
+      </c-box>
 
-                <!-- author -->
-                <c-text class="text-xs text-darkSilver mb-2">
-                  {{ item.workbook.owner.username }}
-                </c-text>
+      <c-box my="5">
+        <c-box as="p" class="mb-10 text-3xl font-semibold font-ibm">
+          Cart
+        </c-box>
+        <c-box v-if="cart.length === 0" as="p" class="font-ibm-momo">
+          There are no books in cart.
+        </c-box>
 
-                <!-- workbook price -->
-                <c-text class="text-base text-red-500">
-                  {{ item.workbook.price * item.quantity }}$
-                </c-text>
-              </c-box>
+        <c-flex v-else class="my-10">
+          <!-- items list -->
+          <c-flex class="py-5 px-4" w="70%">
+            <c-box class="w-full">
+              <c-flex
+                v-for="item in cart"
+                :key="item.id"
+                class="
+                  justify-between
+                  items-center
+                  w-full
+                  border border-gray-200
+                  rounded-md
+                  p-5
+                  mb-4
+                "
+              >
+                <c-flex>
+                  <!-- image -->
+                  <c-image
+                    size="100px"
+                    src="https://bit.ly/chakra-naruto-uzumaki"
+                    alt="Jonathan Bakebwa"
+                  />
+                  <!-- workbook information -->
+                  <c-box class="mx-5 flex-1">
+                    <!-- title -->
+                    <c-text class="text-[20px] font-bold font-ibm mb-1">
+                      {{ item.workbook.title }}
+                    </c-text>
 
-              <c-flex class="items-center justify-between w-1/4">
-                <c-flex class="items-center w-20">
-                  <c-button
-                    size="sm"
-                    variant-color="blue"
-                    variant="outline"
-                    @click="incrementItemQuantity(item.id)"
-                  >
-                    +
-                  </c-button>
+                    <!-- author -->
+                    <c-text class="text-xs text-darkSilver mb-2">
+                      {{ item.workbook.owner.username || 'updating...' }}
+                    </c-text>
 
-                  <c-text class="mx-2">{{ item.quantity }}</c-text>
-
-                  <c-button
-                    size="sm"
-                    variant-color="blue"
-                    variant="outline"
-                    :is-disabled="item.quantity === 1"
-                    @click="decrementItemQuantity(item.id)"
-                  >
-                    -
-                  </c-button>
+                    <!-- workbook price -->
+                    <c-text class="text-base text-red-500">
+                      {{ item.workbook.price * item.quantity }}$
+                    </c-text>
+                  </c-box>
                 </c-flex>
 
                 <!-- remove action -->
@@ -85,45 +78,34 @@
                   />
                 </c-box>
               </c-flex>
-            </c-flex>
-          </c-box>
-        </c-flex>
+            </c-box>
+          </c-flex>
 
-        <!-- summary -->
-        <c-flex class="p-5 h-[350px]" w="30%">
-          <c-flex class="flex-col w-full border border-gray-200 rounded-md p-5">
-            <c-heading as="h3" size="md" class="font-bold">
-              Order summary
-            </c-heading>
-            <c-flex class="flex-col w-full">
-              <c-flex class="justify-between my-4">
-                <c-text class="text-base font-semibold">Subtotal: </c-text>
-                <c-text class="text-base text-darkSilver">
-                  {{ totalPrice }}$
-                </c-text>
-              </c-flex>
-
-              <c-flex class="justify-between my-4">
-                <c-text class="text-base font-semibold">Shipping: </c-text>
-                <c-text class="text-base text-darkSilver">
-                  {{ shipping }}$
-                </c-text>
-              </c-flex>
+          <!-- summary -->
+          <c-flex class="p-5 h-[200px]" w="30%">
+            <c-flex
+              class="flex-col w-full border border-gray-200 rounded-md p-5"
+            >
+              <c-heading as="h3" size="md" class="font-bold">
+                Order summary
+              </c-heading>
 
               <c-divider />
 
-              <c-flex class="justify-between mt-4 mb-10">
-                <c-text class="text-base font-semibold">Total: </c-text>
-                <c-text class="text-base text-darkSilver">
-                  {{ totalPrice + shipping }}$
-                </c-text>
-              </c-flex>
+              <c-flex class="flex-col w-full">
+                <c-flex class="justify-between mt-4 mb-10">
+                  <c-text class="text-base font-semibold">Total: </c-text>
+                  <c-text class="text-base text-darkSilver">
+                    {{ totalPrice }}$
+                  </c-text>
+                </c-flex>
 
-              <c-button variant-color="blue"> Checkout </c-button>
+                <c-button variant-color="blue"> Checkout </c-button>
+              </c-flex>
             </c-flex>
           </c-flex>
         </c-flex>
-      </c-flex>
+      </c-box>
     </c-box>
   </c-box>
 </template>
@@ -136,9 +118,10 @@ export default {
   data() {
     return {
       workbooks: [],
-      shipping: 30,
+      isLoading: true,
     }
   },
+
   computed: {
     ...mapGetters('cart', {
       cart: 'getCart',
@@ -151,34 +134,21 @@ export default {
       return response
     },
   },
+
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
+  },
+
   methods: {
     ...mapActions({
-      increase: 'cart/incrementQuantity',
-      decrease: 'cart/decrementQuantity',
       removeItem: 'cart/removeWorkbook',
     }),
-    incrementItemQuantity(itemId) {
-      this.increase(itemId)
-    },
-    decrementItemQuantity(itemId) {
-      this.decrease(itemId)
-    },
+
     removeItemFromCart(itemId) {
       this.removeItem(itemId)
     },
   },
-  // async fetch() {
-  //   try {
-  //     this.workbooks = await this.$axios.$get('api/v1/workbooks')
-  //   } catch (error) {
-  //     this.$toast({
-  //       title: 'Failed',
-  //       description: 'Something wrong happen',
-  //       status: 'error',
-  //       duration: 2000,
-  //       position: 'top-right',
-  //     })
-  //   }
-  // },
 }
 </script>

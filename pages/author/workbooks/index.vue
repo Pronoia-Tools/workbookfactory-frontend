@@ -1,5 +1,6 @@
 <template>
   <c-flex class="" direction="row" w="100%" min-h="95vh">
+    <!-- side bar -->
     <side-bar>
       <c-flex direction="column" w="100%" align="center" as="nav" class="nav">
         <c-box class="w-full">
@@ -43,7 +44,10 @@
         </c-box>
       </c-flex>
     </side-bar>
-    <c-box class="w-full font-mono lg:w-4/5" overflow="hidden">
+
+    <loading-screen v-if="isLoading" />
+    <!-- content -->
+    <c-box v-else class="w-full font-mono lg:w-4/5" overflow="hidden">
       <c-box mx="4" my="5" py="5">
         <c-box px="2rem">
           <!-- create & search -->
@@ -188,15 +192,18 @@
 
 <script>
 import SideBar from '@/components/SideBar.vue'
+import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
   components: {
     'side-bar': SideBar,
+    LoadingScreen,
   },
   props: {},
   data() {
     return {
       workbooks: [],
+      isLoading: true,
     }
   },
   async fetch() {
@@ -212,6 +219,11 @@ export default {
         position: 'top-right',
       })
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
   },
 }
 </script>

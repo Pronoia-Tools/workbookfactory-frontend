@@ -1,6 +1,5 @@
 const state = () => {
   return {
-    products: [],
     cart: [],
     isShowMessage: false,
   }

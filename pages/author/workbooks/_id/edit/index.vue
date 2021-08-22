@@ -1,155 +1,189 @@
 <template>
-  <c-flex direction="row" w="100%" min-h="95vh">
-    <c-box w="20%">
-      <side-bar>
-        <c-flex direction="column" w="100%" align="center" as="nav" class="nav">
-          <c-box class="w-full">
-            <c-box as="ul" class="mt-4 text-sm">
-              <c-box as="li" class="">
-                <nuxt-link to="" class="flex p-4">
-                  <c-flex class="items-center w-full">
-                    <span class="flex-1"> Sale</span>
-                  </c-flex>
-                </nuxt-link>
-              </c-box>
-              <c-box as="li" class="">
-                <nuxt-link to="author/workbooks" class="flex p-4">
-                  <c-flex class="items-center w-full">
-                    <span class="flex-1"> Workbooks</span>
-                    <c-icon w="5" name="chevronRight" class="icon" />
-                  </c-flex>
-                </nuxt-link>
-                <c-box as="ul">
-                  <c-box as="li" class="">
-                    <nuxt-link
-                      to="/author/workbooks/create"
-                      class="flex items-center p-4"
-                    >
-                      <span class="flex-1 ml-2 font-bold">
-                        Create New Workbook
-                        <c-icon w="5" name="plus" class="icon" />
-                      </span>
-                    </nuxt-link>
+  <c-box direction="row" w="100%" min-h="95vh">
+    <loading-screen v-if="isLoading" />
+
+    <c-flex v-else class="w-full">
+      <c-box w="20%">
+        <side-bar>
+          <c-flex
+            direction="column"
+            w="100%"
+            align="center"
+            as="nav"
+            class="nav"
+          >
+            <c-box class="w-full">
+              <c-box as="ul" class="mt-4 text-sm">
+                <c-box as="li" class="">
+                  <nuxt-link to="" class="flex p-4">
+                    <c-flex class="items-center w-full">
+                      <span class="flex-1"> Sale</span>
+                    </c-flex>
+                  </nuxt-link>
+                </c-box>
+                <c-box as="li" class="">
+                  <nuxt-link to="author/workbooks" class="flex p-4">
+                    <c-flex class="items-center w-full">
+                      <span class="flex-1"> Workbooks</span>
+                      <c-icon w="5" name="chevronRight" class="icon" />
+                    </c-flex>
+                  </nuxt-link>
+                  <c-box as="ul">
+                    <c-box as="li" class="">
+                      <nuxt-link
+                        to="/author/workbooks/create"
+                        class="flex items-center p-4"
+                      >
+                        <span class="flex-1 ml-2 font-bold">
+                          Create New Workbook
+                          <c-icon w="5" name="plus" class="icon" />
+                        </span>
+                      </nuxt-link>
+                    </c-box>
                   </c-box>
                 </c-box>
-              </c-box>
-              <c-box as="li" class="">
-                <nuxt-link to="/" class="flex p-4">
-                  <c-flex class="items-center w-full">
-                    <span class="flex-1"> Customer</span>
-                  </c-flex>
-                </nuxt-link>
+                <c-box as="li" class="">
+                  <nuxt-link to="/" class="flex p-4">
+                    <c-flex class="items-center w-full">
+                      <span class="flex-1"> Customer</span>
+                    </c-flex>
+                  </nuxt-link>
+                </c-box>
               </c-box>
             </c-box>
-          </c-box>
-        </c-flex>
-      </side-bar>
-    </c-box>
-    <c-box w="80%">
-      <c-box mx="4" my="5" py="5" background-color="#fff">
-        <c-box px="2rem">
-          <c-box>
-            <c-heading as="h2" size="md"> eWorkbook Information </c-heading>
-          </c-box>
+          </c-flex>
+        </side-bar>
+      </c-box>
 
-          <c-box py="10">
-            <c-grid template-columns="repeat(3, 1fr)" gap="6">
-              <c-grid-item col-span="1" bg="blue.300" />
-              <c-grid-item col-span="2">
-                <c-stack :spacing="5">
-                  <!-- title -->
-                  <c-form-control class="flex items-center">
-                    <c-form-label width="100px"> Title </c-form-label>
-                    <c-input v-model="workbook.title" flex="1" type="text" />
-                  </c-form-control>
+      <c-box w="80%">
+        <c-box mx="4" my="5" py="5" background-color="#fff">
+          <c-box px="2rem">
+            <c-box>
+              <c-heading as="h2" size="md"> eWorkbook Information </c-heading>
+            </c-box>
 
-                  <c-form-control class="flex items-center">
-                    <!-- edition -->
-                    <c-flex class="items-center w-1/2 mr-4">
-                      <c-form-label width="100px"> Edition </c-form-label>
-                      <c-input
-                        v-model="workbook.edition"
-                        flex="1"
-                        type="text"
-                      />
-                    </c-flex>
+            <c-box py="10">
+              <c-grid template-columns="repeat(3, 1fr)" gap="6">
+                <c-grid-item col-span="1" bg="blue.300" />
+                <c-grid-item col-span="2">
+                  <c-stack :spacing="5">
+                    <!-- title -->
+                    <c-form-control class="flex items-center">
+                      <c-form-label width="100px"> Title </c-form-label>
+                      <c-input v-model="workbook.title" flex="1" type="text" />
+                    </c-form-control>
 
-                    <!-- language -->
-                    <c-flex class="items-center w-1/2">
-                      <c-form-label width="100px"> Language </c-form-label>
-                      <c-select
-                        v-model="workbook.language"
-                        placeholder="Select Language"
-                        flex="1"
-                      >
-                        <option
-                          v-for="language in languages"
-                          :key="language.id"
-                          :value="language.value"
+                    <c-form-control class="flex items-center">
+                      <!-- edition -->
+                      <c-flex class="items-center w-1/2 mr-4">
+                        <c-form-label width="100px"> Edition </c-form-label>
+                        <c-input
+                          v-model="workbook.edition"
+                          flex="1"
+                          type="number"
+                        />
+                      </c-flex>
+
+                      <!-- language -->
+                      <c-flex class="items-center w-1/2">
+                        <c-form-label width="100px"> Language </c-form-label>
+                        <c-select
+                          v-model="workbook.language"
+                          placeholder="Select Language"
+                          flex="1"
                         >
-                          {{ language.value }}
-                        </option>
-                      </c-select>
-                    </c-flex>
-                  </c-form-control>
+                          <option
+                            v-for="language in languages"
+                            :key="language.id"
+                            :value="language.value"
+                          >
+                            {{ language.value }}
+                          </option>
+                        </c-select>
+                      </c-flex>
+                    </c-form-control>
 
-                  <c-form-control class="flex items-center">
-                    <!-- price -->
-                    <c-flex class="items-center w-4/5 mr-2">
-                      <c-form-label width="100px"> Price </c-form-label>
-                      <c-input v-model="workbook.price" flex="1" type="text" />
-                    </c-flex>
-                  </c-form-control>
+                    <c-form-control class="flex items-center">
+                      <!-- price -->
+                      <c-flex class="items-center w-4/5 mr-2">
+                        <c-form-label width="100px"> Price </c-form-label>
+                        <c-input
+                          v-model="workbook.price"
+                          flex="1"
+                          type="number"
+                        />
+                      </c-flex>
 
-                  <!-- categories -->
-                  <c-form-control class="flex">
-                    <c-form-label width="100px"> Categories </c-form-label>
-                    <tag-input v-if="workbook.tags" :tag-list="workbook.tags" />
-                  </c-form-control>
-                </c-stack>
-              </c-grid-item>
-            </c-grid>
+                      <!-- currency -->
+                      <c-flex class="items-center w-1/5">
+                        <c-select
+                          v-model="workbook.currency"
+                          placeholder="Select Unit"
+                        >
+                          <option
+                            v-for="currency in currencies"
+                            :key="currency.id"
+                          >
+                            {{ currency.unit }}
+                          </option>
+                        </c-select>
+                      </c-flex>
+                    </c-form-control>
 
-            <c-form-control mt="8">
-              <c-form-label class="mb-2"> Description </c-form-label>
-              <c-textarea
-                v-model="workbook.description"
-                :value="workbook.description"
-                placeholder="Description"
-              />
-            </c-form-control>
+                    <!-- categories -->
+                    <c-form-control class="flex">
+                      <c-form-label width="100px"> Tags </c-form-label>
+                      <tag-input
+                        v-if="workbook.tags"
+                        :tag-list="workbook.tags"
+                      />
+                    </c-form-control>
+                  </c-stack>
+                </c-grid-item>
+              </c-grid>
 
-            <c-flex mt="8" align-items="center" justify-content="flex-end">
-              <c-button
-                :is-loading="isLoading"
-                loading-text="Submitting"
-                variant-color="blue"
-                size="md"
-                @click="submitForm"
-              >
-                Submit
-              </c-button>
-            </c-flex>
+              <c-form-control mt="8">
+                <c-form-label class="mb-2"> Description </c-form-label>
+                <c-textarea
+                  v-model="workbook.description"
+                  :value="workbook.description"
+                  placeholder="Description"
+                />
+              </c-form-control>
+
+              <c-flex mt="8" align-items="center" justify-content="flex-end">
+                <c-button
+                  :is-loading="isLoading"
+                  loading-text="Submitting"
+                  variant-color="blue"
+                  size="md"
+                  @click="submitForm"
+                >
+                  Submit
+                </c-button>
+              </c-flex>
+            </c-box>
           </c-box>
         </c-box>
       </c-box>
-    </c-box>
-  </c-flex>
+    </c-flex>
+  </c-box>
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
 import TagInput from '@/components/TagInput'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
+import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
   components: {
     'side-bar': SideBar,
     'tag-input': TagInput,
+    LoadingScreen,
   },
   data() {
     return {
-      isLoading: false,
       workbook: {
         title: '',
         language: '',
@@ -161,8 +195,10 @@ export default {
       },
       languages: LANGUAGES,
       currencies: CURRENCY_UNITS,
+      isLoading: true,
     }
   },
+
   async fetch() {
     try {
       const id = this.$route.params.id
@@ -178,10 +214,17 @@ export default {
       })
     }
   },
+
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
+  },
+
   methods: {
     async submitForm() {
-      this.isLoading = true
       try {
+        this.isLoading = true
         const id = this.$route.params.id
         const params = {
           title: this.workbook.title,
@@ -207,7 +250,9 @@ export default {
           })
           this.$router.push('/author/workbooks')
         }
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         this.$toast({
           title: 'Failed',
           description: 'Something wrong happen',
@@ -216,7 +261,6 @@ export default {
           position: 'top-right',
         })
       }
-      this.isLoading = false
     },
   },
 }

@@ -45,8 +45,10 @@
       </c-flex>
     </side-bar>
 
+    <loading-screen v-if="isLoading" />
+
     <!-- content -->
-    <c-box w="80%">
+    <c-box v-else w="80%">
       <c-box class="py-5 m-5">
         <c-box class="px-2">
           <c-box>
@@ -71,7 +73,11 @@
                       <!-- price -->
                       <c-flex class="items-center w-4/5">
                         <c-form-label width="100px">Price</c-form-label>
-                        <c-input v-model="workbookPrice" flex="1" type="text" />
+                        <c-input
+                          v-model="workbookPrice"
+                          flex="1"
+                          type="number"
+                        />
                       </c-flex>
                     </c-form-control>
                     <c-form-control is-required>
@@ -81,7 +87,7 @@
                         <c-input
                           v-model="workbookEdition"
                           flex="1"
-                          type="text"
+                          type="number"
                         />
                       </c-flex>
                     </c-form-control>
@@ -141,13 +147,20 @@ export default {
       workbookTitle: '',
       workbookCoverImage: null,
       workbookLanguage: '',
-      workbookEdition: 1,
-      workbookPrice: 0.0,
+      workbookEdition: '',
+      workbookPrice: '',
       workbookDescription: '',
       workbookTags: [],
       supportedLanguages: LANGUAGES,
       supportCurrencies: CURRENCY_UNITS,
+      isLoading: true,
     }
+  },
+
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 1500)
   },
   methods: {
     handleImages(files) {
@@ -155,8 +168,9 @@ export default {
       this.workbookCoverImage = file;
     },
     async submitForm() {
-      this.isLoading = true
       try {
+        this.isLoading = true;
+        
         const data = {
           title: this.workbookTitle,
           language: this.workbookLanguage,
@@ -189,7 +203,9 @@ export default {
           })
           this.$router.push('/author/workbooks')
         }
+        this.isLoading = false
       } catch (error) {
+        this.isLoading = false
         this.$toast({
           title: 'Failed',
           description: 'Something wrong happen',
