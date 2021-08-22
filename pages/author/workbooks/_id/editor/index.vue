@@ -1,107 +1,111 @@
 <template>
-  <c-flex direction="row" w="100%">
-    <side-bar>
-      <c-box class="w-full">
-        <c-box class="p-6">
-          <c-box class="mb-4">
-            <!-- workbook cover -->
-            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
-              Workbook cover
-            </c-text>
-            <c-box class="relative w-40 workbook-cover h-60">
-              <c-flex class="absolute justify-center w-full h-full">
-                <c-image
-                  v-if="workbookCover"
-                  :src="workbookCover"
-                  alt="workbook-cover"
-                  class="h-full"
-                />
-                <c-flex
-                  v-else
-                  alt="workbook-cover"
-                  class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
-                >
+  <div>
+    <loading-screen v-if="isLoading" />
+    <c-flex v-else direction="row" w="100%">
+      <side-bar>
+        <c-box class="w-full">
+          <c-box class="p-6">
+            <c-box class="mb-4">
+              <!-- workbook cover -->
+              <c-text class="mb-3 text-base font-semibold text-eerieBlack">
+                Workbook cover
+              </c-text>
+              <c-box class="relative w-40 workbook-cover h-60">
+                <c-flex class="absolute justify-center w-full h-full">
                   <c-image
-                    class="w-4 h-4"
-                    :src="require('@/static/icons/iconUpload.svg')"
-                    alt="icons"
+                    v-if="workbook.cover_image"
+                    :src="workbook.cover_image"
+                    alt="workbook-cover"
+                    class="h-full"
                   />
-                  <span class="pt-2 text-sm">Upload</span>
+                  <c-flex
+                    v-else
+                    alt="workbook-cover"
+                    class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
+                  >
+                    <c-image
+                      class="w-4 h-4"
+                      :src="require('@/static/icons/iconUpload.svg')"
+                      alt="icons"
+                    />
+                    <span class="pt-2 text-sm">Upload</span>
+                  </c-flex>
                 </c-flex>
-              </c-flex>
-              <c-input
-                type="file"
-                class="absolute z-10 p-10 text-center opacity-0"
-                accept="image/*"
-                @change="onFileChange"
-              />
+                <c-input
+                  type="file"
+                  class="absolute z-10 p-10 text-center opacity-0"
+                  accept="image/*"
+                  @change="onFileChange"
+                />
+              </c-box>
+            </c-box>
+
+            <!-- workbook title -->
+            <c-box>
+              <c-text class="mb-3 text-base font-semibold text-eerieBlack">
+                Workbook title
+              </c-text>
+              <c-input id="wtitle" v-model="workbook.title" placeholder="Workbook title..." is-disabled />
             </c-box>
           </c-box>
 
-          <!-- workbook title -->
-          <c-box>
-            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
-              Workbook title
-            </c-text>
-            <c-input id="wtitle" placeholder="Workbook title..." />
-          </c-box>
+          <c-divider />
         </c-box>
 
-        <c-divider />
+        <!-- table of content -->
+      <table-of-content :headings="headings" />
+      </side-bar>
+
+      <c-box
+        w="60%"
+        p="10"
+        class="flex-1 h-full m-10 border border-gray-200 editor"
+      >
+        <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
+          <!-- bold -->
+          <c-button
+            :class="{ 'is-active': editor.isActive('bold') }"
+            @click="editor.chain().focus().toggleBold().run()"
+          >
+            <c-image
+              :src="require('@/static/icons/bold-solid.svg')"
+              alt="bold"
+              class="w-4 h-4"
+            />
+          </c-button>
+
+          <!-- italic -->
+          <c-button
+            :class="{ 'is-active roun': editor.isActive('italic') }"
+            @click="editor.chain().focus().toggleItalic().run()"
+          >
+            <c-image
+              :src="require('@/static/icons/italic-solid.svg')"
+              alt="italic"
+              class="w-4 h-4"
+            />
+          </c-button>
+
+          <!-- strike -->
+          <c-button
+            :class="{ 'is-active': editor.isActive('strike') }"
+            @click="editor.chain().focus().toggleStrike().run()"
+          >
+            <c-image
+              :src="require('@/static/icons/strikethrough-solid.svg')"
+              alt="strikethrough"
+              class="w-4 h-4"
+            />
+          </c-button>
+        </bubble-menu>
+
+        <editor-content h="100%" :editor="editor" />
       </c-box>
 
-      <!-- table of content -->
-      <table-of-content :headings="headings" />
-    </side-bar>
-
-    <c-box
-      w="60%"
-      p="10"
-      class="flex-1 h-full m-10 border border-gray-200 editor"
-    >
-      <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
-        <!-- bold -->
-        <c-button
-          :class="{ 'is-active': editor.isActive('bold') }"
-          @click="editor.chain().focus().toggleBold().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/bold-solid.svg')"
-            alt="bold"
-            class="w-4 h-4"
-          />
-        </c-button>
-
-        <!-- italic -->
-        <c-button
-          :class="{ 'is-active roun': editor.isActive('italic') }"
-          @click="editor.chain().focus().toggleItalic().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/italic-solid.svg')"
-            alt="italic"
-            class="w-4 h-4"
-          />
-        </c-button>
-
-        <!-- strike -->
-        <c-button
-          :class="{ 'is-active': editor.isActive('strike') }"
-          @click="editor.chain().focus().toggleStrike().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/strikethrough-solid.svg')"
-            alt="strikethrough"
-            class="w-4 h-4"
-          />
-        </c-button>
-      </bubble-menu>
-
-      <editor-content h="100%" :editor="editor" />
-    </c-box>
-
-    <library />
-  </c-flex>
+      <library />
+    </c-flex>
+  </div>
+  
 </template>
 
 <script>
@@ -110,7 +114,6 @@ import tippy from 'tippy.js'
 import Library from '@/components/Upload/Library.vue'
 import StarterKit from '@tiptap/starter-kit'
 import SideBar from '@/components/SideBar.vue'
-import Component from '@/components/TableOfContent/Component.vue'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
 import SlashCommands from '@/components/SlashCommand'
 import SlashComponent from '@/components/SlashCommand/Component.vue'
@@ -118,7 +121,6 @@ import SlashComponent from '@/components/SlashCommand/Component.vue'
 export default {
   components: {
     'side-bar': SideBar,
-    'table-of-content': Component,
     library: Library,
     EditorContent,
     BubbleMenu,
@@ -126,6 +128,8 @@ export default {
   data() {
     return {
       isLoading: false,
+      workbook: null,
+      chapters: null,
       preDefinedComponents: [],
       editor: null,
       editable: false,
@@ -133,36 +137,28 @@ export default {
       workbookCover: null,
     }
   },
-  fetch() {
-    
+  async fetch() {
     try {
       this.isLoading = true;
+      
       const {
         params: {
           id,
         }
       } = this.$route;
+    
+      const { data } = await this.$axios.get(`api/v1/workbooks/${id}`);
 
-      console.log('id', id);
-    } catch {
+      this.workbook = data;
+    } catch(error) {
+      console.log('error', error)
     } finally {
       this.isLoading = false;
     }
   },
   mounted() {
     this.editor = new Editor({
-      content: `
-      <toc></toc>
-      <h1>1 heading</h1>
-      <p>paragraph</p>
-      <h2>1.1 heading</h2>
-      <p>paragraph</p>
-      <h2>1.2 heading</h2>
-      <p>paragraph</p>
-      <h1>2 heading</h1>
-      <p>paragraph</p>
-      <h2>2.1 heading</h2>
-      <p>paragraph</p>`,
+      content: null,
       extensions: [
         StarterKit,
         SlashCommands.configure({

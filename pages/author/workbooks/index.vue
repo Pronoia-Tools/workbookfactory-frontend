@@ -196,7 +196,6 @@
 
 <script>
 export default {
-  fetchOnServer: false,
   data() {
     return {
       workbooks: null,
@@ -207,7 +206,7 @@ export default {
     try {
       this.isLoading = true;
       
-      const {data} = await this.$axios.get(`api/v1/workbooks`)
+      const { data } = await this.$axios.get(`api/v1/workbooks`)
       
       this.workbooks = data;
     } catch (error) {

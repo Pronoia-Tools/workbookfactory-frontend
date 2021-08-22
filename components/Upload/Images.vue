@@ -10,14 +10,9 @@
           :src="image.image"
           alt="Jonathan Bakebwa"
         />
-        <p class="text-xs mt-2">
+        <p class="mt-2 text-xs">
           <span
-            class="
-              block
-              font-semibold
-              whitespace-nowrap
-              overflow-ellipsis overflow-hidden
-            "
+            class="block overflow-hidden font-semibold  whitespace-nowrap overflow-ellipsis"
           >
             {{ image.title }}
           </span>
@@ -55,7 +50,7 @@ export default {
     },
   },
   created() {
-    this.getLibrariesImages()
+    // this.getLibrariesImages()
   },
   methods: {
     ...mapActions('upload', {

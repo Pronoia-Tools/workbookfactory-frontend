@@ -1,8 +1,9 @@
 <template>
-  <nav class="toc__list mx-6 my-6">
-    <ul class="px-2 py-4 text-darkSilver">
+  <nav class="mx-6 my-6 toc__list">
+    <ul v-if="headings.length > 0" class="px-2 py-4 text-darkSilver">
       <li
         v-for="(heading, index) in headings"
+        
         :key="index"
         class="toc__item"
         :class="`toc__item--${heading.level}`"
@@ -12,12 +13,20 @@
         </a>
       </li>
     </ul>
+    <c-box v-else>
+      <c-input 
+        variant="flushed"
+        placeholder="Create new chapter, ex: 1.1 A journey start" 
+        @keyup.enter="createChapter"
+      >
+      </c-input>
+    </c-box>
   </nav>
 </template>
 
 <script>
 export default {
-  name: 'TableOfContentComponent',
+  name: 'TableOfContent',
   props: {
     headings: {
       type: Array,
@@ -25,8 +34,33 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      isLoading: false
+    }
   },
+  methods: {
+    async createChapter(event) {
+      try {
+        const {
+          params: {
+            id
+          }
+        } = await this.$route;
+        const title = event.target.value;
+        
+        const { data } = await this.$axios.post(`api/v1/workbooks/${id}/chapters`, {
+          title
+        })
+
+        console.log('data', data)
+        
+      } catch (error) {
+        console.log('createChapter', error)
+      } finally {
+        this.isLoading = false;
+      }
+    }
+  }
 }
 </script>
 
