@@ -15,7 +15,9 @@
 </template>
 
 <script>
-export default {}
+export default {
+  name: 'LoadingScreen',
+}
 </script>
 
 <style lang="scss" scoped>

@@ -86,7 +86,7 @@
 
       <nuxt-link to="/" class="product-published m-0">
         <p class="text-darkSilver text-[13px]">
-          Last open: {{ $dayjs(workbook.created).format('MM DD YYYY') }}
+          Last open: {{ $dayjs(workbook.created).format('MM/DD/YYYY') }}
         </p>
       </nuxt-link>
     </c-box>

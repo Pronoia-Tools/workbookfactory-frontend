@@ -61,19 +61,17 @@
         <!-- workbook description -->
         <c-box class="font-ibm-momo text-base text-darkLava">
           <c-box as="p" class="mb-2 font-semibold"> Description: </c-box>
-          <c-box as="p" class="font-normal">
+          <c-box
+            as="p"
+            class="font-normal"
+            :class="[readMore ? 'wb-description-show' : 'wb-description']"
+          >
             "I wish I'd had these books as a kid. Hilarious!" -- Dav Pilkey,
             creator of Captain Underpants and Dog Man They may look like Bad
             Guys, but these wannabe heroes are doing good deeds... whether
             youlike it or not in this New York Times bestselling illustrated
             series.
           </c-box>
-          <c-collapse class="font-normal" :is-open="readMore">
-            <br />
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-            labore wes anderson cred nesciunt sapiente ea proident.
-          </c-collapse>
           <c-pseudo-box
             as="button"
             class="text-blue-500 underline focus:outline-none"
@@ -139,3 +137,19 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.wb-description {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.wb-description-show {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: horizontal;
+  display: -webkit-box;
+  overflow: hidden;
+}
+</style>
