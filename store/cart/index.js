@@ -1,73 +1,87 @@
 const state = () => {
   return {
-    cartItems: [],
+    products: [],
+    cart: [],
+    isShowMessage: false,
   }
 }
 
 const getters = {
-  cartItems: (state) => state.cartItems,
-  cartTotal: (state) => {
-    return state.cartItems
-      .reduce((acc, cartItem) => {
-        return cartItem.quantity * cartItem.price + acc
-      }, 0)
-      .toFixed(2)
+  getCart(state) {
+    return state.cart
   },
-  cartQuantity: (state) => {
-    return state.cartItems.reduce((acc, cartItem) => {
-      return cartItem.quantity + acc
-    }, 0)
+  getMessage(state) {
+    return state.isShowMessage
   },
 }
 
 const actions = {
-  async getCartItems({ commit }) {
-    try {
-      const response = await this.$axios.$get('/api/v1/cart/')
+  addWorkbookToCart({ state, commit }, workbook) {
+    // find item
+    const cartItem = state.cart.find((item) => item.id === workbook.id)
 
-      if (response) await commit('updateCartItems', response)
-    } catch (error) {
-      console.log(error.message)
+    if (!cartItem) {
+      commit('setMessage', false)
+      commit('pushWorkbookToCart', workbook)
+    } else {
+      commit('setMessage', true)
     }
   },
 
-  async addCartItem({ commit }, payload) {
-    try {
-      const response = await this.$axios.$post('/api/v1/cart/', payload)
-
-      if (response) await commit('updateCartItems', response)
-    } catch (error) {
-      console.log(error)
-    }
+  incrementQuantity({ commit }, itemId) {
+    commit('incrementItemQuantity', itemId)
   },
 
-  async removeCartItem({ commit }, payload) {
-    try {
-      const response = await this.$axios.$delete('/api/v1/cart/delete', payload)
-
-      if (response) await commit('updateCartItems', response)
-    } catch (error) {
-      console.log(error)
-    }
+  decrementQuantity({ commit }, itemId) {
+    commit('decrementItemQuantity', itemId)
   },
 
-  async removeAllCartItems({ commit }, payload) {
-    try {
-      const response = await this.$axios.$delete(
-        '/api/v1/cart/delete/all',
-        payload
-      )
-
-      if (response) await commit('updateCartItems', response)
-    } catch (error) {
-      console.log(error)
-    }
+  removeWorkbook({ commit }, itemId) {
+    commit('removeWorkbookFromCart', itemId)
   },
 }
 
 const mutations = {
-  updateCartItems(state, response) {
-    state.cartItems = response
+  pushWorkbookToCart(state, workbook) {
+    state.cart.push({
+      id: workbook.id,
+      quantity: 1,
+      workbook,
+    })
+  },
+
+  incrementItemQuantity(state, itemId) {
+    const newCart = [...state.cart]
+
+    newCart.forEach((item) => {
+      if (item.id === itemId) {
+        item.quantity += 1
+      }
+    })
+
+    state.cart = [...newCart]
+  },
+
+  decrementItemQuantity(state, itemId) {
+    const newCart = [...state.cart]
+
+    newCart.forEach((item) => {
+      if (item.id === itemId) {
+        item.quantity -= 1
+      }
+    })
+
+    state.cart = [...newCart]
+  },
+
+  removeWorkbookFromCart(state, itemId) {
+    const newCart = state.cart.filter((item) => item.id !== itemId)
+
+    state.cart = [...newCart]
+  },
+
+  setMessage(state, payload) {
+    state.isShowMessage = payload
   },
 }
 

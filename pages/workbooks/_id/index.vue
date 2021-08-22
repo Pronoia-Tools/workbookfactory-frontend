@@ -43,6 +43,7 @@
             width="250px"
             border="2px"
             border-color="green.500"
+            @click="addWorkbookToCart(workbookFields)"
           >
             Add to cart
           </c-button>
@@ -257,6 +258,7 @@ import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import 'swiper/components/pagination/pagination.min.css'
 import 'swiper/components/navigation/navigation.min.css'
 import SwiperCore, { Pagination, Navigation } from 'swiper/core'
+import { mapActions, mapGetters } from 'vuex'
 
 SwiperCore.use([Pagination, Navigation])
 
@@ -304,6 +306,38 @@ export default {
         position: 'top-right',
       })
     }
+  },
+  computed: {
+    ...mapGetters('cart', {
+      cart: 'getCart',
+      isShowmessage: 'getMessage',
+    }),
+  },
+  methods: {
+    ...mapActions({
+      addToCart: 'cart/addWorkbookToCart',
+    }),
+    async addWorkbookToCart(workbook) {
+      await this.addToCart(workbook)
+
+      if (this.isShowmessage) {
+        this.$toast({
+          title: 'Failed',
+          description: 'This book has been existed in cart.',
+          status: 'error',
+          duration: 2000,
+          position: 'top-right',
+        })
+      } else {
+        this.$toast({
+          title: 'Success',
+          description: 'This book has been added to cart.',
+          status: 'success',
+          duration: 2000,
+          position: 'top-right',
+        })
+      }
+    },
   },
 }
 </script>

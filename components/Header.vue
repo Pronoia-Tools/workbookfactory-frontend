@@ -40,12 +40,13 @@
           <c-flex class="items-center">
             <!-- cart -->
             <c-box as="li" class="relative px-4">
-              <c-image
-                :src="require('@/static/icons/shopping-cart.svg')"
-                alt="shopping-cart"
-                class="w-7 h-7"
-              />
-
+              <nuxt-link to="/cart">
+                <c-image
+                  :src="require('@/static/icons/shopping-cart.svg')"
+                  alt="shopping-cart"
+                  class="w-7 h-7"
+                />
+              </nuxt-link>
               <c-box
                 class="
                   absolute
@@ -59,7 +60,7 @@
                   right-1
                 "
               >
-                0
+                {{ cart.length }}
               </c-box>
             </c-box>
 
@@ -143,7 +144,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import Navigator from '@/components/Headers/Navigator.vue'
 
 export default {
@@ -154,6 +155,11 @@ export default {
     return {
       isShowNavigator: false,
     }
+  },
+  computed: {
+    ...mapGetters('cart', {
+      cart: 'getCart',
+    }),
   },
   methods: {
     ...mapActions('auth', {
