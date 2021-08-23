@@ -1,5 +1,5 @@
 <template>
-  <c-flex direction="row" w="100%">
+  <c-flex class="flex-row w-full" min-h="94vh">
     <side-bar>
       <c-box class="w-full">
         <c-box class="p-6">
@@ -19,7 +19,15 @@
                 <c-flex
                   v-else
                   alt="workbook-cover"
-                  class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
+                  class="
+                    flex-col
+                    items-center
+                    justify-center
+                    w-full
+                    h-full
+                    rounded-md
+                    bg-vapers
+                  "
                 >
                   <c-image
                     class="w-4 h-4"
@@ -106,7 +114,6 @@
 
 <script>
 import tippy from 'tippy.js'
-
 import Library from '@/components/Upload/Library.vue'
 import StarterKit from '@tiptap/starter-kit'
 import SideBar from '@/components/SideBar.vue'
@@ -200,10 +207,10 @@ export default {
                   },
                 },
               ]
-                // .filter((item) =>
-                //   // item.title.toLowerCase().startsWith(query.toLowerCase())
-                // )
-                // .slice(0, 10)
+              // .filter((item) =>
+              //   // item.title.toLowerCase().startsWith(query.toLowerCase())
+              // )
+              // .slice(0, 10)
             },
             render: () => {
               let component

@@ -48,7 +48,6 @@ export default {
   },
   computed: {
     tagProps() {
-      console.log('tag list', this.tagList)
       return this.tagList
     },
   },
@@ -60,8 +59,6 @@ export default {
         this.tagProps.push(value)
         event.target.value = ''
       }
-
-      console.log('button tagProps', this.tagProps)
     },
     removeTag(index) {
       this.tagProps.splice(index, 1)

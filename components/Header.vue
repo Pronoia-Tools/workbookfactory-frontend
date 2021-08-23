@@ -1,9 +1,15 @@
 <template>
   <c-box box-shadow="0px -1px 0px #AFA99C">
     <c-flex
-      class="justify-between h-14 bg-dark-gray border-gray-200 border-b"
-      align="center"
-      px="15px"
+      class="
+        flex-row
+        justify-between
+        items-center
+        bg-dark-gray
+        border-gray-200 border-b
+        px-4
+      "
+      height="6vh"
     >
       <c-box display="flex" class="text-sm">
         <nuxt-link to="/">

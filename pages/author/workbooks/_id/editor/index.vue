@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading-screen v-if="isLoading" />
-    <c-flex v-else direction="row" w="100%">
+    <c-flex v-else class="flex-row w-full" min-h="94vh">
       <side-bar>
         <c-box class="w-full">
           <c-box class="p-6">
@@ -21,7 +21,15 @@
                   <c-flex
                     v-else
                     alt="workbook-cover"
-                    class="flex-col items-center justify-center w-full h-full rounded-md bg-vapers"
+                    class="
+                      flex-col
+                      items-center
+                      justify-center
+                      w-full
+                      h-full
+                      rounded-md
+                      bg-vapers
+                    "
                   >
                     <c-image
                       class="w-4 h-4"
@@ -45,7 +53,12 @@
               <c-text class="mb-3 text-base font-semibold text-eerieBlack">
                 Workbook title
               </c-text>
-              <c-input id="wtitle" v-model="workbook.title" placeholder="Workbook title..." is-disabled />
+              <c-input
+                id="wtitle"
+                v-model="workbook.title"
+                placeholder="Workbook title..."
+                is-disabled
+              />
             </c-box>
           </c-box>
 
@@ -53,7 +66,7 @@
         </c-box>
 
         <!-- table of content -->
-      <table-of-content :headings="headings" />
+        <table-of-content :headings="headings" />
       </side-bar>
 
       <c-box
@@ -105,23 +118,18 @@
       <library />
     </c-flex>
   </div>
-  
 </template>
 
 <script>
 import tippy from 'tippy.js'
 
-import Library from '@/components/Upload/Library.vue'
 import StarterKit from '@tiptap/starter-kit'
-import SideBar from '@/components/SideBar.vue'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
 import SlashCommands from '@/components/SlashCommand'
 import SlashComponent from '@/components/SlashCommand/Component.vue'
 
 export default {
   components: {
-    'side-bar': SideBar,
-    library: Library,
     EditorContent,
     BubbleMenu,
   },
@@ -138,38 +146,36 @@ export default {
   },
   async fetch() {
     try {
-      this.isLoading = true;
-      
-      const {
-        params: {
-          id,
-        }
-      } = this.$route;
-    
-      const { data } = await this.$axios.get(`api/v1/workbooks/${id}`);
+      this.isLoading = true
 
-      this.workbook = data;
-      this.handleUpdate();
-    } catch(error) {
+      const {
+        params: { id },
+      } = this.$route
+
+      const { data } = await this.$axios.get(`api/v1/workbooks/${id}`)
+
+      this.workbook = data
+      this.handleUpdate()
+    } catch (error) {
       console.log('error', error)
     } finally {
-      this.isLoading = false;
+      this.isLoading = false
     }
   },
 
   computed: {
     chapters() {
-      return this.workbook?.chapter_set || [];
+      return this.workbook?.chapter_set || []
     },
-    level1Headings() { 
-      return this.chapters.map((chapter, index) => { 
+    level1Headings() {
+      return this.chapters.map((chapter, index) => {
         return {
           level: 0,
           text: `${index}. ${chapter.title}`,
-          id: `heading-${index + 1}`
+          id: `heading-${index + 1}`,
         }
-      });
-    }
+      })
+    },
   },
   mounted() {
     this.editor = new Editor({
@@ -228,7 +234,8 @@ export default {
                       .run()
                   },
                 },
-              ].filter((item) =>
+              ]
+                .filter((item) =>
                   item.title.toLowerCase().startsWith(query.toLowerCase())
                 )
                 .slice(0, 10)
@@ -308,20 +315,23 @@ export default {
       this.headings = headings
 
       console.log(this.editor.getJSON())
-      this.updateWorkbookContent();
+      this.updateWorkbookContent()
     },
 
     async updateWorkbookContent() {
       try {
-        const workbookId = this.workbook.id;
+        const workbookId = this.workbook.id
 
-        const { data } = await this.$axios.patch(`api/v1/workbooks/${workbookId}`, {
-          content: this.editor.getJSON()
-        });
+        const { data } = await this.$axios.patch(
+          `api/v1/workbooks/${workbookId}`,
+          {
+            content: this.editor.getJSON(),
+          }
+        )
 
-        console.log('data', data);
-      } catch(error) {
-        console.log("updateWorkbookContent", error)
+        console.log('data', data)
+      } catch (error) {
+        console.log('updateWorkbookContent', error)
       }
     },
 

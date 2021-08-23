@@ -142,9 +142,11 @@
           @mousemove="coordinateMouse"
         >
           <nuxt-link :to="`/workbooks/${workbook.id}`">
-            <c-image
-              :src="require('@/static/cover.png')"
-              alt="img-workbooks"
+            <c-box
+              :bg-image="url(`${workbook.cover_image}`)"
+              bg-size="cover"
+              bg-pos="center"
+              bg-repeat="no-repeat"
               class="workbook-image h-96 rounded-md"
             />
             <c-box class="product-infomation flex flex-col space-y-1 pt-4">
@@ -250,6 +252,9 @@ export default {
     coordinateMouse(event) {
       this.coordinateX = event.clientX
       this.coordinateY = event.clientY
+    },
+    url(value) {
+      return 'url(' + value + ')'
     },
   },
 }
