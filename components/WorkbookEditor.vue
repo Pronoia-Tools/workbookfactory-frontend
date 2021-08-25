@@ -1,157 +1,110 @@
 <template>
-  <c-flex class="flex-row w-full" min-h="94vh">
-    <side-bar>
-      <c-box class="w-full">
-        <c-box class="p-6">
-          <c-box class="mb-4">
-            <!-- workbook cover -->
-            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
-              Workbook cover
-            </c-text>
-            <c-box class="relative w-40 workbook-cover h-60">
-              <c-flex class="absolute justify-center w-full h-full">
-                <c-image
-                  v-if="workbookCover"
-                  :src="workbookCover"
-                  alt="workbook-cover"
-                  class="h-full"
-                />
-                <c-flex
-                  v-else
-                  alt="workbook-cover"
-                  class="
-                    flex-col
-                    items-center
-                    justify-center
-                    w-full
-                    h-full
-                    rounded-md
-                    bg-vapers
-                  "
-                >
-                  <c-image
-                    class="w-4 h-4"
-                    :src="require('@/static/icons/iconUpload.svg')"
-                    alt="icons"
-                  />
-                  <span class="pt-2 text-sm">Upload</span>
-                </c-flex>
-              </c-flex>
-              <c-input
-                type="file"
-                class="absolute z-10 p-10 text-center opacity-0"
-                accept="image/*"
-                @change="onFileChange"
-              />
-            </c-box>
-          </c-box>
+  <c-box
+    w="60%"
+    p="10"
+    class="flex-1 h-full m-10 border border-gray-200 editor"
+  >
+    <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
+      <!-- bold -->
+      <c-button
+        :class="{ 'is-active': editor.isActive('bold') }"
+        @click="editor.chain().focus().toggleBold().run()"
+      >
+        <c-image
+          :src="require('@/static/icons/bold-solid.svg')"
+          alt="bold"
+          class="w-4 h-4"
+        />
+      </c-button>
 
-          <!-- workbook title -->
-          <c-box>
-            <c-text class="mb-3 text-base font-semibold text-eerieBlack">
-              Workbook title
-            </c-text>
-            <c-input id="wtitle" placeholder="Workbook title..." />
-          </c-box>
-        </c-box>
+      <!-- italic -->
+      <c-button
+        :class="{ 'is-active roun': editor.isActive('italic') }"
+        @click="editor.chain().focus().toggleItalic().run()"
+      >
+        <c-image
+          :src="require('@/static/icons/italic-solid.svg')"
+          alt="italic"
+          class="w-4 h-4"
+        />
+      </c-button>
 
-        <c-divider />
-      </c-box>
+      <!-- strike -->
+      <c-button
+        :class="{ 'is-active': editor.isActive('strike') }"
+        @click="editor.chain().focus().toggleStrike().run()"
+      >
+        <c-image
+          :src="require('@/static/icons/strikethrough-solid.svg')"
+          alt="strikethrough"
+          class="w-4 h-4"
+        />
+      </c-button>
+    </bubble-menu>
 
-      <!-- table of content -->
-      <table-of-content :headings="headings" />
-    </side-bar>
-
-    <c-box
-      w="60%"
-      p="10"
-      class="flex-1 h-full m-10 border border-gray-200 editor"
-    >
-      <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
-        <!-- bold -->
-        <c-button
-          :class="{ 'is-active': editor.isActive('bold') }"
-          @click="editor.chain().focus().toggleBold().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/bold-solid.svg')"
-            alt="bold"
-            class="w-4 h-4"
-          />
-        </c-button>
-
-        <!-- italic -->
-        <c-button
-          :class="{ 'is-active roun': editor.isActive('italic') }"
-          @click="editor.chain().focus().toggleItalic().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/italic-solid.svg')"
-            alt="italic"
-            class="w-4 h-4"
-          />
-        </c-button>
-
-        <!-- strike -->
-        <c-button
-          :class="{ 'is-active': editor.isActive('strike') }"
-          @click="editor.chain().focus().toggleStrike().run()"
-        >
-          <c-image
-            :src="require('@/static/icons/strikethrough-solid.svg')"
-            alt="strikethrough"
-            class="w-4 h-4"
-          />
-        </c-button>
-      </bubble-menu>
-
-      <editor-content h="100%" :editor="editor" />
-    </c-box>
-
-    <library />
-  </c-flex>
+    <editor-content h="100%" :editor="editor" />
+  </c-box>
 </template>
 
 <script>
 import tippy from 'tippy.js'
-import Library from '@/components/Upload/Library.vue'
+
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
-import TableOfContent from '@/components/TableOfContent/TableOfContent'
 import SlashCommands from '@/components/SlashCommand'
 import SlashComponent from '@/components/SlashCommand/Component.vue'
 
 export default {
   components: {
-    library: Library,
     EditorContent,
     BubbleMenu,
-    'table-of-content': TableOfContent,
   },
   data() {
     return {
-      preDefinedComponents: [],
       editor: null,
       editable: false,
-      headings: [],
-      workbookCover: null,
+      interval: null,
+      newHeadings: [],
     }
+  },
+  async fetch() {
+    try {
+      this.isLoading = true
+
+      const {
+        params: { id },
+      } = this.$route
+
+      const { data } = await this.$axios.get(`api/v1/workbooks/${id}`)
+
+      this.workbook = data
+      this.editor.commands.setContent(this.workbook.content)
+      this.handleUpdate()
+    } catch (error) {
+      console.log('error', error)
+    } finally {
+      this.isLoading = false
+    }
+  },
+
+  computed: {
+    chapters() {
+      return this.workbook?.chapter_set || []
+    },
+    level1Headings() {
+      return this.chapters.map((chapter, index) => {
+        return {
+          level: 0,
+          text: `${index}. ${chapter.title}`,
+          id: `heading-${index + 1}`,
+        }
+      })
+    },
   },
 
   mounted() {
     this.editor = new Editor({
-      content: `
-      <toc></toc>
-      <h1>1 heading</h1>
-      <p>paragraph</p>
-      <h2>1.1 heading</h2>
-      <p>paragraph</p>
-      <h2>1.2 heading</h2>
-      <p>paragraph</p>
-      <h1>2 heading</h1>
-      <p>paragraph</p>
-      <h2>2.1 heading</h2>
-      <p>paragraph</p>`,
+      content: null,
       extensions: [
         StarterKit,
         SlashCommands.configure({
@@ -207,10 +160,10 @@ export default {
                   },
                 },
               ]
-              // .filter((item) =>
-              //   // item.title.toLowerCase().startsWith(query.toLowerCase())
-              // )
-              // .slice(0, 10)
+                .filter((item) =>
+                  item.title.toLowerCase().startsWith(query.toLowerCase())
+                )
+                .slice(0, 10)
             },
             render: () => {
               let component
@@ -253,19 +206,23 @@ export default {
         }),
       ],
     })
+
+    // console.log(this.editor.getJSON())
     this.editor.on('update', this.handleUpdate)
-    this.$nextTick(this.handleUpdate)
+    this.interval = setInterval(() => {
+      this.updateWorkbookContent()
+    }, 5000)
   },
 
   beforeDestroy() {
     this.editor.destroy()
+    clearInterval(this.interval)
   },
 
   methods: {
     handleUpdate() {
       const headings = []
       const transaction = this.editor.state.tr
-
       this.editor.state.doc.descendants((node, pos) => {
         if (node.type.name === 'heading') {
           const id = `heading-${headings.length + 1}`
@@ -284,36 +241,32 @@ export default {
       })
       transaction.setMeta('preventUpdate', true)
       this.editor.view.dispatch(transaction)
-      this.headings = headings
+      this.newHeadings = [...headings]
+      this.$emit('update-headings', this.newHeadings)
+      this.updateWorkbookContent()
     },
 
-    onFileChange(event) {
-      // const selectedFile = event.target.files[0]
+    async updateWorkbookContent() {
+      try {
+        const workbookId = this.workbook.id
 
-      // if (selectedFile) {
-      //   this.workbookCover = URL.createObjectURL(selectedFile)
-      // }
+        const { data } = await this.$axios.patch(
+          `api/v1/workbooks/${workbookId}`,
+          {
+            content: this.editor.getJSON(),
+          }
+        )
 
-      const input = event.target
-      // Ensure that you have a file before attempting to read it
-      if (input.files && input.files[0]) {
-        // create a new FileReader to read this image and convert to base64 format
-        const reader = new FileReader()
-        // Define a callback function to run, when FileReader finishes its job
-        reader.onload = (e) => {
-          // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
-          // Read image as base64 and set to imageData
-          this.workbookCover = e.target.result
-        }
-        // Start the reader job - read file as a data url (base64 format)
-        reader.readAsDataURL(input.files[0])
+        console.log('data', data)
+      } catch (error) {
+        console.log('updateWorkbookContent', error)
       }
     },
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .editor {
   /* Basic editor styles */
   .ProseMirror {

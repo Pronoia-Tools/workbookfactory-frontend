@@ -1,59 +1,52 @@
 <template>
-  <c-box direction="row" w="100%" min-h="95vh">
+  <c-box>
     <loading-screen v-if="isLoading" />
 
-    <c-flex v-else class="w-full">
-      <c-box w="20%">
-        <side-bar>
-          <c-flex
-            direction="column"
-            w="100%"
-            align="center"
-            as="nav"
-            class="nav"
-          >
-            <c-box class="w-full">
-              <c-box as="ul" class="mt-4 text-sm">
-                <c-box as="li" class="">
-                  <nuxt-link to="" class="flex p-4">
-                    <c-flex class="items-center w-full">
-                      <span class="flex-1"> Sale</span>
-                    </c-flex>
-                  </nuxt-link>
-                </c-box>
-                <c-box as="li" class="">
-                  <nuxt-link to="author/workbooks" class="flex p-4">
-                    <c-flex class="items-center w-full">
-                      <span class="flex-1"> Workbooks</span>
-                      <c-icon w="5" name="chevronRight" class="icon" />
-                    </c-flex>
-                  </nuxt-link>
-                  <c-box as="ul">
-                    <c-box as="li" class="">
-                      <nuxt-link
-                        to="/author/workbooks/create"
-                        class="flex items-center p-4"
-                      >
-                        <span class="flex-1 ml-2 font-bold">
-                          Create New Workbook
-                          <c-icon w="5" name="plus" class="icon" />
-                        </span>
-                      </nuxt-link>
-                    </c-box>
+    <c-flex v-else class="flex-row w-full" min-h="94vh">
+      <!-- side bar -->
+      <side-bar>
+        <c-flex direction="column" w="100%" align="center" as="nav" class="nav">
+          <c-box class="w-full">
+            <c-box as="ul" class="mt-4 text-sm">
+              <c-box as="li" class="">
+                <nuxt-link to="" class="flex p-4">
+                  <c-flex class="items-center w-full">
+                    <span class="flex-1"> Sale</span>
+                  </c-flex>
+                </nuxt-link>
+              </c-box>
+              <c-box as="li" class="">
+                <nuxt-link to="author/workbooks" class="flex p-4">
+                  <c-flex class="items-center w-full">
+                    <span class="flex-1"> Workbooks</span>
+                    <c-icon w="5" name="chevronRight" class="icon" />
+                  </c-flex>
+                </nuxt-link>
+                <c-box as="ul">
+                  <c-box as="li" class="">
+                    <nuxt-link
+                      to="/author/workbooks/create"
+                      class="flex items-center p-4"
+                    >
+                      <span class="flex-1 ml-2 font-bold">
+                        Create New Workbook
+                        <c-icon w="5" name="plus" class="icon" />
+                      </span>
+                    </nuxt-link>
                   </c-box>
                 </c-box>
-                <c-box as="li" class="">
-                  <nuxt-link to="/" class="flex p-4">
-                    <c-flex class="items-center w-full">
-                      <span class="flex-1"> Customer</span>
-                    </c-flex>
-                  </nuxt-link>
-                </c-box>
+              </c-box>
+              <c-box as="li" class="">
+                <nuxt-link to="/" class="flex p-4">
+                  <c-flex class="items-center w-full">
+                    <span class="flex-1"> Customer</span>
+                  </c-flex>
+                </nuxt-link>
               </c-box>
             </c-box>
-          </c-flex>
-        </side-bar>
-      </c-box>
+          </c-box>
+        </c-flex>
+      </side-bar>
 
       <c-box w="80%">
         <c-box mx="4" my="5" py="5" background-color="#fff">
@@ -64,7 +57,44 @@
 
             <c-box py="10">
               <c-grid template-columns="repeat(3, 1fr)" gap="6">
-                <c-grid-item col-span="1" bg="blue.300" />
+                <!-- workbook image -->
+                <c-grid-item col-span="1">
+                  <c-box
+                    v-if="
+                      typeof workbook.cover_image === 'string' && isImageExist
+                    "
+                    class="relative"
+                  >
+                    <c-image
+                      :src="workbook.cover_image"
+                      alt="workbook-cover"
+                      class="mx-auto rounded-md mb-2"
+                      h="450px"
+                    />
+
+                    <c-box class="absolute top-5 right-20">
+                      <c-icon-button
+                        v-show="isImageExist"
+                        variant-color="blue"
+                        variant="outline"
+                        border-radius="20px"
+                        icon="close"
+                        aria-label="Delete"
+                        size="sm"
+                        @click="removeCoverImage"
+                      />
+                    </c-box>
+                  </c-box>
+
+                  <c-box v-else>
+                    <upload-images
+                      :max="1"
+                      max-error="Max files exceed"
+                      @changed="handleImages"
+                    />
+                  </c-box>
+                </c-grid-item>
+
                 <c-grid-item col-span="2">
                   <c-stack :spacing="5">
                     <!-- title -->
@@ -148,6 +178,7 @@
                   v-model="workbook.description"
                   :value="workbook.description"
                   placeholder="Description"
+                  min-h="200px"
                 />
               </c-form-control>
 
@@ -171,16 +202,12 @@
 </template>
 
 <script>
-import SideBar from '@/components/SideBar.vue'
-import TagInput from '@/components/TagInput'
+import UploadImages from 'vue-upload-drop-images'
 import { LANGUAGES, CURRENCY_UNITS } from '~/utils/constants'
-import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
   components: {
-    'side-bar': SideBar,
-    'tag-input': TagInput,
-    LoadingScreen,
+    'upload-images': UploadImages,
   },
   data() {
     return {
@@ -188,7 +215,7 @@ export default {
         title: '',
         language: '',
         price: '',
-        currency: '',
+        cover_image: null,
         description: '',
         tags: [],
         image: '',
@@ -196,6 +223,7 @@ export default {
       languages: LANGUAGES,
       currencies: CURRENCY_UNITS,
       isLoading: true,
+      isImageExist: true,
     }
   },
 
@@ -222,23 +250,44 @@ export default {
   },
 
   methods: {
+    handleImages(files) {
+      const file = files[0]
+      this.workbook.cover_image = file
+    },
+
+    removeCoverImage() {
+      this.isImageExist = false
+      this.workbook.cover_image = null
+    },
+
     async submitForm() {
       try {
         this.isLoading = true
-        const id = this.$route.params.id
-        const params = {
+
+        let data = {
           title: this.workbook.title,
           language: this.workbook.language,
           edition: this.workbook.edition,
           price: this.workbook.price,
           description: this.workbook.description,
-          currency: this.workbook.currency,
           tags: this.workbook.tags,
         }
-        const response = await this.$axios.$put(
-          `api/v1/workbooks/${id}`,
-          params
-        )
+
+        // Trying to create an record with both data and file, so using form-data here so only call API 1
+        const formData = new FormData()
+
+        if (typeof this.workbook.cover_image !== 'string') {
+          data = { ...data, ...{ cover_image: this.workbook.cover_image } }
+          formData.append('cover_image', this.workbook.cover_image)
+        }
+        formData.append('data', JSON.stringify(data))
+
+        const response = await this.$axios({
+          url: `api/v1/workbooks/${this.workbook.id}`,
+          data: formData,
+          method: 'put',
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
 
         if (response) {
           this.$toast({

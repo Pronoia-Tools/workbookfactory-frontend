@@ -3,7 +3,6 @@
     <ul v-if="headings.length > 0" class="px-2 py-4 text-darkSilver">
       <li
         v-for="(heading, index) in headings"
-        
         :key="index"
         class="toc__item"
         :class="`toc__item--${heading.level}`"
@@ -27,10 +26,10 @@ export default {
   },
   data() {
     return {
-      isLoading: false
+      isLoading: false,
     }
   },
-  methods: {}
+  methods: {},
 }
 </script>
 

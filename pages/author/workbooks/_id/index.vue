@@ -208,7 +208,7 @@
                   </c-flex>
 
                   <!-- description -->
-                  <c-box class="text-base text-darkLava font-ibm-momo">
+                  <c-box class="text-base text-darkLava font-ibm-momo mb-10">
                     <c-box as="p" class="mb-2 font-semibold">
                       Description:
                     </c-box>
@@ -229,6 +229,11 @@
                       {{ !readMore ? 'Read more' : 'Hide less' }}
                     </c-pseudo-box>
                   </c-box>
+
+                  <!-- content button -->
+                  <nuxt-link :to="`/author/workbooks/${workbook.id}/content`">
+                    <c-button variant-color="blue"> Read content </c-button>
+                  </nuxt-link>
                 </c-grid-item>
               </c-grid>
             </c-box>
@@ -263,10 +268,6 @@ export default {
       const id = this.$route.params.id
 
       this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
-      console.log(
-        '🚀 ~ file: index.vue ~ line 266 ~ fetch ~ this.workbook',
-        this.workbook
-      )
     } catch (error) {
       this.$toast({
         title: 'Failed',
