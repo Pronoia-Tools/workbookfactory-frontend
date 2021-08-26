@@ -36,11 +36,9 @@
           h-full
           z-20
           lg:relative lg:w-full
+          border-r border-gray-200
         "
         direction="column"
-        h="100%"
-        border="1px"
-        border-color="gray.100"
       >
         <slot></slot>
       </c-box>

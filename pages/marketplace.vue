@@ -124,7 +124,7 @@
       </c-box>
 
       <!-- All workbooks -->
-      <c-flex v-if="!isEmpty" class="items-center flex-wrap p-8">
+      <c-flex v-if="!isEmpty" class="items-start flex-wrap p-8">
         <c-box
           v-for="workbook in sortedWorkbooks"
           :key="workbook.id"
@@ -142,21 +142,31 @@
           @mousemove="coordinateMouse"
         >
           <nuxt-link :to="`/workbooks/${workbook.id}`">
-            <c-image
-              :src="require('@/static/cover.png')"
-              alt="img-workbooks"
+            <c-box
+              :bg-image="url(`${workbook.cover_image}`)"
+              bg-size="cover"
+              bg-pos="center"
+              bg-repeat="no-repeat"
               class="workbook-image h-96 rounded-md"
             />
             <c-box class="product-infomation flex flex-col space-y-1 pt-4">
-              <p
-                class="text-[20px] text-eerieBlack leading-[26px] font-semibold"
-              >
+              <c-box as="p" class="text-xl text-eerieBlack font-semibold mb-1">
                 {{ workbook.title }}
-              </p>
+              </c-box>
 
-              <p class="text-darkSilver text-[13px] uppercase font-semibold">
+              <c-box
+                as="p"
+                class="text-sm text-darkSilver uppercase font-semibold mb-1"
+              >
                 {{ workbook.owner.username }}
-              </p>
+              </c-box>
+
+              <c-box
+                as="p"
+                class="text-sm text-darkSilver uppercase font-semibold"
+              >
+                {{ $dayjs(workbook.created).format('MM/DD/YYYY - HH:mm:ss') }}
+              </c-box>
             </c-box>
           </nuxt-link>
 
@@ -250,6 +260,9 @@ export default {
     coordinateMouse(event) {
       this.coordinateX = event.clientX
       this.coordinateY = event.clientY
+    },
+    url(value) {
+      return 'url(' + value + ')'
     },
   },
 }

@@ -1,9 +1,9 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-2'
-import Component from './Component.vue'
+import TableOfContent from './TableOfContent.vue'
 
 export default Node.create({
-  name: 'tableOfContents',
+  name: 'TableOfContents',
 
   group: 'block',
 
@@ -22,7 +22,7 @@ export default Node.create({
   },
 
   addNodeView() {
-    return VueNodeViewRenderer(Component)
+    return VueNodeViewRenderer(TableOfContent)
   },
 
   addGlobalAttributes() {

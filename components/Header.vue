@@ -1,9 +1,15 @@
 <template>
   <c-box box-shadow="0px -1px 0px #AFA99C">
     <c-flex
-      class="justify-between h-14 bg-dark-gray border-gray-200 border-b"
-      align="center"
-      px="15px"
+      class="
+        flex-row
+        justify-between
+        items-center
+        bg-dark-gray
+        border-gray-200 border-b
+        px-4
+      "
+      height="6vh"
     >
       <c-box display="flex" class="text-sm">
         <nuxt-link to="/">
@@ -74,13 +80,13 @@
             </c-box>
 
             <!-- notifications -->
-            <c-box as="li" class="px-4">
+            <!-- <c-box as="li" class="px-4">
               <c-image
                 :src="require('@/static/icons/bell.svg')"
                 alt="bell"
                 class="w-7 h-7"
               />
-            </c-box>
+            </c-box> -->
           </c-flex>
 
           <c-box as="li" px="2">
@@ -93,13 +99,13 @@
                 px="4"
                 py="2"
               >
-                <c-image
+                <!-- <c-image
                   rounded="3px"
                   h="40px"
                   w="40px"
                   src="https://bit.ly/chakra-jonathan-bakebwa"
                   alt="Đặng Kiên"
-                />
+                /> -->
                 <c-icon name="chevron-down" />
               </c-menu-button>
               <c-menu-list>

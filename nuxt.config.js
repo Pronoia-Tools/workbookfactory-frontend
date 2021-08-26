@@ -170,13 +170,13 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      baseURL: 'https://workbookfactory-api.herokuapp.com',
+      baseURL: 'https://workbook-factory-api.herokuapp.com',
     },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://workbookfactory-api.herokuapp.com',
+    baseURL: 'https://workbook-factory-api.herokuapp.com',
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -187,6 +187,8 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: ['vue-upload-drop-images'],
+  },
   target: 'server',
 }

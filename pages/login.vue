@@ -15,7 +15,7 @@
   >
     <loading-screen v-if="isLoading" />
 
-    <c-box class="w-full max-w-md space-y-8">
+    <c-box class="w-full max-w-md space-y-8" @keyup.enter="loginHandler">
       <c-heading
         as="h2"
         class="mt-6 text-3xl font-extrabold text-center text-gray-900"
@@ -180,10 +180,8 @@ import { mapActions, mapGetters } from 'vuex'
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength } from 'vuelidate/lib/validators'
 import { toLower } from 'lodash'
-import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
-  components: { LoadingScreen },
   mixins: [validationMixin],
   layout: 'login',
 
@@ -209,11 +207,14 @@ export default {
       isLoading: 'getIsLoading',
     }),
   },
-
+  mounted() {
+    console.log('hereheher')
+  },
   methods: {
     ...mapActions({
       login: 'auth/login',
     }),
+
     async loginHandler() {
       // stop here if form is invalid
       this.$v.$touch()

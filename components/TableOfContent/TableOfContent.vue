@@ -1,6 +1,6 @@
 <template>
-  <nav class="toc__list mx-6 my-6">
-    <ul class="px-2 py-4 text-darkSilver">
+  <nav class="mx-6 my-6 toc__list">
+    <ul v-if="headings.length > 0" class="px-2 py-4 text-darkSilver">
       <li
         v-for="(heading, index) in headings"
         :key="index"
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'TableOfContentComponent',
+  name: 'TableOfContent',
   props: {
     headings: {
       type: Array,
@@ -25,8 +25,11 @@ export default {
     },
   },
   data() {
-    return {}
+    return {
+      isLoading: false,
+    }
   },
+  methods: {},
 }
 </script>
 

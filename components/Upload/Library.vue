@@ -41,6 +41,7 @@ import UploadImage from '@/components/Upload/UploadImage.vue'
 import Images from '@/components/Upload/Images.vue'
 
 export default {
+  name: 'Library',
   components: {
     UploadImage,
     Images,
