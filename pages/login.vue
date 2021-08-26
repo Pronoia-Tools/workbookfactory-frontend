@@ -15,7 +15,7 @@
   >
     <loading-screen v-if="isLoading" />
 
-    <c-box class="w-full max-w-md space-y-8">
+    <c-box class="w-full max-w-md space-y-8" @keyup.enter="loginHandler">
       <c-heading
         as="h2"
         class="mt-6 text-3xl font-extrabold text-center text-gray-900"

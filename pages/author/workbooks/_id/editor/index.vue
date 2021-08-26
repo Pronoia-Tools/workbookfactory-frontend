@@ -19,7 +19,7 @@
                     v-if="workbook.cover_image"
                     :src="workbook.cover_image"
                     alt="workbook-cover"
-                    class="h-full"
+                    class="rounded-md"
                   />
                   <c-flex
                     v-else

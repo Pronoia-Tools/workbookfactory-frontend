@@ -124,7 +124,7 @@
       </c-box>
 
       <!-- All workbooks -->
-      <c-flex v-if="!isEmpty" class="items-center flex-wrap p-8">
+      <c-flex v-if="!isEmpty" class="items-start flex-wrap p-8">
         <c-box
           v-for="workbook in sortedWorkbooks"
           :key="workbook.id"
@@ -150,15 +150,23 @@
               class="workbook-image h-96 rounded-md"
             />
             <c-box class="product-infomation flex flex-col space-y-1 pt-4">
-              <p
-                class="text-[20px] text-eerieBlack leading-[26px] font-semibold"
-              >
+              <c-box as="p" class="text-xl text-eerieBlack font-semibold mb-1">
                 {{ workbook.title }}
-              </p>
+              </c-box>
 
-              <p class="text-darkSilver text-[13px] uppercase font-semibold">
+              <c-box
+                as="p"
+                class="text-sm text-darkSilver uppercase font-semibold mb-1"
+              >
                 {{ workbook.owner.username }}
-              </p>
+              </c-box>
+
+              <c-box
+                as="p"
+                class="text-sm text-darkSilver uppercase font-semibold"
+              >
+                {{ $dayjs(workbook.created).format('MM/DD/YYYY - HH:mm:ss') }}
+              </c-box>
             </c-box>
           </nuxt-link>
 

@@ -21,9 +21,9 @@
         <c-grid-item col-span="1">
           <!-- workbook image -->
           <c-image
-            :src="require('@/static/cover.png')"
+            :src="workbookFields.cover_image"
             alt="workbook"
-            class="mx-auto rounded-md mb-6"
+            class="mx-auto rounded-md mb-6 h-[450px]"
           />
 
           <!-- add to cart -->
@@ -42,7 +42,6 @@
 
         <c-grid-item col-span="2">
           <!-- title -->
-          <c-heading as="h1" size="lg" class="mb-3 uppercase"> </c-heading>
           <c-flex
             class="
               items-center
@@ -60,8 +59,8 @@
             class="
               items-center
               text-base text-darkSilver
-              uppercase
               font-semibold font-ibm
+              uppercase
               mb-4
             "
           >

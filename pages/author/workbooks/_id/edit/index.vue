@@ -37,7 +37,7 @@
                 </c-box>
               </c-box>
               <c-box as="li" class="">
-                <nuxt-link to="/" class="flex p-4">
+                <nuxt-link to="/marketplace" class="flex p-4">
                   <c-flex class="items-center w-full">
                     <span class="flex-1"> Customer</span>
                   </c-flex>

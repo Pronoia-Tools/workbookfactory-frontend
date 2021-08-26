@@ -1,29 +1,58 @@
 <template>
   <c-box class="container mx-auto my-20">
-    <c-box as="p" class="text-3xl text-eerieBlack font-ibm font-semibold mb-4">
-      {{ workbook.title }}
+    <c-box v-if="isLoading">
+      <loading-screen />
     </c-box>
 
-    <c-stack
-      v-if="workbook.tags && workbook.tags.length > 0"
-      :spacing="4"
-      align-items="start"
-      is-inline
-      class="mb-6"
-    >
-      <c-tag
-        v-for="(tag, index) in workbook.tags"
-        :key="index"
-        size="sm"
-        variant-color="vue"
-      >
-        {{ tag }}
-      </c-tag>
-    </c-stack>
+    <c-flex v-else class="justify-center">
+      <c-box class="w-[800px]">
+        <c-box
+          as="p"
+          class="text-4xl text-eerieBlack font-ibm font-semibold mb-8"
+        >
+          {{ workbook.title }}
+        </c-box>
 
-    <c-box class="editor">
-      <editor-content :editor="editor" class="px-10" />
-    </c-box>
+        <c-stack
+          v-if="workbook.tags && workbook.tags.length > 0"
+          :spacing="4"
+          align-items="start"
+          is-inline
+          class="mb-4"
+        >
+          <c-tag
+            v-for="(tag, index) in workbook.tags"
+            :key="index"
+            size="sm"
+            variant-color="vue"
+          >
+            {{ tag }}
+          </c-tag>
+        </c-stack>
+
+        <c-flex class="items-center mb-10">
+          <c-avatar src="https://bit.ly/chakra-evan-you" class="mr-2" />
+          <c-box class="text-xs text-darkLava">
+            <c-box as="p" class="text-sm font-semibold">
+              {{ workbook.owner ? workbook.owner.username : 'updating...' }}
+            </c-box>
+            <c-box as="p">
+              Created: {{ $dayjs(workbook.created).format('MM/DD/YYYY') }}
+            </c-box>
+            <c-box as="p">
+              Modified:
+              {{ $dayjs(workbook.modified).format('MM/DD/YYYY HH:mm:ss') }}
+            </c-box>
+          </c-box>
+        </c-flex>
+
+        <c-divider />
+
+        <c-box class="editor mt-10">
+          <editor-content :editor="editor" />
+        </c-box>
+      </c-box>
+    </c-flex>
   </c-box>
 </template>
 
@@ -39,15 +68,16 @@ export default {
     return {
       workbook: {},
       editor: null,
-      editable: false,
+      isLoading: true,
     }
   },
 
   async fetch() {
     try {
-      const id = this.$route.params.id
+      this.isLoading = true
 
-      this.workbook = await this.$axios.$get(`api/v1/workbooks/${id}`)
+      const id = this.$route.params.id
+      this.workbook = await this.$axios.$get(`/api/v1/workbooks/${id}`)
 
       this.editor.commands.setContent(this.workbook.content)
     } catch (error) {
@@ -58,12 +88,14 @@ export default {
         duration: 2000,
         position: 'top-right',
       })
+    } finally {
+      this.isLoading = false
     }
   },
 
   mounted() {
     this.editor = new Editor({
-      editable: this.editable,
+      editable: false,
       content: this.workbook.content,
       extensions: [StarterKit],
     })
@@ -84,11 +116,7 @@ export default {
 }
 
 .editor {
-  font-size: 1.25em;
-}
-
-[contenteditable='false'] {
-  color: #999;
-  cursor: not-allowed;
+  font-size: 1.55em;
+  color: #4d4535;
 }
 </style>

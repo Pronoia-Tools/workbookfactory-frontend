@@ -1,8 +1,16 @@
 <template>
   <c-box
-    w="60%"
-    p="10"
-    class="flex-1 h-full m-10 border border-gray-200 editor"
+    class="
+      editor
+      flex-1
+      w-[60%]
+      h-[850px]
+      m-10
+      p-10
+      border border-gray-200
+      overflow-hidden overflow-y-auto
+      rounded-md
+    "
   >
     <bubble-menu v-if="editor" class="bubble-menu" :editor="editor">
       <!-- bold -->
@@ -48,7 +56,7 @@
 
 <script>
 import tippy from 'tippy.js'
-
+import { debounce } from 'lodash'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
 import SlashCommands from '@/components/SlashCommand'
@@ -63,7 +71,6 @@ export default {
     return {
       editor: null,
       editable: false,
-      interval: null,
       newHeadings: [],
     }
   },
@@ -207,16 +214,16 @@ export default {
       ],
     })
 
-    // console.log(this.editor.getJSON())
-    this.editor.on('update', this.handleUpdate)
-    this.interval = setInterval(() => {
-      this.updateWorkbookContent()
-    }, 5000)
+    this.editor.on(
+      'update',
+      debounce(() => {
+        this.handleUpdate()
+      }, 3000)
+    )
   },
 
   beforeDestroy() {
     this.editor.destroy()
-    clearInterval(this.interval)
   },
 
   methods: {
@@ -250,14 +257,9 @@ export default {
       try {
         const workbookId = this.workbook.id
 
-        const { data } = await this.$axios.patch(
-          `api/v1/workbooks/${workbookId}`,
-          {
-            content: this.editor.getJSON(),
-          }
-        )
-
-        console.log('data', data)
+        await this.$axios.patch(`api/v1/workbooks/${workbookId}`, {
+          content: this.editor.getJSON(),
+        })
       } catch (error) {
         console.log('updateWorkbookContent', error)
       }
@@ -269,6 +271,9 @@ export default {
 <style lang="scss" scoped>
 .editor {
   /* Basic editor styles */
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .ProseMirror {
     > * + * {
       margin-top: 0.75em;

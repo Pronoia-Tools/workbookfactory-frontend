@@ -39,7 +39,7 @@
                 </c-box>
               </c-box>
               <c-box as="li" class="">
-                <nuxt-link to="/" class="flex p-4">
+                <nuxt-link to="/marketplace" class="flex p-4">
                   <c-flex class="items-center w-full">
                     <span class="flex-1"> Customer</span>
                   </c-flex>
@@ -75,10 +75,8 @@
                     class="
                       items-center
                       mb-2
-                      text-2xl
-                      font-semibold
-                      text-eerieBlack
-                      font-ibm
+                      text-2xl text-eerieBlack
+                      font-semibold font-ibm
                     "
                   >
                     <c-box as="p" class="mr-2"> Title: </c-box>
@@ -89,12 +87,10 @@
                   <c-flex
                     class="
                       items-center
-                      mb-4
-                      text-base
-                      font-semibold
+                      text-base text-darkSilver
+                      font-semibold font-ibm
                       uppercase
-                      text-darkSilver
-                      font-ibm
+                      mb-4
                     "
                   >
                     <c-box as="p" class="mr-2"> By: </c-box>
@@ -109,9 +105,9 @@
                   <c-flex
                     class="
                       items-center
-                      mb-1
                       text-base text-darkLava
                       font-ibm-momo
+                      mb-1
                     "
                   >
                     <c-box as="p" class="mr-2 font-semibold"> Edition: </c-box>
