@@ -268,12 +268,13 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .editor {
   /* Basic editor styles */
   &::-webkit-scrollbar {
     display: none;
   }
+
   .ProseMirror {
     > * + * {
       margin-top: 0.75em;
@@ -291,25 +292,25 @@ export default {
   }
 
   .ProseMirror-focused {
-    outline: none;
+    outline: none !important;
   }
 
   .bubble-menu {
     display: flex;
-    background-color: #d3d3d3;
+    background-color: #d2d2d2;
     border-radius: 0.25rem;
+    border: 1px solid #999;
 
     button {
-      border: none;
       background: none;
-      color: #000;
-      font-size: 0.85rem;
-      font-weight: 500;
-      padding: 0.4rem 0.6rem;
-      line-height: 1;
+      padding: 0.2rem;
 
       &:focus {
         outline: none;
+      }
+
+      &:hover {
+        background-color: #666;
       }
     }
   }
