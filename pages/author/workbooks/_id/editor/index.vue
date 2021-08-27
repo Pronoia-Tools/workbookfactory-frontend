@@ -4,7 +4,7 @@
       <loading-screen />
     </c-box>
 
-    <c-flex v-else class="flex-row w-full" min-h="94vh">
+    <c-flex v-else class="flex-row w-full" h="94vh">
       <side-bar>
         <c-box class="w-full">
           <c-box class="p-6">
