@@ -22,3 +22,9 @@
     </svg>
   </c-flex>
 </template>
+
+<script>
+export default {
+  name: 'LoadMore',
+}
+</script>

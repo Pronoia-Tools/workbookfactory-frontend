@@ -12,7 +12,7 @@
       height="6vh"
     >
       <c-box display="flex" class="text-sm">
-        <nuxt-link to="/">
+        <nuxt-link to="/libraries">
           <c-image
             w="100%"
             :src="require('@/static/logo.png')"

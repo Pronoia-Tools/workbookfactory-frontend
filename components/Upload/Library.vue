@@ -1,22 +1,17 @@
 <template>
   <c-flex
+    :key="componentKey"
     direction="column"
     w="320px"
     as="nav"
     background-color="#FEFBF5"
-    class="border py-5"
+    class="border-l border-gray-200 py-5"
   >
-    <upload-image />
+    <upload-image @update-key="updateKey" />
     <hr />
 
-    <c-box class="px-4 py-5">
-      <c-flex class="justify-between font-semibold">
-        <c-text size="sm" class="text-sm">Images</c-text>
-        <c-heading as="h4" size="sm" class="text-sm text-blue-700">
-          <c-icon w="5" name="plus" class="icon" />
-          Upload
-        </c-heading>
-      </c-flex>
+    <c-box h="55vh" class="px-4 py-5">
+      <c-box as="p" class="text-sm font-semibold">Images</c-box>
 
       <c-flex class="py-5 space-x-2" align-items="center">
         <c-input-group w="210px">
@@ -29,9 +24,7 @@
         <c-icon name="list" color="blue.700" />
       </c-flex>
 
-      <c-box class="">
-        <images />
-      </c-box>
+      <images />
     </c-box>
   </c-flex>
 </template>
@@ -45,6 +38,22 @@ export default {
   components: {
     UploadImage,
     Images,
+  },
+  data() {
+    return {
+      componentKey: 0,
+    }
+  },
+
+  // change key of component to re-render after upload image
+  methods: {
+    updateKey(event) {
+      if (this.componentKey > 0) {
+        this.componentKey = event - 1
+      } else {
+        this.componentKey = event + 1
+      }
+    },
   },
 }
 </script>
