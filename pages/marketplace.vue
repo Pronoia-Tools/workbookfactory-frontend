@@ -126,7 +126,7 @@
       <!-- All workbooks -->
       <c-flex v-if="!isEmpty" class="items-start flex-wrap p-8">
         <c-box
-          v-for="workbook in sortedWorkbooks"
+          v-for="workbook in workbooks"
           :key="workbook.id"
           class="
             workbook
@@ -137,9 +137,6 @@
             md:w-1/3 md:p-2
             lg:w-1/4 lg:p-4
           "
-          @mouseover.native="workbookID = workbook.id"
-          @mouseleave.native="workbookID = 0"
-          @mousemove="coordinateMouse"
         >
           <nuxt-link :to="`/workbooks/${workbook.id}`">
             <c-box
@@ -169,40 +166,6 @@
               </c-box>
             </c-box>
           </nuxt-link>
-
-          <!-- menu display on hover -->
-          <c-box
-            v-if="workbookID === workbook.id"
-            class="
-              bubble-menu
-              fixed
-              block
-              overflow-hidden
-              w-60
-              border border-gray-200
-              rounded-md
-              bg-gray-100
-              p-4
-              z-10
-            "
-            :top="coordinateY + 10"
-            :left="coordinateX + 10"
-          >
-            <c-text class="mb-4">
-              Title: {{ workbook.title || 'updating...' }}
-            </c-text>
-            <c-text class="mb-4">
-              Author:
-              {{ workbook.owner ? workbook.owner.username : 'updating...' }}
-            </c-text>
-            <c-text class="mb-4">
-              Language: {{ workbook.language || 'updating...' }}
-            </c-text>
-            <c-text class="mb-4">
-              Description: {{ workbook.desciption || 'updating...' }}
-            </c-text>
-            <c-text class="mb-4"> Price: {{ workbook.price || 0 }} $ </c-text>
-          </c-box>
         </c-box>
       </c-flex>
     </c-box>
@@ -219,8 +182,6 @@ export default {
     return {
       workbooks: [],
       workbookID: 0,
-      coordinateX: 0,
-      coordinateY: 0,
       isEmpty: false,
       isLoading: true,
       isFilterCollapse: false,
@@ -242,14 +203,6 @@ export default {
     }
   },
 
-  computed: {
-    sortedWorkbooks() {
-      return this.workbooks.slice().sort((previous, next) => {
-        return previous.id > next.id ? 1 : -1
-      })
-    },
-  },
-
   mounted() {
     setTimeout(() => {
       this.isLoading = false
@@ -257,10 +210,6 @@ export default {
   },
 
   methods: {
-    coordinateMouse(event) {
-      this.coordinateX = event.clientX
-      this.coordinateY = event.clientY
-    },
     url(value) {
       return 'url(' + value + ')'
     },
@@ -269,29 +218,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.workbook {
-  &:hover {
-    .bubble-menu {
-      animation-name: showInfor;
-      animation-duration: 1s;
-    }
-  }
-}
-
 .workbook-image {
   transition: transform 0.2s;
   &:hover {
     transform: scale(1.03);
-  }
-}
-
-@keyframes showInfor {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 </style>

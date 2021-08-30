@@ -1,4 +1,10 @@
 export default {
+  // env variables
+  env: {
+    STRIPE_PUBLISHABLE_KEY:
+      'pk_test_51JTnBaIUSxddDY4OEig4wVzv1k0MM1TZnWLdGmEtzlFa0JVE2JYXMg2GwHu37XzFuqCNbVpE0AALZpficLPLvSDJ00a1YRkP9u',
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'workbook-factory',
