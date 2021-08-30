@@ -33,6 +33,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.82",
     "@tiptap/suggestion": "^2.0.0-beta.59",
     "@tiptap/vue-2": "^2.0.0-beta.39",
+    "@vue-stripe/vue-stripe": "^4.2.5",
     "cookie-universal-nuxt": "^2.1.5",
     "core-js": "^3.9.1",
     "js-cookie": "^2.2.1",
