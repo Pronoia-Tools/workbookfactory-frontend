@@ -50,7 +50,16 @@
       </c-button>
     </bubble-menu>
 
-    <editor-content h="100%" :editor="editor" />
+    <c-box
+      type="text"
+      :draggable="true"
+      @drop="drop"
+      @dragover="dragOver"
+      @dragenter="dragOver"
+      @dragleave="dragOver"
+    >
+      <editor-content h="100%" :editor="editor" />
+    </c-box>
   </c-box>
 </template>
 
@@ -61,12 +70,14 @@ import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent, BubbleMenu, VueRenderer } from '@tiptap/vue-2'
 import SlashCommands from '@/components/SlashCommand'
 import SlashComponent from '@/components/SlashCommand/Component.vue'
+import Image from '@tiptap/extension-image'
 
 export default {
   components: {
     EditorContent,
     BubbleMenu,
   },
+
   data() {
     return {
       editor: null,
@@ -74,6 +85,7 @@ export default {
       newHeadings: [],
     }
   },
+
   async fetch() {
     try {
       this.isLoading = true
@@ -113,6 +125,7 @@ export default {
     this.editor = new Editor({
       content: null,
       extensions: [
+        Image,
         StarterKit,
         SlashCommands.configure({
           suggestion: {
@@ -246,6 +259,7 @@ export default {
           })
         }
       })
+
       transaction.setMeta('preventUpdate', true)
       this.editor.view.dispatch(transaction)
       this.newHeadings = [...headings]
@@ -263,6 +277,21 @@ export default {
       } catch (error) {
         console.log('updateWorkbookContent', error)
       }
+    },
+
+    drop(event) {
+      event.stopPropagation()
+      event.preventDefault()
+      this.editor
+        .chain()
+        .focus()
+        .setImage({ src: `${event.dataTransfer.getData('text')}` })
+        .run()
+    },
+
+    dragOver(event) {
+      event.stopPropagation()
+      event.preventDefault()
     },
   },
 }
@@ -288,6 +317,15 @@ export default {
     blockquote {
       padding-left: 1rem;
       border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+
+      &.ProseMirror-selectednode {
+        outline: 3px solid #68cef8;
+      }
     }
   }
 

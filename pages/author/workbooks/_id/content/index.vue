@@ -59,6 +59,7 @@
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import Image from '@tiptap/extension-image'
 
 export default {
   components: {
@@ -97,7 +98,7 @@ export default {
     this.editor = new Editor({
       editable: false,
       content: this.workbook.content,
-      extensions: [StarterKit],
+      extensions: [StarterKit, Image],
     })
   },
 

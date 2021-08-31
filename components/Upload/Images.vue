@@ -14,19 +14,6 @@
           :src="image.image"
           alt=""
         />
-        <!-- <p class="mt-2 text-xs">
-          <span
-            class="
-              block
-              overflow-hidden
-              font-semibold
-              whitespace-nowrap
-              overflow-ellipsis
-            "
-          >
-            {{ image.title }}
-          </span>
-        </p> -->
       </c-box>
     </c-box>
   </c-box>
@@ -48,7 +35,7 @@ export default {
       this.isLoading = true
       this.images = await this.$axios.$get('/api/v1/images')
     } catch (error) {
-      console.log('Error', error)
+      window.console.log('Error', error)
     } finally {
       this.isLoading = false
     }

@@ -30,6 +30,7 @@
     "@nuxtjs/pwa": "^3.3.5",
     "@tiptap/extension-bubble-menu": "^2.0.0-beta.24",
     "@tiptap/extension-heading": "^2.0.0-beta.14",
+    "@tiptap/extension-image": "^2.0.0-beta.15",
     "@tiptap/starter-kit": "^2.0.0-beta.82",
     "@tiptap/suggestion": "^2.0.0-beta.59",
     "@tiptap/vue-2": "^2.0.0-beta.39",
