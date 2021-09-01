@@ -196,7 +196,7 @@ export default {
   build: {
     transpile: ['vue-upload-drop-images'],
   },
-  target: 'server',
+  target: 'static',
   router: {
     middleware: ['auth'],
   },
