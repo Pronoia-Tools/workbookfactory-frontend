@@ -142,13 +142,14 @@ export default {
       loading: false,
       lineItems: [],
       successURL: 'http://localhost:3000/',
-      cancelURL: 'http://localhost:3000/marketplace',
+      cancelURL: 'http://localhost:3000/',
     }
   },
 
   computed: {
-    ...mapGetters('cart', {
-      cart: 'getCart',
+    ...mapGetters({
+      cart: 'cart/getCart',
+      loginStatus: 'auth/getLoginStatus',
     }),
     totalPrice() {
       const response = this.cart.reduce((prev, item) => {
@@ -186,7 +187,11 @@ export default {
 
     submit() {
       // You will be redirected to Stripe's secure checkout page
-      this.$refs.checkoutRef.redirectToCheckout()
+      if (this.loginStatus === false) {
+        this.$router.push('/login')
+      } else {
+        this.$refs.checkoutRef.redirectToCheckout()
+      }
     },
   },
 }
