@@ -112,8 +112,17 @@
                 <c-menu-divider />
                 <c-menu-item>Profile</c-menu-item>
                 <c-menu-divider />
-                <c-menu-item cursor="pointer" @click="logout()">
+
+                <c-menu-item
+                  v-if="loginStatus"
+                  cursor="pointer"
+                  @click="logout()"
+                >
                   <span>Logout</span>
+                </c-menu-item>
+
+                <c-menu-item v-else cursor="pointer">
+                  <nuxt-link to="/login">Login</nuxt-link>
                 </c-menu-item>
               </c-menu-list>
             </c-menu>
@@ -163,8 +172,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('cart', {
-      cart: 'getCart',
+    ...mapGetters({
+      cart: 'cart/getCart',
+      loginStatus: 'auth/getLoginStatus',
     }),
   },
   methods: {
@@ -173,7 +183,7 @@ export default {
     }),
     logout() {
       this.actionLogout()
-      this.$router.go('/login')
+      this.$router.push('/login')
     },
     showNavigator() {
       this.isShowNavigator = true

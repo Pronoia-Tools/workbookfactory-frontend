@@ -197,4 +197,7 @@ export default {
     transpile: ['vue-upload-drop-images'],
   },
   target: 'server',
+  router: {
+    middleware: ['auth'],
+  },
 }

@@ -1,6 +1,16 @@
 <template>
   <c-box
-    class="flex items-center justify-center min-h-screen px-4 py-12 bg-gray-50 sm:px-6 lg:px-8"
+    class="
+      flex
+      items-center
+      justify-center
+      min-h-screen
+      px-4
+      py-12
+      bg-gray-50
+      sm:px-6
+      lg:px-8
+    "
   >
     <loading-screen v-if="isLoading" />
 
@@ -26,7 +36,19 @@
               name="user_name"
               type="text"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="User name"
               :class="{ 'is-invalid': $v.user_name.$error }"
             />
@@ -49,7 +71,20 @@
               name="first_name"
               type="text"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="First name"
               :class="{ 'is-invalid': $v.first_name.$error }"
             />
@@ -67,7 +102,20 @@
               name="last_name"
               type="text"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="Last name"
               :class="{ 'is-invalid': $v.last_name.$error }"
             />
@@ -86,7 +134,20 @@
               type="email"
               autocomplete="email"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="Email address"
               :class="{ 'is-invalid': $v.email.$error }"
             />
@@ -111,7 +172,20 @@
               type="password"
               autocomplete="off"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="Password"
               :class="{ 'is-invalid': $v.password.$error }"
             />
@@ -138,7 +212,20 @@
               type="password"
               autocomplete="current-password"
               required
-              class="relative block w-full px-3 py-2 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md appearance-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              class="
+                relative
+                block
+                w-full
+                px-3
+                py-2
+                text-gray-900
+                placeholder-gray-500
+                border border-gray-300
+                rounded-md
+                appearance-none
+                focus:ring-indigo-500 focus:border-indigo-500 focus:z-10
+                sm:text-sm
+              "
               placeholder="Confirm password"
               :class="{ 'is-invalid': $v.confirm_password.$error }"
             />
@@ -175,7 +262,20 @@
             type="button"
             variant="solid"
             variant-color="blue"
-            class="relative flex justify-center w-full px-4 py-2 text-sm font-medium border border-transparent group hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            class="
+              relative
+              flex
+              justify-center
+              w-full
+              px-4
+              py-2
+              text-sm
+              font-medium
+              border border-transparent
+              group
+              hover:bg-indigo-700
+              focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+            "
             @click="registerUser()"
           >
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -205,13 +305,16 @@
 <script>
 import { validationMixin } from 'vuelidate'
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
-import { toLower } from 'lodash';
+import { toLower } from 'lodash'
 import LoadingScreen from '~/components/Loading/LoadingScreen.vue'
 
 export default {
   components: { LoadingScreen },
   mixins: [validationMixin],
   layout: 'login',
+  meta: {
+    publicRoute: true,
+  },
   data() {
     return {
       user_name: '',

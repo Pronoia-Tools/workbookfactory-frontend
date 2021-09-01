@@ -41,7 +41,7 @@
     <c-box as="li" class="lg:py-0 lg:h-full">
       <nuxt-link
         class="h-auto lg:h-full flex px-4 py-3 lg:px-2 lg:mx-2 items-center"
-        to="/marketplace"
+        to="/"
       >
         <span> Marketplace</span>
       </nuxt-link>

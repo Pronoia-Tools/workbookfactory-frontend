@@ -207,9 +207,7 @@ export default {
       isLoading: 'getIsLoading',
     }),
   },
-  mounted() {
-    console.log('hereheher')
-  },
+
   methods: {
     ...mapActions({
       login: 'auth/login',
@@ -233,7 +231,7 @@ export default {
             duration: 2000,
             position: 'top-right',
           })
-          this.$router.push('/marketplace')
+          this.$router.push('/')
           this.$axios.onRequest((config) => {
             config.headers.common.Authorization = `Bearer ${this.getterAuthData?.token}`
           })
